@@ -1,0 +1,95 @@
+---
+title: "ggplot_weatherdata"
+author: "Jeremy Mikecz"
+format: html
+editor: visual
+---
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+df <- read.csv("../data/Hanover_temps.csv")
+```
+
+```{r}
+
+```
+
+```{r}
+df20c <- df |>
+  filter(Year >= 1900 & Year <= 1999)
+```
+
+```{r}
+# Calculate average TMAX grouped by Day and Month
+avg_TMAX20c <- df20c |>
+  group_by(Month, Day) |>
+  summarize(Avg_TMAX_20c = mean(TMAX, na.rm = TRUE), .groups = 'drop')
+
+avg_TMIN20c <- df20c |>
+  group_by(Month, Day) |>
+  summarize(Avg_TMIN_20c = mean(TMIN, na.rm = TRUE), .groups = 'drop')
+```
+
+```{r}
+# Merge avg_TMAX back into df_separated
+df_merged <- df |>
+  left_join(avg_TMAX20c, by = c("Month", "Day")) |>
+  left_join(avg_TMIN20c, by = c("Month", "Day"))
+
+```
+
+```{r}
+# Find the maximum Volume and get the corresponding Month and Day
+#max_volume_info <- df_merged %>%
+#  filter(Avg_TMAX_20c == max(Avg_TMAX_20c, na.rm = TRUE)) %>%
+#  select(Month, Day, maxtemp = Avg_TMAX_20c)
+```
+
+```{r}
+df_merged$max_diff20c_avg <- df_merged$TMAX - df_merged$Avg_TMAX_20c 
+df_merged$min_diff20c_avg <- df_merged$TMIN - df_merged$Avg_TMIN_20c
+```
+
+```{r}
+# Create the 'daynum' column
+df_merged <- df_merged |>
+  filter(Year > 1893) |>  # 1893 missing first 5 months
+  group_by(Year) |>
+  mutate(daynum = row_number())
+```
+
+```{r}
+write.csv(df_merged, "../data/Hanover_temps2.csv")
+```
+
+```{r}
+df_2024 <- df_merged |>
+  filter(Year == 2024)
+```
+
+```{r}
+months <- rep(1:12, times = c(31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31))  # Days per month, leap year
+```
+
+```{r}
+month.abb
+```
+
+```{r}
+# Create a bar plot with polar coordinates
+ggplot(df_2024, aes(x = factor(daynum), y = max_diff20c_avg, fill = max_diff20c_avg)) +
+  geom_bar(stat = "identity") +
+  scale_fill_gradient2(low = "blue", mid = "white", high = "red", 
+                       midpoint = 0, name = "Temperature Difference") +
+  theme_minimal() +
+  #coord_polar() +
+  labs(title = "Daily Max Temperature Difference from 20th Century Average",
+       x = "Day of Year",
+       y = "Temperature Difference (°C)") +
+  scale_x_discrete(labels = month.abb[months]) +  # Use month abbreviations
+  
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+```

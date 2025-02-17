@@ -1,0 +1,155 @@
+---
+title: "ggplot_weatherdata"
+author: "Jeremy Mikecz"
+format: html
+editor: visual
+---
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+df <- read.csv("../data/Hanover_weather-data_1884-2025.csv")
+head(df)
+```
+
+```{r}
+summary(df)
+
+```
+
+### Separate Date column
+
+First, need to normalize data column as some columns are in YYYY-MM-DD format and others are in M-D-YYYY
+
+```{r}
+library(lubridate)
+df <- df |>
+  mutate(date2 = parse_date_time(DATE, orders = c("ymd", "mdy")))
+
+```
+
+```{r}
+df<- df |>
+  separate(date2, into = c("Year", "Month", "Day"), sep = "-|/", convert = TRUE)
+  # to keep original DATE column use `remove=FALSE`
+```
+
+```{r}
+#no_tmax <- df |>
+#  filter(is.na(TMAX))
+
+#no_tmax[c(3000:3010),]
+```
+
+## Extract Temperature data
+
+```{r}
+temp_df <- df |>
+  drop_na(TMAX, TMIN) |>
+  select(NAME, Year, Month, Day, TMAX, TMIN)
+```
+
+```{r}
+write.csv(temp_df, "../data/Hanover_temps.csv")
+
+
+```
+
+### Yearly Summaries
+
+```{r}
+year_maxtempdf <- df |>
+  group_by(Year) |>
+  summarize(TMAX_yravg = mean(TMAX, na.rm = TRUE), .groups = 'drop')
+```
+
+```{r}
+year_mintempdf <- df |>
+  group_by(Year) |>
+  summarize(TMIN_yravg = mean(TMIN, na.rm = TRUE), .groups = 'drop')
+```
+
+```{r}
+#year_tempdf <- full_join(year_maxtempdf, year_mintempdf, by="Year")
+
+year_maxtempdf$type = "maxtemp"
+year_maxtempdf$T_yravg = year_maxtempdf$TMAX_yravg
+#year_maxtempdf <- year_maxtempdf |>
+#  select(-TMAX_yravg)
+
+year_mintempdf$type = "mintemp"
+year_mintempdf$T_yravg = year_mintempdf$TMIN_yravg
+#year_mintempdf <- year_mintempdf |>
+#  select(-TMIN_yravg)
+
+year_tempdf <- rbind(year_maxtempdf |> select(-TMAX_yravg), year_mintempdf |> select(-TMIN_yravg))
+  
+```
+
+```{r}
+write.csv(year_tempdf, "../data/Hanover_temp-yearaverages.csv")
+```
+
+```{r}
+ggplot(year_tempdf |> filter(Year < 2025), aes(x=Year, y=T_yravg, color = type)) +
+  geom_line() +
+  geom_smooth()
+```
+
+## Extract Snowfall & Precipitation Data
+
+Visualize relationship between snow fall and snow depth
+
+```{r}
+head(df)
+```
+
+```{r}
+snow_df <- df |>
+  drop_na(PRCP, SNOW) |>
+  select(NAME, Year, Month, Day, PRCP, SNOW, SNWD)
+```
+
+```{r}
+write.csv(snow_df, "../data/Hanover_precip-snow.csv")
+```
+
+```{r}
+
+```
+
+### Yearly summaries
+
+```{r}
+snow_year_df <- snow_df |>
+  group_by(Year) |>
+  #summarise_at(vars(PRCP, SNOW, SNWD), list(sum=sum, max=max), na.rm=TRUE) |>
+  summarise(
+    PRCP_sum = sum(PRCP, na.rm = TRUE),
+    PRCP_max = max(PRCP, na.rm = TRUE),
+    SNOW_sum = sum(SNOW, na.rm = TRUE),
+    SNOW_max = max(SNOW, na.rm = TRUE),
+    SNWD_sum = sum(SNWD, na.rm = TRUE),
+    SNWD_max = max(SNWD, na.rm = TRUE),
+    .groups = 'drop' 
+  ) |>
+  select(-SNWD_sum)
+  
+```
+
+```{r}
+snow_year_df[snow_year_df == -Inf] <- NA
+
+```
+
+```{r}
+ggplot(snow_year_df, aes(x=Year)) +
+  geom_line(aes(y=PRCP_sum), color="blue") +
+  geom_line(aes(y=SNOW_sum), color = "purple") +
+  geom_smooth(aes(y=PRCP_sum)) +
+  geom_smooth(aes(y=SNOW_sum)) + 
+  geom_line(aes(y=SNWD_max, color = "red")) + 
+  geom_smooth(aes(y=SNOW_max))
+```
