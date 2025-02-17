@@ -1,3 +1,12 @@
+# additional folders to ignore
+old/
+others_notebooks/
+packrat/
+
+# additional files to ignore
+*.Rproj
+.RProfile
+
 # History files
 .Rhistory
 .Rapp.history
@@ -47,3 +56,4 @@ po/*~
 
 # RStudio Connect folder
 rsconnect/
+packrat/lib*/
