@@ -15,7 +15,7 @@ format:
     navigation-mode: vertical
     chalkboard: true
 editor: visual
-logo: "images/logo_white.png"
+logo: "../hds_images/logo_white.png"
 ---
 
 # Introduction to Data Visualization
@@ -26,9 +26,59 @@ logo: "images/logo_white.png"
 
 <!--COVID - first visualized disaster?-->
 
+# The Outbreak of COVID-19
+
+How did epidemiologists, health professionals, journalists, and educators try to educate the public about how to confront COVID-19 in March 2020?
+
+## COVID-19: Education
+
+![COVID-19 Flatten the Curve graphic](images/COVID_flatten-the-curve-01.jpg){fig-alt="two area graphs: one steep showing the impacts of COVID-19 if not precautionary measures are taken and the other, with a flatter slope, showing how following pre-cautionary measures will prevent hospitals from being overwhelmed."}
+
+## "Flatten the Curve"
+
+2007 paper, "Interim pre-pandemic planning guidance"
+
+![The original "flatten the curve" graphic](https://images.fastcompany.com/image/upload/f_webp,q_auto,c_fit,w_768/wp-cms/uploads/2020/03/i-5-cdc-orig-90474434-the-best-sources-for-tracking-covid-19-according-to-mapping-experts.jpg)
+
+---
+
+![Slavea Chankova's adaptation of the 2007 visualization, re-purposed for COVID-19. ["Covid-19 is now in 50 countries and things will get worse"](https://www.economist.com/briefing/2020/02/29/covid-19-is-now-in-50-countries-and-things-will-get-worse?irclickid=yhkzq9STuxyKRusXQ72pWXmeUkswTkzBRRg4z80&irgwc=1&utm_medium=affiliates.offer.pd&utm_source=impact-apac&utm_campaign=a.new_july_2024_apac_lp&utm_content=conversion.direct-response.non-subscriber.apac_all_enfactum&utm_term=10078&channel=Impact) The Economist (Feb 29, 2020).](https://images.fastcompany.com/image/upload/f_webp,q_auto,c_fit,w_768/wp-cms/uploads/2020/03/i-6-90474434-the-best-sources-for-tracking-covid-19-according-to-mapping-experts.jpg)
+
+---
+
+"The first visualized global crisis in history"
+
+-   Alberto Cairo, *How Charts Lie* (2020 afterword in paperback edition)
+
+## COVID-19: Coverage
+
+![Table of Contents from New York Times COVID-19 visualization dashboard](images/COVIDgraphics_NYT.png)
+
+---
+
+![New York Times, "U.S. trends" time-series visualizations (for Feb 2020 - Feb 2023)](images/COVIDhistory_NYT.png){fig-alt="Four line graphs showing the intensity of COVID-19 outbreaks in the United States. The four graphics show 1) the new reported cases, the number of patients in hospitals, the test positivity rate, and the number of reports of new deaths."}
+
 <!--CLIMATE CHANGE - hockey stick graphic-->
 
+![The iconic "hockey stick" graph that became the focus of intense climate debate. First published by Michael Mann, Raymond S. Bradley, and Malcolm Hughes in "Northern hemisphere temperatures during the past millennium: Inferences, uncertainties, and limitations," Geophysical Research Letters (1999). It achieved a wider audience with its publication in a 2001 report by the Intergovernmental Panel on Climate Change of the United Nations.](https://psu-gatsby-files-prod.s3.amazonaws.com/s3fs-public/hockeystick.gif)
+
+---
+
+![](http://www.meteo.psu.edu/holocene/public_html/Mann/images/Mann_HockeyStickClimateWars.jpg)
+
 <!--ELECTION MAPS, GRAPHS, NYT NEEDLE-->
+
+# Visualized Elections
+
+![CNN Electoral College results map for 2024 presidential election](images/CNN_pres-elec-2024_map.png)
+
+---
+
+![CNN hybrid tables / bar plots showing the number of votes received for ballot measures to raise the minimum age.](images/CNN_2024election_ballot-measures_min-wage.png)
+
+---
+
+![](images/NYT_election-needle_2020.png)
 
 <!--NOT ALL DATA VIZ SCARY, SOME CAN BE FUN-->
 

@@ -1,8 +1,8 @@
 ---
-title: "Introduction to Data Visualization"
+title: "History of Data Visualization"
 subtitle: "From Data Exploration to Communication & Storytelling"
 title-slide-attributes: 
-  data-background-image: hds_images/history-of-dataviz/DuBois.png
+  data-background-image: ../hds_images/history-of-dataviz/DuBois.png
   data-background-size: contain
   data-background-opacity: "0.3"
   
@@ -22,4 +22,26 @@ logo: "../hds_images/logo_white.png"
 
 ## Goals
 
-# 
+## "Flatten the Curve": First Visualized Global Crisis
+
+![COVID-19 Flatten the Curve graphic](images/COVID_flatten-the-curve-01.jpg){alt="COVID-19 Flatten the Curve graphic" fig-alt="two area graphs: one steep showing the impacts of COVID-19 if not precautionary measures are taken and the other, with a flatter slope, showing how following pre-cautionary measures will prevent hospitals from being overwhelmed."}
+
+## 
+
+# Data Visualization & Public Health
+
+## John Snow
+
+## Florence Nightingale
+
+## 1918 Influenza Epidemic
+
+# Origins of Modern Data Visualization
+
+## Pre-Modern Maps
+
+## A Data Visualization of Data Visualization History
+
+![](images/Andrews_MapOfFirsts.png)
+
+Essay with accompanying interactive graphic: RJ Andrews, ["Interacting with History: 300 years of information graphic milestones"](https://infowetrust.com/project/history-essay) (2017).
