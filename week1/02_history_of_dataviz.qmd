@@ -1,0 +1,25 @@
+---
+title: "Introduction to Data Visualization"
+subtitle: "From Data Exploration to Communication & Storytelling"
+title-slide-attributes: 
+  data-background-image: hds_images/history-of-dataviz/DuBois.png
+  data-background-size: contain
+  data-background-opacity: "0.3"
+  
+author: "Jeremy Mikecz"
+institute: "Research Data Services, Dartmouth Libraries"
+date: "2026"
+format: 
+  revealjs:
+    theme: night
+    navigation-mode: vertical
+    chalkboard: true
+editor: visual
+logo: "../hds_images/logo_white.png"
+---
+
+# History of Data Visualization
+
+## Goals
+
+# 

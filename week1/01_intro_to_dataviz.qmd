@@ -1,0 +1,39 @@
+---
+title: "Introduction to Data Visualization"
+subtitle: "From Data Exploration to Communication & Storytelling"
+title-slide-attributes: 
+  data-background-image: images/nyt2022_imageOnly.png
+  data-background-size: contain
+  data-background-opacity: "0.3"
+  
+author: "Jeremy Mikecz"
+institute: "Research Data Services, Dartmouth Libraries"
+date: "2026"
+format: 
+  revealjs:
+    theme: night
+    navigation-mode: vertical
+    chalkboard: true
+editor: visual
+logo: "images/logo_white.png"
+---
+
+# Introduction to Data Visualization
+
+## Goals
+
+# Why Data Viz?
+
+<!--COVID - first visualized disaster?-->
+
+<!--CLIMATE CHANGE - hockey stick graphic-->
+
+<!--ELECTION MAPS, GRAPHS, NYT NEEDLE-->
+
+<!--NOT ALL DATA VIZ SCARY, SOME CAN BE FUN-->
+
+<!--UBIQUITOUS USE - DAILY EXAMPLES - RESTAURANT - HOW BUSY; OTHERS??-->
+
+# Data Viz: The Course
+
+# Data Viz: The Practice
