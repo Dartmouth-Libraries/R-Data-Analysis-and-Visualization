@@ -28,11 +28,13 @@ logo: "../hds_images/logo_white.png"
 
 # The Outbreak of COVID-19
 
+**QUESTION**:
+
 How did epidemiologists, health professionals, journalists, and educators try to educate the public about how to confront COVID-19 in March 2020?
 
 ## COVID-19: Education
 
-![COVID-19 Flatten the Curve graphic](images/COVID_flatten-the-curve-01.jpg){fig-alt="two area graphs: one steep showing the impacts of COVID-19 if not precautionary measures are taken and the other, with a flatter slope, showing how following pre-cautionary measures will prevent hospitals from being overwhelmed."}
+![COVID-19 Flatten the curve graphic](images/COVID_flatten-the-curve.jpg){fig-alt="COVID-19 Flatten the curve graphic"}
 
 ## "Flatten the Curve"
 
@@ -40,11 +42,11 @@ How did epidemiologists, health professionals, journalists, and educators try to
 
 ![The original "flatten the curve" graphic](https://images.fastcompany.com/image/upload/f_webp,q_auto,c_fit,w_768/wp-cms/uploads/2020/03/i-5-cdc-orig-90474434-the-best-sources-for-tracking-covid-19-according-to-mapping-experts.jpg)
 
----
+------------------------------------------------------------------------
 
 ![Slavea Chankova's adaptation of the 2007 visualization, re-purposed for COVID-19. ["Covid-19 is now in 50 countries and things will get worse"](https://www.economist.com/briefing/2020/02/29/covid-19-is-now-in-50-countries-and-things-will-get-worse?irclickid=yhkzq9STuxyKRusXQ72pWXmeUkswTkzBRRg4z80&irgwc=1&utm_medium=affiliates.offer.pd&utm_source=impact-apac&utm_campaign=a.new_july_2024_apac_lp&utm_content=conversion.direct-response.non-subscriber.apac_all_enfactum&utm_term=10078&channel=Impact) The Economist (Feb 29, 2020).](https://images.fastcompany.com/image/upload/f_webp,q_auto,c_fit,w_768/wp-cms/uploads/2020/03/i-6-90474434-the-best-sources-for-tracking-covid-19-according-to-mapping-experts.jpg)
 
----
+------------------------------------------------------------------------
 
 "The first visualized global crisis in history"
 
@@ -52,17 +54,23 @@ How did epidemiologists, health professionals, journalists, and educators try to
 
 ## COVID-19: Coverage
 
-![Table of Contents from New York Times COVID-19 visualization dashboard](images/COVIDgraphics_NYT.png)
+![Table of contents from New York Times COVID-19 visualization dashboard](images/COVIDgraphics_NYT.png)
 
----
+------------------------------------------------------------------------
 
-![New York Times, "U.S. trends" time-series visualizations (for Feb 2020 - Feb 2023)](images/COVIDhistory_NYT.png){fig-alt="Four line graphs showing the intensity of COVID-19 outbreaks in the United States. The four graphics show 1) the new reported cases, the number of patients in hospitals, the test positivity rate, and the number of reports of new deaths."}
+------------------------------------------------------------------------
+
+![New York Times COVID Tracker](images/COVIDhistory_NYT.png)
+
+# Climate Change
 
 <!--CLIMATE CHANGE - hockey stick graphic-->
 
 ![The iconic "hockey stick" graph that became the focus of intense climate debate. First published by Michael Mann, Raymond S. Bradley, and Malcolm Hughes in "Northern hemisphere temperatures during the past millennium: Inferences, uncertainties, and limitations," Geophysical Research Letters (1999). It achieved a wider audience with its publication in a 2001 report by the Intergovernmental Panel on Climate Change of the United Nations.](https://psu-gatsby-files-prod.s3.amazonaws.com/s3fs-public/hockeystick.gif)
 
----
+------------------------------------------------------------------------
+
+------------------------------------------------------------------------
 
 ![](http://www.meteo.psu.edu/holocene/public_html/Mann/images/Mann_HockeyStickClimateWars.jpg)
 
@@ -70,20 +78,65 @@ How did epidemiologists, health professionals, journalists, and educators try to
 
 # Visualized Elections
 
-![CNN Electoral College results map for 2024 presidential election](images/CNN_pres-elec-2024_map.png)
+![CNN Electoral results from 2024 presidential election](images/CNN_pres-elec-2024_map.png){fig-alt="Map showing which states were awarded to Trump and Harris"}
+
+------------------------------------------------------------------------
+
+![CNN tables and bar plots showing results from state ballot initiatives](images/CNN_2024election_ballot-measures_min-wage.png)
+
+------------------------------------------------------------------------
+
+![New York Times election needle (election night Nov. 2020)](images/NYT_election-needle_2020.png)
+
+# Data Viz: not always scary
+
+![](images/restaurant_how-busy.png)
 
 ---
 
-![CNN hybrid tables / bar plots showing the number of votes received for ballot measures to raise the minimum age.](images/CNN_2024election_ballot-measures_min-wage.png)
+![The Pudding's study of music genres (according to Spotify)](images/music-genres_spotify.png)
+
+["Music genres"](https://pudding.cool/2023/10/genre/) *The Pudding* (October 2023).
 
 ---
 
-![](images/NYT_election-needle_2020.png)
+![The separation of "Latin" music into sub-genres (The Pudding).](images/music-latin-genres_spotify.png)
+
+# Data Viz: Not always impersonal
+
+![](images/emotion-wheel.png)
+
+["Emotion Wheel"](https://pudding.cool/2022/12/emotion-wheel/) *The Pudding* (Dec. 2022).
+
+---
+
+![](images/emotion-wheel2.png)
+
+# Data Viz: Not always big (or even digital)
 
 <!--NOT ALL DATA VIZ SCARY, SOME CAN BE FUN-->
+
+## Dear Data  {.scrollable}
+
+![](images/dear-data_week-of-laughter1.jpeg){.nostretch .scrollable}
+
+Giorgia Lupi and Stefanie Posavec, [\*Dear Data\*](https://www.dear-data.com/theproject) (Princeton: Princeton Architectural Press, 2016).
 
 <!--UBIQUITOUS USE - DAILY EXAMPLES - RESTAURANT - HOW BUSY; OTHERS??-->
 
 # Data Viz: The Course
 
+<!--overview of course-->
+
 # Data Viz: The Practice
+
+<!--the practice of data visualization-->
+
+1.  Begin with data and a question
+2.  Many of the best visualizations start with pencil, paper, and an idea
+3.  Conduct **exploratory data analysis & visualization** to explore hidden patterns in your data
+4.  Perform other types of analysis (statistical, textual, qualitative, etc.)
+5.  Prepare visualizations to help you convey your findings (and to allow others to explore the data)
+    1.  think about what visual variables (location, color, size, shape, transparency, etc.) best represent your data variables.
+    2.  consider your purpose (are you trying to persuade? or let the viewer come to their own conclusions?)
+    3.  consider your audience

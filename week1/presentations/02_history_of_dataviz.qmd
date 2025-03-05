@@ -24,7 +24,7 @@ logo: "../hds_images/logo_white.png"
 
 ## "Flatten the Curve": First Visualized Global Crisis
 
-![COVID-19 Flatten the Curve graphic](images/COVID_flatten-the-curve-01.jpg){alt="COVID-19 Flatten the Curve graphic" fig-alt="two area graphs: one steep showing the impacts of COVID-19 if not precautionary measures are taken and the other, with a flatter slope, showing how following pre-cautionary measures will prevent hospitals from being overwhelmed."}
+![COVID-19 Flatten the Curve graphic](images/COVID_flatten-the-curve-01.jpg){fig-alt="two area graphs: one steep showing the impacts of COVID-19 if not precautionary measures are taken and the other, with a flatter slope, showing how following pre-cautionary measures will prevent hospitals from being overwhelmed."}
 
 ## 
 

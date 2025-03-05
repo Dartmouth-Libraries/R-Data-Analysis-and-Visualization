@@ -3,6 +3,7 @@ old/
 others_notebooks/
 packrat/
 hds_images/
+images/
 
 # additional files to ignore
 *.Rproj
