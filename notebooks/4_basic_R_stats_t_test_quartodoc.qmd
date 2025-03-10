@@ -43,7 +43,20 @@ manusummary
 ```
 
 ```{r}
+# Conduct t-test on mpg for the two groups
+ttest_result <- t.test(automatic_cars$mpg, manual_cars$mpg)
 
+# Interpret t-test results
+cat('t-test statistic :', ttest_result$statistic)
+#cat('degrees of freedom:', ttest_result$
+cat('p-value :', ttest_result$p.val)
+if (ttest_result$p.val < 0.05){
+  cat("Conclusion:  there very likely IS a significant difference in mean mpg between cars with automatic and manual transmission, the low p-value tells us that the null hypothesis, that the means were equal, is false (Reject H0 the null hypothesis)")
+} else {
+  cat("Fail to reject H0, no significant difference in mean mpg between cars with automatic and manual transmission.")
+}
+
+# ("Reject H0, there is a significant difference in mean mpg between cars with automatic and manual transmission")
 ```
 
 ```{r}
