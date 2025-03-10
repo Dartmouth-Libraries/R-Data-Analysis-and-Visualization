@@ -8,7 +8,17 @@ editor: visual
 
 # Getting Started with R
 
-## 1. Download and Install R and R Studio: https://posit.co/download/rstudio-desktop/
+For more help for beginners to R, please visit:
+
+-   Alex Douglas, Deon Roos, Francesca Mancina, Ana Couto, and David Lusseau, [*An Introduction to R*](https://intro2r.com/)(2024).
+
+-   Garret Grolemund, [*Hands-On Programming with R*](https://rstudio-education.github.io/hopr/)(2014).
+
+-   For a list of additional R resources see the [*Big Book of R*](https://www.bigbookofr.com/chapters/r%20programming)
+
+## 1. Download and Install
+
+Download and Install R and R Studio from the [Posit webpage](https://posit.co/download/rstudio-desktop/) (Posit is the company that manages open-source R).
 
 ### 1.1 Download R
 
@@ -71,29 +81,287 @@ ii. Or for a class on data visualization
 
 ## 4. Downloading or Cloning Data from a Repository
 
-### 4a. Experienced git users only: cloning data
+### <!--4a. Experienced git users only: cloning data-->
+
+\<!--For those of you with experience working with git and GitHub repositories, you may:
+
+1.   download the code for this class from: <https://github.com/Dartmouth-Libraries/R-Data-Analysis-and-Visualization>.
+2.  If you have your Github SSH key set up, select `Code` –\> `SSH` tab –\> `Copy url to clipboard`.
+3.  Navigate to the folder on your computer where you would like to place your local version of this class
+
+--\>
+
+# REVIEW LINK ABOVE & BELOW - CHANGE FOR SPECIFIC SESSIONS!
 
 ### 4b. Everyone else: downloading data
+
+1.  Visit our repository to download code for this course: <https://github.com/Dartmouth-Libraries/R-Data-Analysis-and-Visualization>.
+2.  Select the green `Code` button –\> `Download Zip`.
+3.  Unzip the folder and place it in a permanent location on your local drive (or cloud drive if you prefer).
 
 ## 5. Coding in R (from the terminal)
 
 Basic operations: numbers, strings, and lists
 
+1.  Within R Studio, take a look at the **Console**. If you can't find the Console, ???.
+
+2.  Try typing in some basic mathematical operations in the console. Note:
+
+    ```         
+    + addition 
+    - subtraction
+    * multiplication
+    / division
+    ^ exponents (i.e. 2^2 is 2 squared)
+    %% modulus (remainder from division)
+    %/% quotient for integer division (excluding remainder)
+    ```
+
+    You can use parentheses `()` to place operations into groups, such as:
+
+    ```         
+    (3 + 8) / 4  # contrast to:
+    3 + 8 / 4
+    ```
+
 ## 6. Coding in R (from the console)
 
-Variables
+1.  We can store values (numbers, strings, lists, and far more complicated data types) in variables.
+2.  In the console the right assign your favorite number to a variable like this:
 
-working with functions
+```         
+fav_num <- 11
+```
+
+3.  Notice, R uses two characters "\<" with "-" to assign a value to a variable. Many other languages, like Python, simply use `=`. We can also use the equal sign (`=` ) sign to assign values to variables in R, but the "\<-" is convention.
+
+4.  Note, spaces help for example:
+
+    ```         
+     x<-2  #is this assigning 2 to x, or is it checking if x is less than -2?
+     x <- 2 #better to make assignment clear with spaces
+     x < -2 #and comparisons like this
+    ```
+
+    For example, try typing the following in the console:
+
+    ```         
+    x <- 2
+    x < -2
+    ```
+
+    What results do you get?
+
+5.  Now trying doing an assignment in reverse order:
+
+    ```         
+    6 -> z
+    ```
+
+Note: view the Environment Pane (usually top right of R Studio). There you will see a table of values saved as variables. This is very useful to remind you of what you have saved into memory.
+
+### 6a. Vectors & Lists
+
+If you want to create a "list" of similar items in R, usually you will store such values in a vector denoted by `c(item1, item2, item3)`. For example, you can create a vector of some of your favorite numbers in the console like this (replace with your favorite numbers:
+
+```         
+fav_nums <- c(3, 7, 11, 38, 83)   #replace with your favorite numbers
+```
+
+You can then perform math operations on a list, such as:
+
+```         
+fav_nums * 2
+fav_nums / 3
+fav_nums ^ 2
+```
+
+You can also create a vector with a series of text strings:
+
+```         
+fict_detectives <- c("Sherlock Holmes", "Jessica Fletcher", "Marti MacAlister", "Hercule Poirot", "Nancy Drew",  "Columbo", "Lt. Leaphorn")
+```
+
+```         
+fict_detectives * 2
+```
+
+By convention, in R, most one-dimensional arrays of data (like the above) are stored in vectors. However, you can also create a **list** using `list()`. These lists work similarly to lists in Python in that you may store more heterogenous data in a list than in a vector. I.e. try the following:
+
+```         
+nested_vec <- c(1, 2, c(3, 4, 5))
+nested_list <- list(1, 2, c(3, 4, 5))
+```
+
+### 6b. working with functions
+
+Tasks to be repeated are commonly saved as **functions**.
+
+In R, we regularly work with three main types of functions:
+
+1.  core R functions (like `print()` or `seq()` which are available to any R setup.
+2.  additional functions downloaded with specific packages. Only the most basic functions come with base R. More advanced functionality is unlocked by importing external libraries that include their own customs.
+3.  writing our own custom functions: want to create a function that reads in a person's age and calculates how many days, hours, and minutes until their next birthday? You can create a function that does just that.
+
+We will focus on core R functions here. Later lessons will include instructions how to import and use external functions and how to create your own.
+
+```         
+print("Hello world!")
+#vs.
+greeting <- "Hello"
+name <- "Jeremy"
+print(c(greeting, name))
+
+```
+
+To learn more about a function use:
+
+```         
+help(print)
+```
+
+Most (but not all) functions allow you to pass in multiple arguments. For example, the help documentation for **print()** indicates you can pass in a boolean argument to the parameter `quote` . So, let's try:
+
+```         
+print(c(greeting, name), quote=FALSE)
+```
+
+```         
+seq()
+```
+
+```         
+seq(2)
+```
+
+```         
+seq(from = 2, to = 10)
+```
+
+```         
+seq(2, 10)
+```
+
+```         
+seq(2, 10, 2)
+```
+
+```         
+seq(from = 2, to = 10, by = 1.5)
+```
+
+### 6c. Create a basic plot
+
+We can also use the `plot()` function to create a basic dot plot.
+
+```         
+x <- c(3, -4, 6, 1)
+y <- c(0, 2, -4, 5)
+plot(x, y)
+
+#then try:
+plot(x, y, "l")
+```
 
 ## 7. Coding in R (from an R script `.r`)
+
+Now that we've had some practice with the console, let's create our first R script.
+
+The console allows some degree of interactivity: you can enter some code and receive an immediate response. However, for more complicated tasks as well as any task you hope to re-run in the future (one of the main purposes for programming) you will want to save your code for re-use. The simplest way to save your code is save it in a simple **R script** (ending in `.R`), the subject of this section. In the next section, we will learn how to mix R code with human instructions and notes using a **notebook**.
 
 ### 7.1. Testing a script
 
 Writing a short program
 
-Running portions of it
+#### Running the Code from the Script 
+
+1.  **Open RStudio** and create a new R script:
+
+    -   Go to the top-left corner and click on `File` \> `New File` \> `R Script`.
+
+2.  **Copy and paste the provided R script** into the new R script file:
+
+    ```         
+    # A simple R script to greet the user
+
+    # Ask for the user's name
+    user_name <- readline(prompt = "What is your name? ")
+
+    hometown <- readline(prompt = "What is the name of your hometown and state/country?")
+
+    # Create a customized greeting message
+    greeting <- paste("Hello,", user_name, "from", hometown, "! Welcome to the world of R!")
+
+    # Print the greeting message
+    print(greeting)
+    ```
+
+3.  Make whatever changes you would like to customize the above script.
+
+4.  **Save the script** :
+
+    -   Click on `File` \> `Save`, and choose a name for your script (e.g., `greeting_script.R`).
+
+5.  **Run the script** :
+
+    -   To execute the entire script, click the `Source` button (usually at the top-right of the script editor). This will run the script in the console, and the prompt will appear asking for the user’s name.
+
+    -   To run portions of the script you can highlight those lines and select `Run`.
+
+6.  **Input your name and hometown** when prompted in the console and hit `Enter`. The personalized greeting will be displayed.
+
+To run the above script from the console (assuming it is saved), you will use the `source()` function like this:
+
+```         
+source([absolute or relative path to script])
+```
+
+Using relative paths is usually preferred. A relative path points to a file's relative location compared to the directory where the computer is in now. For example if you are in the folder:
+
+`C:/Users/abby/documents/R_projects/notebooks`
+
+and the code you want to call is in:
+
+`C:/Users/abby/documents/R_projects/code/script.R`
+
+its relative path is: `../code/script.R` .
+
+To run the script from the console, we will need to use the `source()` function as mentioned above. But, to use relative paths with this function, we need to import the **here** library. Running the following code in the console will install this library and run your script:
+
+```         
+install.packages("here")    #installs here, only need to do this once
+source(here::here("top-level-folder", "folder", "script-name.R"))
+
+# this works the same as above:
+# source(here::here("top-level-folder/folder/script-name.R"))
+```
 
 ### 7.2. Running an entire script from the terminal
+
+We can also run scripts from the terminal.
+
+1.  Within the terminal, navigate to the location of your custom script.
+
+2.  Try entering the following:
+
+    ```         
+    Rscript script-name.R
+    ```
+
+    Did this work?
+
+    You can also run R from within the terminal by:
+
+    ```         
+    R 
+    # R will open in the terminal
+    source("script-name.R")
+
+    #to exit R:
+    q
+    ```
+
+# Explain what terminal is / does
 
 ## 8. Coding in R (from a notebook)
 
