@@ -8,7 +8,6 @@ title-slide-attributes:
   
 author: "Jeremy Mikecz"
 institute: "Research Data Services, Dartmouth Libraries"
-date: "2026"
 format: 
   revealjs:
     theme: night

@@ -2,7 +2,7 @@
 title: "Summary Data"
 author: "Jeremy Mikecz"
 format: html
-#editor: visual
+editor: visual
 jupyter: ir
 ---
 

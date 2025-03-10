@@ -92,13 +92,13 @@ How did epidemiologists, health professionals, journalists, and educators try to
 
 ![](images/restaurant_how-busy.png)
 
----
+------------------------------------------------------------------------
 
 ![The Pudding's study of music genres (according to Spotify)](images/music-genres_spotify.png)
 
 ["Music genres"](https://pudding.cool/2023/10/genre/) *The Pudding* (October 2023).
 
----
+------------------------------------------------------------------------
 
 ![The separation of "Latin" music into sub-genres (The Pudding).](images/music-latin-genres_spotify.png)
 
@@ -108,7 +108,7 @@ How did epidemiologists, health professionals, journalists, and educators try to
 
 ["Emotion Wheel"](https://pudding.cool/2022/12/emotion-wheel/) *The Pudding* (Dec. 2022).
 
----
+------------------------------------------------------------------------
 
 ![](images/emotion-wheel2.png)
 
@@ -116,7 +116,7 @@ How did epidemiologists, health professionals, journalists, and educators try to
 
 <!--NOT ALL DATA VIZ SCARY, SOME CAN BE FUN-->
 
-## Dear Data  {.scrollable}
+## Dear Data {.scrollable}
 
 ![](images/dear-data_week-of-laughter1.jpeg){.nostretch .scrollable}
 

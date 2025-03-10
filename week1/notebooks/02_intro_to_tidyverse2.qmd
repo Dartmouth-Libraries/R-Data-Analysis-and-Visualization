@@ -2,7 +2,7 @@
 title: "tidyverse intro"
 author: "Jeremy Mikecz"
 format: html
-#editor: visual
+editor: visual
 jupyter: ir
 ---
 
@@ -14,7 +14,7 @@ For additional help learning how to use R's tidyverse system of packages, see:
 
 -   Wickham, Çetinkaya-Rundel, and Grolemund, [*R for Data Science*](https://r4ds.hadley.nz/)
 
--   Grolemund, [A Tidyverse Cookbook](https://rstudio-education.github.io/tidyverse-cookbook/) (2020).
+-   Grolemund, [A Tidyverse Cookbook](https://rstudio-education.github.io/tidyverse-cookbook/) (2020).!
 
 -   package documentation: [tidyverse](https://tidyverse.tidyverse.org/)
 
