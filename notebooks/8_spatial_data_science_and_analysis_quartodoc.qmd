@@ -1,0 +1,107 @@
+---
+title: "r_geospatial"
+format: html
+editor: visual
+---
+
+```{r}
+# insert > executable cell > R
+#install.packages('gapminder')
+library(gapminder)
+#install.packages('tidyverse')
+library(tidyverse)
+
+library(gapminder)
+library(ggplot2)
+library(dplyr)
+library(sf)
+library(rnaturalearth)
+library(rnaturalearthdata)
+
+# Load gapminder dataset
+data(gapminder)
+head(gapminder)
+
+```
+
+```{r}
+# Filter the gapminder dataset for the year 2007
+gapminder_2007 <- gapminder::gapminder %>% filter(year == 2007)
+
+# Get world map data
+world <- rnaturalearth::ne_countries(scale = "medium", returnclass = "sf")
+
+# NOTE: US, Denmark, etc not joining properly due to name conflicts
+
+countries = rnaturalearth::ne_countries()
+
+# Join gapminder data with world data
+world_gdp <- world %>%
+  left_join(gapminder_2007, by = c("name" = "country"))
+
+# Plot GDP per capita
+ggplot(data = world_gdp) +
+  geom_sf(aes(fill = gdpPercap), color = "white") +
+  scale_fill_viridis_c(option = "plasma", name = "GDP per Capita") +
+  labs(title = "GDP per Capita by Country (2007)") +
+  theme_minimal()
+```
+
+====
+
+```{r}
+library(gapminder)
+library(dplyr)
+library(ggplot2)
+library(sf)
+library(tidygeocoder)
+library(tidyverse)
+
+# Define a list of cities
+cities <- data.frame(
+  city = c("New York", "London", "Tokyo", "Beijing", "Rio de Janeiro", 
+           "Sydney", "Cairo", "Mumbai", "Berlin"),
+  stringsAsFactors = FALSE
+)
+
+# Geocode all cities using tidygeocoder
+cities_with_coords <- cities %>%
+  geocode(address = city, method = "osm", lat = latitude, long = longitude)
+
+# Check the geocoded results
+print(cities_with_coords)
+
+# Get world map data
+world <- rnaturalearth::ne_countries(scale = "medium", returnclass = "sf")
+
+# Convert the cities_with_coords dataframe to sf format
+cities_sf <- st_as_sf(cities_with_coords, coords = c("longitude", "latitude"), crs = 4326)
+
+# Perform a spatial join to find which country each city belongs to
+cities_with_country <- st_join(cities_sf, world, join = st_intersects)
+
+# Extract coordinates
+coords <- st_coordinates(cities_with_country)
+           
+head(cities_with_country)
+
+
+```
+
+```{r}
+coordinates <- sf::st_coordinates(cities_with_country$geometry)
+
+# Access the latitude (second element) of the first row
+latitude <- coordinates[1, 2]
+
+print(latitude)
+
+longitude <- coordinates[1, 1]
+
+print(longitude)
+
+```
+
+```{r}
+
+```
