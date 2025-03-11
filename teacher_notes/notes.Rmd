@@ -1,0 +1,10 @@
+---
+title: "tasks"
+author: "Jeremy Mikecz"
+date: "2025-03-11"
+output: html_document
+---
+
+## Tasks
+
+1. figure out how to get images on gh-pages deployed presentations
