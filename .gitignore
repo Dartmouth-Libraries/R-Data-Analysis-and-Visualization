@@ -2,6 +2,7 @@
 old/
 others_notebooks/
 packrat/
+sites/
 
 # additional files to ignore
 *.Rproj
