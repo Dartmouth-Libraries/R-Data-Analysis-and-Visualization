@@ -91,15 +91,16 @@ ii. Or for a class on data visualization
 
 --\>
 
-# REVIEW LINK ABOVE & BELOW - CHANGE FOR SPECIFIC SESSIONS!
+# REDO - GOOGLE DRIVE
 
-### 4b. Everyone else: downloading data
+### 4b. Everyone else: downloading data 
 
-1.  Visit our repository to download code for this course: <https://github.com/Dartmouth-Libraries/R-Data-Analysis-and-Visualization>.
-2.  Select the green `Code` button –\> `Download Zip`.
-3.  Unzip the folder and place it in a permanent location on your local drive (or cloud drive if you prefer).
+1.  Go to [dartgo.org/r-data-viz](https://dartgo.org/r-data-viz). Follow link to download zipped drive.
+    1.  alternate option: Visit our repository to download code for this course: <https://github.com/Dartmouth-Libraries/R-Data-Analysis-and-Visualization>.
+    2.  Select the green `Code` button –\> `Download Zip`.
+2.  Unzip the folder and place it in your Downloads folder on your local drive (or cloud drive if you prefer).
 
-## 5. Coding in R (from the terminal)
+## 5. Coding in R (from the console)
 
 Basic operations: numbers, strings, and lists
 
@@ -124,10 +125,9 @@ Basic operations: numbers, strings, and lists
     3 + 8 / 4
     ```
 
-## 6. Coding in R (from the console)
+3.  We can store values (numbers, strings, lists, and far more complicated data types) in variables.
 
-1.  We can store values (numbers, strings, lists, and far more complicated data types) in variables.
-2.  In the console the right assign your favorite number to a variable like this:
+4.  In the console the right assign your favorite number to a variable like this:
 
 ```         
 fav_num <- 11
