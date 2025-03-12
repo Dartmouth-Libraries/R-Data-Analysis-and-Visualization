@@ -1,0 +1,68 @@
+---
+title: "4_basic_R_stats_t_test"
+format: html
+editor: visual
+---
+
+Quarto enables you to weave together content and executable code into a finished document. <https://quarto.org>.
+
+Note: Github
+
+R-Data-Analysis-and-Visualization % git add notebooks/4_basic_R_stats_t_test_quartodoc.qmd (base) f002d69\@RJXCK02LJ0 R-Data-Analysis-and-Visualization % git commit -m 'add t test' \[main 5401abd\] add t test 1 file changed, 13 insertions(+) (base) f002d69\@RJXCK02LJ0 R-Data-Analysis-and-Visualization % git push
+
+```{r}
+1 + 1
+```
+
+```{r}
+# Load library
+library(dplyr)
+
+# Load dataset
+data(mtcars)
+
+# Conduct t-test on mpg (miles per gallon) for cars with automatic and manual transmission.
+automatic_cars <- mtcars %>% filter(am == 1)
+manual_cars    <- mtcars %>% filter(am == 0)
+head(automatic_cars)
+head(manual_cars)
+
+# Compute descriptive statistics and summarize data for each group
+autosummary <- automatic_cars %>%
+  group_by(am) %>%
+  summarise(average = mean(mpg),
+            sd     = sd(mpg),
+            min    = min(mpg),
+            max    = max(mpg))
+manusummary  <- manual_cars %>%
+  group_by(am) %>%
+  summarise(average = mean(mpg),
+            sd     = sd(mpg),
+            min    = min(mpg),
+            max    = max(mpg))
+
+# View descriptive statistics for both groups
+autosummary
+manusummary
+```
+
+```{r}
+# Conduct t-test on mpg for the two groups
+ttest_result <- t.test(automatic_cars$mpg, manual_cars$mpg)
+
+# Interpret t-test results
+cat('t-test statistic :', ttest_result$statistic)
+#cat('degrees of freedom:', ttest_result$
+cat('p-value :', ttest_result$p.val)
+if (ttest_result$p.val < 0.05){
+  cat("Conclusion:  there very likely IS a significant difference in mean mpg between cars with automatic and manual transmission, the low p-value tells us that the null hypothesis, that the means were equal, is false (Reject H0 the null hypothesis)")
+} else {
+  cat("Fail to reject H0, no significant difference in mean mpg between cars with automatic and manual transmission.")
+}
+
+# ("Reject H0, there is a significant difference in mean mpg between cars with automatic and manual transmission")
+```
+
+```{r}
+
+```
