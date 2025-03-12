@@ -85,7 +85,7 @@ ii. Or for a class on data visualization
 
 \<!--For those of you with experience working with git and GitHub repositories, you may:
 
-1.   download the code for this class from: <https://github.com/Dartmouth-Libraries/R-Data-Analysis-and-Visualization>.
+1.  download the code for this class from: <https://github.com/Dartmouth-Libraries/R-Data-Analysis-and-Visualization>.
 2.  If you have your Github SSH key set up, select `Code` –\> `SSH` tab –\> `Copy url to clipboard`.
 3.  Navigate to the folder on your computer where you would like to place your local version of this class
 
@@ -211,7 +211,6 @@ print("Hello world!")
 greeting <- "Hello"
 name <- "Jeremy"
 print(c(greeting, name))
-
 ```
 
 To learn more about a function use:
@@ -273,7 +272,7 @@ The console allows some degree of interactivity: you can enter some code and rec
 
 Writing a short program
 
-#### Running the Code from the Script 
+#### Running the Code from the Script
 
 1.  **Open RStudio** and create a new R script:
 
