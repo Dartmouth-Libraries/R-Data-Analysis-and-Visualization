@@ -2,8 +2,8 @@
 title: "Intro to GGPlot"
 author: "Jeremy Mikecz"
 format: html
-#editor: visual
-jupyter: ir
+editor: visual
+#jupyter: ir
 ---
 
 # *Let Sleeping Mammals Lie*: An intro to exploratory data visualization with R and ggplot

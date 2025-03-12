@@ -3,7 +3,7 @@ title: "tidyverse intro"
 author: "Jeremy Mikecz"
 format: html
 editor: visual
-jupyter: ir
+#jupyter: ir
 ---
 
 # Introduction to Tidyverse
