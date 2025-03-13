@@ -24,6 +24,8 @@ head(gapminder)
 
 ```
 
+spatial data science
+
 ```{r}
 # Filter the gapminder dataset for the year 2007
 gapminder_2007 <- gapminder::gapminder %>% filter(year == 2007)
