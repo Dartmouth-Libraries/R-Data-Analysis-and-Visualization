@@ -11,7 +11,7 @@ Welcome to our two-day (two-morning) workshop on **Data Analysis and Visualizati
 
 \[introduce instructors\]
 
-This workshop is supported by the Dartmouth Libraries and Research Computing. Together, the Libraries and RC have formed the **Reproducible Research** group, which, among other things, hosts workshops like this. Please monitor our [workshop webpage](https://dartgo.org/RRADworkshops)for future offerings.
+This workshop is supported by the Dartmouth Libraries and Research Computing. Together, the Libraries and RC have formed the **Reproducible Research** group, which, among other things, hosts workshops like this. Please monitor our [workshop webpage](https://dartgo.org/RRADworkshops) for future offerings.
 
 During every academic term, we offer roughly 20 - 30 workshops. Most are 1-2 hours and range from in-person to virtual and hybrid offerings.
 
