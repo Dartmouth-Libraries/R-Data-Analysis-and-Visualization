@@ -4,11 +4,15 @@ format: html
 editor: visual
 ---
 
-Quarto enables you to weave together content and executable code into a finished document. <https://quarto.org>.
+# Basic T Test in R 
 
-Note: Github
+In the field of Statistics, a "T" test can be used to compare the means of two datasets.
 
-R-Data-Analysis-and-Visualization % git add notebooks/4_basic_R_stats_t_test_quartodoc.qmd (base) f002d69\@RJXCK02LJ0 R-Data-Analysis-and-Visualization % git commit -m 'add t test' \[main 5401abd\] add t test 1 file changed, 13 insertions(+) (base) f002d69\@RJXCK02LJ0 R-Data-Analysis-and-Visualization % git push
+## 1. Data
+
+### *Load sample data* 
+
+Because R was **built as a statistical language**, the [t.test](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/t.test.html ""T" test in R") function in the standard/base-R installation using the [stats](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/00Index.html "stats") package.
 
 ```{r}
 # Load the 'dplyr' library (data pliers) 
@@ -21,6 +25,7 @@ data(mtcars)
 automatic_cars <- mtcars %>% filter(am == 1)
 manual_cars    <- mtcars %>% filter(am == 0)
 head(automatic_cars)
+head(manual_cars)
 
 ```
 
@@ -47,6 +52,7 @@ manusummary
 
 ```{r}
 # Conduct t-test on mpg for the two groups
+# t test is a statistical test used to compare the means of two groups
 ttest_result <- t.test(automatic_cars$mpg, manual_cars$mpg)
 
 # Interpret t-test results
