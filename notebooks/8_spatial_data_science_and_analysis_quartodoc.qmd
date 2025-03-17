@@ -9,7 +9,13 @@ editor: visual
 #install.packages('gapminder')
 library(gapminder)
 #install.packages('tidyverse')
-library(tidyverse)
+```
+
+```{r}
+
+```
+
+```{library(tidyverse)}
 
 library(gapminder)
 library(ggplot2)
@@ -215,4 +221,81 @@ enriched_zipcodes_df <- massachusetts_zipcodes %>%
 head(enriched_zipcodes_df)
 
 
+```
+
+```{r}
+#install.packages(c("sf", "spatstat", "ggplot2", "dplyr", "ggmap", "viridis", "classInt"))
+# Load required libraries
+library(sf)
+library(spatstat)
+library(sp)
+library(ggplot2)
+library(dplyr)
+library(ggmap)
+library(classInt)
+library(viridis)
+library(maps)
+library(spdep)     # Load spdep for spatial dependency analysis
+
+# Set a seed for reproducibility
+set.seed(42)
+
+# Generate 50 random locations in Massachusetts
+ma_bounds <- c(-73.5, 41.25, -69.9, 42.5) # Approximate bounding box for Massachusetts
+lon <- runif(50, min = ma_bounds[1], max = ma_bounds[3])
+lat <- runif(50, min = ma_bounds[2], max = ma_bounds[4])
+locations <- data.frame(lon, lat)
+
+# Create a spatial points dataframe
+locations_sf <- sf::st_as_sf(locations, coords = c("lon", "lat"), crs = 4326)
+
+
+# Perform Getis-Ord analysis using the spdep package
+# Create a spatial weight matrix
+coords <- as.matrix(locations[, c("lon", "lat")])
+# K-nearest neighbors
+k <- 4  # Choose the number of neighbors
+neighbors <- spdep::knearneigh(coords, k = k)
+
+
+# Create a list of neighbors
+listw <- spdep::nb2listw(knn2nb(neighbors), style = "W")
+
+
+# Calculate the local G statistic for Getis-Ord
+# Here, we just use a binary presence variable (1 for each point)
+presence_variable <- rep(1, nrow(locations_sf))
+gstat <- spdep::localG(presence_variable, listw)
+
+
+# Add Getis-Ord G* statistic info to the locations
+locations_sf$G_star <- gstat
+
+# Create a base map of Massachusetts
+base_map <- ggplot() +
+  borders("state", region = "massachusetts", fill = "lightgray") +
+  geom_point(data = locations_sf, aes(x = lon, y = lat), color = "red") +
+  theme_minimal() +
+  ggtitle("Random Locations in Massachusetts")
+
+# Create heatmap (Optional)
+heatmap_data <- ggplot() +
+  borders("state", region = "massachusetts", fill = "lightgray") +
+  geom_density_2d(data = locations_sf, aes(x = lon, y = lat), color = "blue", alpha = 0.5) +
+  geom_point(data = locations_sf, aes(x = lon, y = lat), color = "red", alpha = 0.3) +
+  theme_minimal() +
+  labs(title = "Heatmap of Random Locations in Massachusetts")
+
+# Save the points to a CSV file
+write.csv(locations_sf, "massachusetts_locations.csv", row.names = FALSE)
+
+base_map
+
+heatmap_data
+
+# Save the plots
+ggsave("massachusetts_map.png", plot = base_map)
+ggsave("massachusetts_heatmap.png", plot = heatmap_data)
+
+print("Analysis complete. Files saved: massachusetts_locations.csv, massachusetts_map.png, massachusetts_heatmap.png")
 ```
