@@ -9,50 +9,6 @@ editor: visual
 R and the **SwirlStats** library, see [SwirlStats](https://swirlstats.com/ "SwirlStats"){.uri}.
 
 ```{r}
-# Load necessary libraries
-library(ggplot2)
-library(dplyr)
-
-# View the first few rows of the iris dataset
-head(iris)
-
-# Summary statistics
-summary(iris)
-
-# Check for missing values
-sum(is.na(iris))
-
-# Visualize the distribution of Sepal.Length by Species
-ggplot(iris, aes(x = Species, y = Sepal.Length, fill = Species)) +
-  geom_boxplot() +
-  labs(title = "Distribution of Sepal Length by Species",
-       x = "Species", y = "Sepal Length")
-
-# Pair plot to visualize relationships between variables
-pairs(iris[,1:4], col = iris$Species)
-
-####
-# View the first few rows of the mtcars dataset
-head(mtcars)
-
-# Summary statistics
-summary(mtcars)
-
-# Check for missing values
-sum(is.na(mtcars))
-
-# Visualize the distribution of mpg (miles per gallon) by the number of cylinders
-ggplot(mtcars, aes(x = as.factor(cyl), y = mpg, fill = as.factor(cyl))) +
-  geom_boxplot() +
-  labs(title = "Distribution of MPG by Number of Cylinders",
-       x = "Number of Cylinders", y = "MPG")
-
-# Scatter plot between horsepower (hp) and mpg
-ggplot(mtcars, aes(x = hp, y = mpg)) +
-  geom_point() +
-  labs(title = "Horsepower vs. MPG", x = "Horsepower", y = "MPG")
-
-#########
 
 # T-test to compare MPG for cars with 4 and 6 cylinders
 t_test_result <- t.test(mpg ~ as.factor(cyl), data = mtcars[mtcars$cyl %in% c(4, 6), ])
@@ -183,6 +139,53 @@ if (chi_squared_result$p.value < 0.05) {
 } else {
   cat("Result: No statistically significant association between variables (p ≥ 0.05).\n")
 }
+
+
+# View the first few rows of the iris dataset
+head(iris)
+
+# Summary statistics
+summary(iris)
+
+# Check for missing values
+sum(is.na(iris))
+
+# Visualize the distribution of Sepal.Length by Species
+ggplot(iris, aes(x = Species, y = Sepal.Length, fill = Species)) +
+  geom_boxplot() +
+  labs(title = "Distribution of Sepal Length by Species",
+       x = "Species", y = "Sepal Length")
+
+# Pair plot to visualize relationships between variables
+pairs(iris[,1:4], col = iris$Species)
+
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+
+####
+# View the first few rows of the mtcars dataset
+head(mtcars)
+
+# Summary statistics
+summary(mtcars)
+
+# Check for missing values
+sum(is.na(mtcars))
+
+# Visualize the distribution of mpg (miles per gallon) by the number of cylinders
+ggplot(mtcars, aes(x = as.factor(cyl), y = mpg, fill = as.factor(cyl))) +
+  geom_boxplot() +
+  labs(title = "Distribution of MPG by Number of Cylinders",
+       x = "Number of Cylinders", y = "MPG")
+
+# Scatter plot between horsepower (hp) and mpg
+ggplot(mtcars, aes(x = hp, y = mpg)) +
+  geom_point() +
+  labs(title = "Horsepower vs. MPG", x = "Horsepower", y = "MPG")
+
+#########
+
 
 install.packages("swirlstats")
 library(swirl)
