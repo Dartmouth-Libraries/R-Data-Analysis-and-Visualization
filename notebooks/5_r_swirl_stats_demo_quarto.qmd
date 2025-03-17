@@ -187,6 +187,98 @@ print(chi_square_result)
 
 #########
 
+# assigning a variable (use <- or = to assign)
+# note:  == is used for boolean / if-then.  2 == 3 would be false 
+#           while 2 == 2 would be true 
+x <-4
+setwd('~/Downloads/r-workshop')
+# once installed, invoke with the 'library' command
+library(tidyverse)
+# view the mtcars dataset
+mtcars
+
+# place the dataset into a new 'data frame' variable
+mtcars_df <- mtcars
+
+# get the first five rows of data 
+head(mtcars)
+
+# get the last five rows (often a simple way to check for errors or na's near the end of the dataset)
+tail(mtcars)
+
+# dim gets the rows and columns of the dataset (dim=dimension)
+dim(mtcars)
+
+# names gets the column names of the dataset 
+names(mtcars)
+
+# filter the dataset: show only cars with more than six(6) cylinders
+mtcars[mtcars$cyl > 6,]
+
+# place these rows into a new dataframe
+big_engine_cars <- mtcars[mtcars$cyl > 6,]
+
+# to add a column to a dataset or dataframe, 
+# just use the $ notation and a new variable name
+# and give it a value, in this case hp/wt 
+mtcars$power_to_weight_ratio <- mtcars$hp / mtcars$wt 
+
+mtcars$power_to_weight_ratio
+
+# scatter plot mpg vs hp
+plot(mtcars$hp, mtcars$mpg)
+
+plot(mtcars$hp, mtcars$mpg, main = 'MPG vs HP',
+     xlab = "Horsepower",
+     ylab = "Miles per Gallon",
+     col = "blue", pch=19)
+
+mtcars_pw_df <- mtcars
+
+# write a csv out to the working directory
+write.csv(mtcars_pw_df, "mtcars-export-20250205_1031.csv")
+
+# read a csv file (a tidy one, rows and columns) into R 
+new_df <- read.csv("mtcars-export-20250205_1031.csv")
+
+# create a histogram
+hist(mtcars$mpg)
+
+boxplot(mpg ~ hp, data=mtcars)
+
+boxplot(mpg ~ cyl, data=mtcars)
+
+cor(mtcars[,c("mpg","hp","wt","qsec")])
+# cor values from -1 through 0 up to 1 
+
+model <- lm(mpg ~ hp, data = mtcars)
+model
+
+
+plot(mtcars$hp, mtcars$mpg)
+abline(model, col="red", lwd=2)
+
+cars_4c <- mtcars[mtcars$cyl == 4, "mpg"]
+cars_6c <- mtcars[mtcars$cyl == 6, "mpg"]
+cars_4c
+
+# t-test to compare means
+
+t_test_result <- t.test(cars_4c, cars_6c)
+t_test_result
+
+p_value <- t_test_result$p.value
+p_value
+
+library(tidyverse)
+
+ggplot(mtcars, aes(x = as.factor(cyl), y = mpg, fill = as.factor(cyl))) +
+  geom_boxplot() +
+  labs(title = "Distribution of MPG by Number of Cylinders",
+       x = "Number of Cylinders", y = "MPG")
+
+
+
 
 install.packages("swirlstats")
 library(swirl)
