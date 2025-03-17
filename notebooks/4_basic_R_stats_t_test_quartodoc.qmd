@@ -105,3 +105,5 @@ boxplot(qsec ~ am, data = mtcars, main = "1/4 Mile Time by Transmission Type",
 Additional links:
 
 <https://www.w3schools.com/r/r_stat_intro.asp>
+
+<https://stat.ethz.ch/R-manual/R-devel/library/stats/html/00Index.html>
