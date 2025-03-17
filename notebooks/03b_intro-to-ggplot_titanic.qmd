@@ -89,7 +89,7 @@ When conducting your own research, you will likely need to import your dataset i
 However, when you are learning R, it is often easiest to experiment with their preloaded datasets. Fortunately, with the installation of the **tidyverse packages** we have access to dozens of "play" datasets. Let's take a quick look at what is available using the `data()` function:
 
 ```{r}
-data()
+#data()
 ```
 
 For this lesson we will use the **Titanic** dataset, which contains data about the passengers on the ill-fated **Titanic** ship that sunk in 1912.
@@ -307,7 +307,14 @@ ggplot(titanic, aes(x = Class, y = n, fill = Survived)) +
 ## Mosaic Plots
 
 ```{r}
-install.packages("ggmosaic")
+# Calculate survival rates by Class and Sex
+survival_rates <- titanic_summary %>%
+  group_by(Class, Sex) %>%
+  summarize(survival_rate = mean(survival_rate))
+
+# Heatmap of survival rates
+ggplot(survival_rates, aes(x = Class, y = Sex, fill = survival_rate)) +
+  geom_tile()
 ```
 
 ## Calculate Survival Rate
@@ -335,13 +342,8 @@ titanic_summary <- titanic_summary |>
 ```
 
 ```{r}
-#titanic_summary <- titanic_summary |>
-    #mutate(survived = ifelse(is.na(survived), 0, survived),
-#         survival_rate = survived / total) 
 titanic_summary <- titanic_summary |>
-  # Use coalesce to handle missing 'survived' column
-  mutate(survived = coalesce(survived, 0),
-         survival_rate = survived / total)
+  mutate(survival_rate = survived / total)
 ```
 
 ```{r}
@@ -351,10 +353,11 @@ titanic_summary <- titanic_summary |>
 
 ## problem - code below causes an error if run multiple times
 
+solution: replace survived.y with survived.x
+
 ```{r}
-titanic_summary <- titanic_summary |>
-    left_join(survivors, by = c("Sex", "Age", "Class")) |>
-    mutate(survived = coalesce(survived, 0),
-         survival_rate = survived / total) |>
-    arrange(survival_rate)
+#titanic_summary <- titanic_summary |>
+    #left_join(survivors, by = c("Sex", "Age", "Class"))# |>
+    #mutate(survival_rate = survived / total) |>
+    #arrange(survival_rate)
 ```
