@@ -1,0 +1,50 @@
+---
+title: "GGPlot with Weather Data"
+author: "Jeremy Mikecz"
+format: html
+editor: visual
+---
+
+## 
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+temps <- read.csv("../data/Hanover_temps2.csv")
+```
+
+```{r}
+head(temps)
+```
+
+```{r}
+temps21c <- temps |>
+    filter(Year >= 2000)
+```
+
+```{r}
+days_of_year <- temps21c |>
+    group_by(Month, Day) |>
+    summarise(avg_max = mean(TMAX)) |>
+    arrange(Month, Day) |>
+    rownames_to_column("daynum") |>
+    select(!avg_max)
+    
+
+```
+
+```{r}
+temps21c <- temps21c |>
+    left_join(days_of_year, by=join_by(Month, Day)) |>
+    select(!X.1)
+```
+
+```{r}
+write_csv(temps21c, "../data/Hanover-temps21c_w-daynums.csv")
+```
+
+```{r}
+
+```

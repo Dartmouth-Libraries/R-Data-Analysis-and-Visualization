@@ -1,0 +1,43 @@
+---
+title: "GGPlot with Weather Data"
+author: "Jeremy Mikecz"
+format: html
+editor: visual
+---
+
+## 
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+temps <- read.csv("../data/Hanover_temps2.csv")
+```
+
+```{r}
+head(temps)
+```
+
+```{r}
+temps21c <- temps |>
+    filter(Year >= 2000)
+```
+
+```{r}
+ggplot(temps21c, aes(y=max_diff20c_avg)) +
+    geom_bar()
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
+
+```{r}
+
+```
