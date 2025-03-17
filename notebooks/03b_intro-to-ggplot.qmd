@@ -36,8 +36,10 @@ For experienced users of R who regularly share their code with other researchers
 Tidyverse is a system of packages for data wrangling and analysis. It provides a different method and syntax for working with data tables (often called "data frames" in data science; but, tidyverse dataframes are known as "tibbles".) from base R. For more on tidyverse and tibbles see the **Intro to Tidyverse** notebook and the many resources listed in this notebook.
 
 ```{r}
+
 ## to install all packages included in tidyverse. #install.packages("tidyverse")    
 ## but we want to open ggplot2 with tidyverse: 
+
 library(tidyverse)
 ```
 

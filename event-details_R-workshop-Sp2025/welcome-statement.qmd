@@ -46,3 +46,11 @@ With your help, we want to establish a collaborative learning environment. To do
 4.  **COLLABORATION**
     1.  let's work together
         1.  we (instructors) are not experts; feel free to share your own ideas and experiences with programming when they may be helpful to the group or to your neighbors
+
+# Introductions
+
+Please introduce yourself to one or more people nearby (make sure not to leave anyone out). In doing so, share:
+
+1.  your name and Dartmouth program
+2.  your level of experience with R or other programming languages (beginners welcome!)
+3.  why you're excited about learning R (and programming more generally); what concerns you about learning
