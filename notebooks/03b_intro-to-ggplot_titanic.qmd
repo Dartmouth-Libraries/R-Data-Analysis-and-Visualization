@@ -110,7 +110,7 @@ Metadata for this dataset should appear in the **Help pane** at the right-hand s
 First, let's view the dataset by typing in its name below:
 
 ```{r}
-titanic = Titanic %>%
+titanic = Titanic |>
     as_tibble()
 titanic
 ```
@@ -138,26 +138,26 @@ head(titanic)
 ```
 
 ```{r}
-class(msleep)
+class(titanic)
 
 ```
 
 ```{r}
 
-dim(msleep)
+dim(titanic)
 ```
 
 ```{r}
-colnames(msleep)
+colnames(titanic)
 ```
 
 ```{r}
-str(msleep)
+str(titanic)
     
 ```
 
 ```{r}
-summary(msleep)
+summary(titanic)
 ```
 
 ## Exercise 1.
@@ -168,7 +168,6 @@ summary(msleep)
 
 ```         
 # hypothesis:
-
 ```
 
 ### 2.1 Numerical Data
@@ -180,9 +179,7 @@ One of the most useful ways to get summary data from a dataframe (or, in this ca
 
 1.  What are the two main data types stored in this dataset?
 
-2.  What are the maximum and minimum sleep times (in hours per day) for mammals in this dataset?
-
-3.  Which columns have missing values ("NA's")? How many rows are missing data for these fields?
+2.  What are the maximum and minimum number (n) of passengers for all observations (rows)?
 :::
 
 ### 2.2 Categorical Data
@@ -192,42 +189,26 @@ You may have noticed that while the **summary()** function returns valuable info
 We can use the **distinct()** function to identify a list of unique values in the "genus" column. To apply it to one column of the dataset, let's practice using the piping syntax of tidyverse:
 
 ```         
-dataset_name |>   function(column)
+dataset_name |>   
+    function(column)
 ```
 
-`{r} msleep |>   distinct(genus)}`
+```{r}
+titanic |>
+    distinct(Class)
+```
+
+```{r}
+titanic |>
+    distinct(Class, Sex)
+```
 
 To generate a frequency count of the values found in a column we can use the function **count()**. To sort the results, we can also add the parameter `sort=TRUE`.
 
-`{r} msleep |>   count(genus, sort=TRUE)}`
-
-Let's explore a different column: "conservation" (for conservation status of the mammals):
-
-`{r} msleep |>   count(conservation, sort=TRUE)}`
-
-The dataset did not come with a dictionary defining these abbreviations. However, after a few minutes browsing online I found this:
-
-**Explanation of "conservation" field"**:
-
-According to the documentation retrieved by `help(msleep)` we know that conservation status was a field added to the original msleep dataset from Wikipedia. An online search reveals this field is using 9 categories established by the International Union for Conservation of Nature (IUCN) for threatened species:
-
--   not evaluated (not included here?)
-
--   data deficient (not included here?)
-
--   least concern ("lc")
-
--   near threatened ("nt")
-
--   vulnerable ("vu")
-
--   endangered ("en")
-
--   critically endangered ("cd")
-
--   extinct in the wild (?)
-
--   extinct (?)
+```{r}
+titanic |>
+    count(Class, sort=TRUE)
+```
 
 ::: callout-tip
 ### Exercise 2.2.
@@ -235,7 +216,10 @@ According to the documentation retrieved by `help(msleep)` we know that conserva
 Try applying these same summary functions to a different preloaded dataset to better understand the data it contains.
 :::
 
-`{r} #}`
+```{r}
+
+
+```
 
 ## 3. Tidyverse / dplyr verbs for Data Wrangling
 
@@ -285,68 +269,22 @@ Five mapping components:
 | facet | describes how to split data and display it in "small multiples" |
 | theme | control stylistic choices such as font size and color palettes |
 
-### 4.2. Histograms - Numerical Data
-
-Histograms are useful for visualizing the distribution of numerical data for a particular variable.
-
-For this simple plot type, we can use the built-in `hist` function in base R:
-
-`{r} hist(msleep$sleep_total)}`
-
-Of course, ggplot allows us to create the same thing.
-
-The conventional syntax to plot with ggplot is:
-
-```         
-ggplot(data=dataset_name, aes(columns assigned to particular visual variables such as x coord, y coord, color fill, color outline, etc.)) +        geom_name(any_additional_arguments)
-```
-
-Thus, to create a histogram, we will want to use **geom_histogram** as our geom_name and set x as the column we want to inspect:
-
-`{r} ggplot(data=msleep, aes(x = sleep_total)) +   geom_histogram()   #binwidth=4}`
-
-However, the gglot version doesn't look as nice. Since ggplot allows a lot more customization, we will need to be more specific in our instructions, adding in parameters for the color fill (`fill`), color outline (`color`), and `binwidth`.
-
-`{r} ggplot(data=msleep, aes(x = sleep_total)) +   geom_histogram(binwidth=2, color="black", fill="gray")}`
-
-::: callout-tip
-### Exercise 4.2
-
-Choose another data field or column containing numerical data besides total sleep. Create a histogram for this field.
-:::
-
-`{r} #}`
-
 ### 4.3. Bar Plots - Categorical Data
 
-A histogram is a type of bar plot designed to show the distribution of numerical data by placing this data into "bins" covering a particular range of numerical values.
+We can begin by creating some bar plots examining the distribution of data in this dataset.
 
-More conventional bar plots visualize the number of items found in different categories. In ggplot, we can use either the **geom_histogram()** function (but in a different way) or the **geom_bar()** function. Since we are interested in counts of categorical data (i.e. the number of carnivores vs. herbivores in the dataset), we will need to pass the argument `stat='count'` into both geoms.
+First, let's quickly distinguish **histograms** from **bar plots / graphs / charts**. Although they look similar, histograms represent the distribution of numerical data (i.e. how many passengers were between 20 and 25 years old) whereas bar plots represent categorical data (i.e. how many passengers were female):
 
-Let's try it first with **geom_histogram()**.
-
-`{r} ggplot(data=msleep, aes(x=vore)) +   geom_histogram(stat="count")  #try without stat = count}`
-
-We can produce the exact same output with **geom_bar()**.
-
-`{r} ggplot(data=msleep, aes(x=vore)) +   geom_bar(stat="count")}`
-
-We can re-order (or re-\*arrange\* using tidyverse terminology) the columns using the **fct_infreq()** function which is imported with tidyverse as part of the **forcats** package. *Note: it still places the NA's on the furthest right, regardless of their frequency.*
-
-Syntax:
-
-```         
-...aes(x=fct_infreq(column_name)...)
+```{r}
+ggplot(data=titanic, aes(x=Sex, y=n)) + 
+    geom_bar(stat="identity")
 ```
 
-```         
+```{r}
+ggplot(data=titanic, aes(x=Age, y=n)) +
+    geom_bar(stat="identity")
+
 ```
-
-`{r} ggplot(msleep, aes(x=fct_infreq(vore), fill=vore)) +   geom_bar(stat="count")}`
-
-We can even divide each bar into stacks by assigning the categories in another column to the **fill** parameter. Let's place the `order` column on the x axis and pass in the `conservation` column into the fill parameter.
-
-`{r} ggplot(msleep, aes(x=order, fill=conservation)) +   geom_bar(stat="count")}`
 
 ::: callout-tip
 ### Exercise 4.3.
@@ -356,4 +294,67 @@ We can even divide each bar into stacks by assigning the categories in another c
 :::
 
 ```         
+```
+
+## Bar Plots 2: Compare Survival Rates
+
+```{r}
+ggplot(titanic, aes(x = Class, y = n, fill = Survived)) +
+  geom_bar(stat = "identity", position = "fill") +
+  facet_grid(Sex ~ Age) 
+```
+
+## Mosaic Plots
+
+```{r}
+install.packages("ggmosaic")
+```
+
+## Calculate Survival Rate
+
+At the moment, the dataset is grouped by sex, age (child or adult), passenger class, and survival. To help us identify the passengers most likely to survive, we first need to know how many people were in each demographic group (i.e. sex, age, class with survival excluded) and then calculate the percent of each group that survived.
+
+```{r}
+titanic_summary <- titanic |>
+    group_by(Sex, Class, Age) |>
+    summarize(total = sum(n))
+```
+
+```{r}
+survivors <- titanic |>
+    filter(Survived == "Yes") |>
+    group_by(Sex, Age, Class) |>
+    summarize(survived = sum(n))
+```
+
+```{r}
+#titanic_summary <- left_join(titanic_summary, survivors, by = c("Sex", "Age", "Class")) 
+
+titanic_summary <- titanic_summary |>
+    left_join(survivors, by = c("Sex", "Age", "Class"))
+```
+
+```{r}
+#titanic_summary <- titanic_summary |>
+    #mutate(survived = ifelse(is.na(survived), 0, survived),
+#         survival_rate = survived / total) 
+titanic_summary <- titanic_summary |>
+  # Use coalesce to handle missing 'survived' column
+  mutate(survived = coalesce(survived, 0),
+         survival_rate = survived / total)
+```
+
+```{r}
+titanic_summary <- titanic_summary |>
+    arrange(survival_rate)
+```
+
+## problem - code below causes an error if run multiple times
+
+```{r}
+titanic_summary <- titanic_summary |>
+    left_join(survivors, by = c("Sex", "Age", "Class")) |>
+    mutate(survived = coalesce(survived, 0),
+         survival_rate = survived / total) |>
+    arrange(survival_rate)
 ```
