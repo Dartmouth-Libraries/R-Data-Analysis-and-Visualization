@@ -36,7 +36,6 @@ For experienced users of R who regularly share their code with other researchers
 Tidyverse is a system of packages for data wrangling and analysis. It provides a different method and syntax for working with data tables (often called "data frames" in data science; but, tidyverse dataframes are known as "tibbles".) from base R. For more on tidyverse and tibbles see the **Intro to Tidyverse** notebook and the many resources listed in this notebook.
 
 ```{r}
-
 ## to install all packages included in tidyverse. #install.packages("tidyverse")    
 ## but we want to open ggplot2 with tidyverse: 
 
@@ -67,8 +66,7 @@ This lesson does not teach when to use what type of visualization. For more help
 
 We do not need to install or import ggplot because it is include with tidyverse. However, if you ever need to install or open ggplot separately use:
 
-```{r} ##  #install.packages("ggplot2") #library(ggplot2)}
-```
+`{r} ##  #install.packages("ggplot2") #library(ggplot2)}`
 
 ### 0.3. Grammar of Graphics
 
@@ -90,24 +88,17 @@ When conducting your own research, you will likely need to import your dataset i
 
 However, when you are learning R, it is often easiest to experiment with their preloaded datasets. Fortunately, with the installation of the **tidyverse packages** we have access to dozens of "play" datasets. Let's take a quick look at what is available using the `data()` function:
 
-```{r} data()}
+```{r}
+data()
 ```
 
-For this lesson we will use the **msleep** dataset, which contains data about the sleep times and weights of various mammal species.
+For this lesson we will use the **Titanic** dataset, which contains data about the passengers on the ill-fated **Titanic** ship that sunk in 1912.
 
-::: callout-tip
-## Exercise 1.
+We can begin by simply opening the **titanic dataset** by typing `Titanic`. However, let's first examine the available metadata for the dataset using the `help()` function:
 
-*Before we begin, do you have a particular hypothesis about what types of animals sleep the most?*
-:::
-
-```         
-# hypothesis:
-```
-
-We can begin by simply opening the **msleep dataset** by typing `msleep`. However, let's first examine the available metadata for the dataset using the `help()` function:
-
-```{r} help(msleep) #?msleep    #does the same thing}
+```{r}
+help(Titanic) 
+#?Titanic    #does the same thing}
 ```
 
 Metadata for this dataset should appear in the **Help pane** at the right-hand side of R Studio.
@@ -118,35 +109,66 @@ Metadata for this dataset should appear in the **Help pane** at the right-hand s
 
 First, let's view the dataset by typing in its name below:
 
-```{r} msleep}
+```{r}
+titanic = Titanic %>%
+    as_tibble()
+titanic
 ```
 
-How many species (rows) are included in this dataset? How many data fields / variables (columns) for each?
+How many observations (rows) are included in this dataset? What does each row represent?
+
+How many data fields / variables (columns) for each?
 
 ## 2. Exploring a Dataset before visualization (with summary functions)
 
 In R, we can run some basic functions to get a quick overview of a dataset. Run the following functions, analyzing what each does and what you can (and cannot) learn from each.
 
 ```         
-head(dataset_name) class(dataset_name) dim(dataset_name) colnames(dataset_name) str(dataset_name) summary(dataset_name)
+head(dataset_name) 
+class(dataset_name) 
+dim(dataset_name) 
+colnames(dataset_name) 
+str(dataset_name) 
+summary(dataset_name)
 ```
 
-```{r} head(msleep)   # try "head(msleep, 3)" to see what that does differently}
+```{r}
+head(titanic) 
+# try "head(msleep, 3)" to see what that does differently}
 ```
 
-```{r} class(msleep)}
+```{r}
+class(msleep)
+
 ```
 
-```{r} dim(msleep)}
+```{r}
+
+dim(msleep)
 ```
 
-```{r} colnames(msleep)}
+```{r}
+colnames(msleep)
 ```
 
-```{r} str(msleep)}
+```{r}
+str(msleep)
+    
 ```
 
-```{r} summary(msleep)}
+```{r}
+summary(msleep)
+```
+
+## Exercise 1.
+
+::: callout-tip
+*Now that you know more about what is included in this dataset, do you have a particular hypothesis about what groups of passengers were most likely to survive the sinking of the Titanic?*
+:::
+
+```         
+# hypothesis:
+
 ```
 
 ### 2.1 Numerical Data
@@ -173,18 +195,15 @@ We can use the **distinct()** function to identify a list of unique values in th
 dataset_name |>   function(column)
 ```
 
-```{r} msleep |>   distinct(genus)}
-```
+`{r} msleep |>   distinct(genus)}`
 
 To generate a frequency count of the values found in a column we can use the function **count()**. To sort the results, we can also add the parameter `sort=TRUE`.
 
-```{r} msleep |>   count(genus, sort=TRUE)}
-```
+`{r} msleep |>   count(genus, sort=TRUE)}`
 
 Let's explore a different column: "conservation" (for conservation status of the mammals):
 
-```{r} msleep |>   count(conservation, sort=TRUE)}
-```
+`{r} msleep |>   count(conservation, sort=TRUE)}`
 
 The dataset did not come with a dictionary defining these abbreviations. However, after a few minutes browsing online I found this:
 
@@ -216,8 +235,7 @@ According to the documentation retrieved by `help(msleep)` we know that conserva
 Try applying these same summary functions to a different preloaded dataset to better understand the data it contains.
 :::
 
-```{r} #}
-```
+`{r} #}`
 
 ## 3. Tidyverse / dplyr verbs for Data Wrangling
 
@@ -273,8 +291,7 @@ Histograms are useful for visualizing the distribution of numerical data for a p
 
 For this simple plot type, we can use the built-in `hist` function in base R:
 
-```{r} hist(msleep$sleep_total)}
-```
+`{r} hist(msleep$sleep_total)}`
 
 Of course, ggplot allows us to create the same thing.
 
@@ -286,13 +303,11 @@ ggplot(data=dataset_name, aes(columns assigned to particular visual variables su
 
 Thus, to create a histogram, we will want to use **geom_histogram** as our geom_name and set x as the column we want to inspect:
 
-```{r} ggplot(data=msleep, aes(x = sleep_total)) +   geom_histogram()   #binwidth=4}
-```
+`{r} ggplot(data=msleep, aes(x = sleep_total)) +   geom_histogram()   #binwidth=4}`
 
 However, the gglot version doesn't look as nice. Since ggplot allows a lot more customization, we will need to be more specific in our instructions, adding in parameters for the color fill (`fill`), color outline (`color`), and `binwidth`.
 
-```{r} ggplot(data=msleep, aes(x = sleep_total)) +   geom_histogram(binwidth=2, color="black", fill="gray")}
-```
+`{r} ggplot(data=msleep, aes(x = sleep_total)) +   geom_histogram(binwidth=2, color="black", fill="gray")}`
 
 ::: callout-tip
 ### Exercise 4.2
@@ -300,8 +315,7 @@ However, the gglot version doesn't look as nice. Since ggplot allows a lot more 
 Choose another data field or column containing numerical data besides total sleep. Create a histogram for this field.
 :::
 
-```{r} #}
-```
+`{r} #}`
 
 ### 4.3. Bar Plots - Categorical Data
 
@@ -311,13 +325,11 @@ More conventional bar plots visualize the number of items found in different cat
 
 Let's try it first with **geom_histogram()**.
 
-```{r} ggplot(data=msleep, aes(x=vore)) +   geom_histogram(stat="count")  #try without stat = count}
-```
+`{r} ggplot(data=msleep, aes(x=vore)) +   geom_histogram(stat="count")  #try without stat = count}`
 
 We can produce the exact same output with **geom_bar()**.
 
-```{r} ggplot(data=msleep, aes(x=vore)) +   geom_bar(stat="count")}
-```
+`{r} ggplot(data=msleep, aes(x=vore)) +   geom_bar(stat="count")}`
 
 We can re-order (or re-\*arrange\* using tidyverse terminology) the columns using the **fct_infreq()** function which is imported with tidyverse as part of the **forcats** package. *Note: it still places the NA's on the furthest right, regardless of their frequency.*
 
@@ -330,13 +342,11 @@ Syntax:
 ```         
 ```
 
-```{r} ggplot(msleep, aes(x=fct_infreq(vore), fill=vore)) +   geom_bar(stat="count")}
-```
+`{r} ggplot(msleep, aes(x=fct_infreq(vore), fill=vore)) +   geom_bar(stat="count")}`
 
 We can even divide each bar into stacks by assigning the categories in another column to the **fill** parameter. Let's place the `order` column on the x axis and pass in the `conservation` column into the fill parameter.
 
-```{r} ggplot(msleep, aes(x=order, fill=conservation)) +   geom_bar(stat="count")}
-```
+`{r} ggplot(msleep, aes(x=order, fill=conservation)) +   geom_bar(stat="count")}`
 
 ::: callout-tip
 ### Exercise 4.3.
@@ -345,5 +355,5 @@ We can even divide each bar into stacks by assigning the categories in another c
 2.  Create a bar plot for a different data column / field not included above.
 :::
 
-```{}
+```         
 ```
