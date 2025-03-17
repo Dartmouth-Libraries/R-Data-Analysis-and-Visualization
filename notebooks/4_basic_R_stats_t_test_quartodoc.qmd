@@ -11,10 +11,6 @@ Note: Github
 R-Data-Analysis-and-Visualization % git add notebooks/4_basic_R_stats_t_test_quartodoc.qmd (base) f002d69\@RJXCK02LJ0 R-Data-Analysis-and-Visualization % git commit -m 'add t test' \[main 5401abd\] add t test 1 file changed, 13 insertions(+) (base) f002d69\@RJXCK02LJ0 R-Data-Analysis-and-Visualization % git push
 
 ```{r}
-1 + 1
-```
-
-```{r}
 # Load library
 library(dplyr)
 
