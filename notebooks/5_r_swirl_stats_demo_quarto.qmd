@@ -10,46 +10,6 @@ R and the **SwirlStats** library, see [SwirlStats](https://swirlstats.com/ "Swir
 
 ```{r}
 
-# T-test to compare MPG for cars with 4 and 6 cylinders
-t_test_result <- t.test(mpg ~ as.factor(cyl), data = mtcars[mtcars$cyl %in% c(4, 6), ])
-print(t_test_result)
-# 2. T-Test (For the mtcars dataset)
-#A t-test compares the means of two groups (e.g., cars with 4 cylinders vs. cars with 6 cylinders). The null hypothesis is that the means are equal.
-# Welch Two Sample t-test
-
-#data:  mpg by as.factor(cyl)
-#t = 4.7191, df = 12.956, p-value = 0.0004048
-#alternative hypothesis: true difference in means between group 4 and group 6 is not equal to 0
-#95 percent confidence interval:
-#  3.751376 10.090182
-#sample estimates:
-#  mean in group 4 mean in group 6 
-#26.66364        19.74286 
-# Thus, the test shows that it is likely that mean mpg of 4cyl is different than the mean mpg of 6 cyl
-
-
-# Convert cyl (cylinders) and am (transmission: 0 = automatic, 1 = manual) to factors
-mtcars$cyl <- as.factor(mtcars$cyl)
-mtcars$am <- as.factor(mtcars$am)
-
-# Create a contingency table
-contingency_table <- table(mtcars$cyl, mtcars$am)
-print(contingency_table)
-
-# Perform chi-square test
-chi_square_result <- chisq.test(contingency_table)
-print(chi_square_result)
-# 3. Chi-Square Test (For the mtcars dataset)
-# A chi-square test checks if there is a relationship between two categorical variables (e.g., number of cylinders and transmission type).
-
-# Explanation of Results:
-#Summary statistics: Provides an overview of each variable (e.g., mean, median, min, max).
-#Visualizations: Boxplots and scatter plots help visualize the distribution and relationships between variables.
-#T-Test: Tests whether the mean MPG of cars with 4 vs. 6 cylinders differs significantly.
-#Chi-Square Test: Tests whether there's a significant relationship between the number of cylinders and transmission type.
-#This code covers key EDA techniques, a basic t-test, and a chi-square test, making it ideal for an introductory R workshop.
-
-
 # Load necessary libraries
 library(ggplot2)
 library(dplyr)
@@ -183,6 +143,47 @@ ggplot(mtcars, aes(x = as.factor(cyl), y = mpg, fill = as.factor(cyl))) +
 ggplot(mtcars, aes(x = hp, y = mpg)) +
   geom_point() +
   labs(title = "Horsepower vs. MPG", x = "Horsepower", y = "MPG")
+
+
+
+# T-test to compare MPG for cars with 4 and 6 cylinders
+t_test_result <- t.test(mpg ~ as.factor(cyl), data = mtcars[mtcars$cyl %in% c(4, 6), ])
+print(t_test_result)
+# 2. T-Test (For the mtcars dataset)
+#A t-test compares the means of two groups (e.g., cars with 4 cylinders vs. cars with 6 cylinders). The null hypothesis is that the means are equal.
+# Welch Two Sample t-test
+
+#data:  mpg by as.factor(cyl)
+#t = 4.7191, df = 12.956, p-value = 0.0004048
+#alternative hypothesis: true difference in means between group 4 and group 6 is not equal to 0
+#95 percent confidence interval:
+#  3.751376 10.090182
+#sample estimates:
+#  mean in group 4 mean in group 6 
+#26.66364        19.74286 
+# Thus, the test shows that it is likely that mean mpg of 4cyl is different than the mean mpg of 6 cyl
+
+
+# Convert cyl (cylinders) and am (transmission: 0 = automatic, 1 = manual) to factors
+mtcars$cyl <- as.factor(mtcars$cyl)
+mtcars$am <- as.factor(mtcars$am)
+
+# Create a contingency table
+contingency_table <- table(mtcars$cyl, mtcars$am)
+print(contingency_table)
+
+# Perform chi-square test
+chi_square_result <- chisq.test(contingency_table)
+print(chi_square_result)
+# 3. Chi-Square Test (For the mtcars dataset)
+# A chi-square test checks if there is a relationship between two categorical variables (e.g., number of cylinders and transmission type).
+
+# Explanation of Results:
+#Summary statistics: Provides an overview of each variable (e.g., mean, median, min, max).
+#Visualizations: Boxplots and scatter plots help visualize the distribution and relationships between variables.
+#T-Test: Tests whether the mean MPG of cars with 4 vs. 6 cylinders differs significantly.
+#Chi-Square Test: Tests whether there's a significant relationship between the number of cylinders and transmission type.
+#This code covers key EDA techniques, a basic t-test, and a chi-square test, making it ideal for an introductory R workshop.
 
 #########
 
