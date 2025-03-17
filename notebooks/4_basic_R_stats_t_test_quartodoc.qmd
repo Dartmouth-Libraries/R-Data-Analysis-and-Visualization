@@ -6,13 +6,13 @@ editor: visual
 
 # Basic T Test in R 
 
-In the field of Statistics, a "T" test can be used to compare the means of two datasets.
+In the field of Statistics, a "T" test can be used to compare the means of two datasets. Because R was **built as a statistical language**, the [t.test](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/t.test.html ""T" test in R") function in the standard/base-R installation using the [stats](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/00Index.html "stats") package.
 
 ## 1. Data
 
 ### *Load sample data* 
 
-Because R was **built as a statistical language**, the [t.test](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/t.test.html ""T" test in R") function in the standard/base-R installation using the [stats](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/00Index.html "stats") package.
+The [mtcars](https://www.w3schools.com/r/r_stat_data_set.asp "R statistics sample dataset mtcars") dataset is a good one to use here.
 
 ```{r}
 # Load the 'dplyr' library (data pliers) 
