@@ -70,6 +70,36 @@ if (ttest_result$p.val < 0.05){
 
 ```{r}
 
+##### NOTE: copy this out of qmd notebook, paste in to an "R" script for proper display in R studio 
+
+# Load the dataset
+data(mtcars)
+
+# am  (automatic or manual) 
+mtcars$am <- factor(mtcars$am, labels = c("Automatic", "Manual"))
+
+# set up plot area 
+par(mfrow = c(2, 2)) # Adjust rows and columns as needed
+
+# boxplot, miles per gallon (by transmission type auto or manual)
+boxplot(mpg ~ am, data = mtcars, main = "MPG by Transmission Type", 
+        xlab = "Transmission Type", ylab = "Miles per Gallon", 
+        col = c("lightblue", "lightgreen"))
+
+# boxplot for hp (horsepower)
+boxplot(hp ~ am, data = mtcars, main = "Horsepower by Transmission Type", 
+        xlab = "Transmission Type", ylab = "Horsepower", 
+        col = c("lightblue", "lightgreen"))
+
+# boxplot vehicle wt (weight)
+boxplot(wt ~ am, data = mtcars, main = "Weight by Transmission Type", 
+        xlab = "Transmission Type", ylab = "Weight", 
+        col = c("lightblue", "lightgreen"))
+
+# boxplot for track time over 1/4 mile (qsec)
+boxplot(qsec ~ am, data = mtcars, main = "1/4 Mile Time by Transmission Type", 
+        xlab = "Transmission Type", ylab = "1/4 Mile Time", 
+        col = c("lightblue", "lightgreen"))
 ```
 
 Additional links:
