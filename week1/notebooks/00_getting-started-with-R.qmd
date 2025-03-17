@@ -93,7 +93,7 @@ ii. Or for a class on data visualization
 
 # REDO - GOOGLE DRIVE
 
-### 4b. Everyone else: downloading data 
+### 4b. Everyone else: downloading data
 
 1.  Go to [dartgo.org/r-data-viz](https://dartgo.org/r-data-viz). Follow link to download zipped drive.
     1.  alternate option: Visit our repository to download code for this course: <https://github.com/Dartmouth-Libraries/R-Data-Analysis-and-Visualization>.

@@ -1,0 +1,48 @@
+---
+title: "Welcome Statement"
+date: "2025-03-19"
+format: html
+editor: visual
+---
+
+# Welcome
+
+Welcome to our two-day (two-morning) workshop on **Data Analysis and Visualization with R**.
+
+\[introduce instructors\]
+
+This workshop is supported by the Dartmouth Libraries and Research Computing. Together, the Libraries and RC have formed the **Reproducible Research** group, which, among other things, hosts workshops like this. Please monitor our [workshop webpage](https://dartgo.org/RRADworkshops)for future offerings.
+
+During every academic term, we offer roughly 20 - 30 workshops. Most are 1-2 hours and range from in-person to virtual and hybrid offerings.
+
+We also regularly offer more intensive all-day or multi-day workshops at the beginning of intersession (Winter Break, Spring Break, and Summer). These opportunities allow participants to more thoroughly develop new skills in a relaxed environment.
+
+# Goals
+
+Our goal is that by the end of this two-morning workshop you will know how to start and pursue a data analysis project using R. Completing such a project will require additional learning on your part. Yet, we hope by the end of this these two days you will feel far more confident about how to troubleshoot errors, resolve problems, and find help.
+
+## Schedule
+
+Today, we will work our way through 4 lessons: 1) how to get started with R and R studio, 2) how to wrangle data in R; 3) how to create preliminary exploratory visualizations with R, and 4) how to get started with basic statistical analysis in R.
+
+Tomorrow we will take what we have learned today and build on those lessons by 1) continuing our introductory lesson on statistics with R, 2) learning how to customize, modify, and improve our visualizations so that they are ready for publication, and 3) create maps and perform geospatial analysis within R.
+
+# Expectations
+
+With your help, we want to establish a collaborative learning environment. To do so, we encourage:
+
+1.  **PATIENCE**
+    1.  we will be patient with you - we expect everyone to progress at different paces
+    2.  ask for your patience with us
+2.  **COMMUNICATION**
+    1.  let us know if you have any questions or fall behind
+        1.  (Post-it system!)
+    2.  ask that you work with your neighbors, offering or requesting help when needed.
+    3.  also encourage each other
+    4.  always be kind and courteous
+3.  **INCLUSION**
+    1.  use welcoming and inclusive language
+    2.  be respectful of different points of view and experiences (ie. beginner vs. more experienced; technophobes vs. technophiles)
+4.  **COLLABORATION**
+    1.  let's work together
+        1.  we (instructors) are not experts; feel free to share your own ideas and experiences with programming when they may be helpful to the group or to your neighbors
