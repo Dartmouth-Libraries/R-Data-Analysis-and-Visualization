@@ -262,7 +262,7 @@ Plot = Data + Mapping (how data variables are to be visualized)
 Five mapping components:
 
 | Component | Description |
-|----|----|
+|------------------------------------|------------------------------------|
 | layer | includes **geoms** (geometric elements visible in the plot like points, lines, polygons, etc.) and **stats** (statistical transformations that summarize the data, simplifying it for visualization; i.e. binning or counting observations to make a histogram, or fitting a linear model) |
 | scale | maps data values to visual variables like color, shape, and size |
 | coord | describes how data will be placed spatially and what coordinate system will be used |
@@ -310,7 +310,7 @@ ggplot(titanic, aes(x = Class, y = n, fill = Survived)) +
 # Calculate survival rates by Class and Sex
 survival_rates <- titanic_summary %>%
   group_by(Class, Sex) %>%
-  summarize(survival_rate = mean(survival_rate))
+  summarize(survival_rate = mean(survival_rate, na.rm=TRUE))
 
 # Heatmap of survival rates
 ggplot(survival_rates, aes(x = Class, y = Sex, fill = survival_rate)) +
