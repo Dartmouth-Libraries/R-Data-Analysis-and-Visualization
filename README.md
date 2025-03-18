@@ -7,23 +7,32 @@ Jeremy Mikecz, Research Data Services (Dartmouth Libraries)
 
 Steve Gaughan, Research Data Services (Dartmouth Libraries)
 
-## Materials to develop (Spring 2025)
+## Schedule (Spring 2025)
 
-***Tentative Name of Lesson** (type of materials - main R libraries)*
+***Name of Lesson** (type of materials - main R libraries)*
 
-1. **Intro to R / R Studio** (tutorial - base R)
+### Day 1
 
-2. **Intro to Data Wrangling with tidyverse / dplyr** (notebooks - tidyverse / dplyr)
+**Welcome** (see )
 
-3. **Exploratory Data Visualization** (notebooks - ggplot)
+1. **Intro to R / R Studio** (tutorial, see [notebook 00](notebooks/00_getting-started-with-R.qmd) - R Studio + base R)
 
-4. **Summary and Descriptive Statistics** (notebooks - ?)\
+2. **Intro to Data Wrangling with tidyverse / dplyr** (notebooks [01](notebooks/01_get_summary_data.qmd)-[02](notebooks/02_intro_to_tidyverse2.qmd) - tidyverse / dplyr)
 
-5. **Mind the Gap: Creating Custom Visualizations** (notebooks - ggplot and plotly)
+3. **Exploratory Data Visualization** (notebooks [03a](notebooks/03a_intro-to-ggplot_mammal-sleep.qmd), [03b](notebooks/03b_intro-to-ggplot_titanic.qmd), and [03c](notebooks/03c_ggplot-weatherdata.qmd) - ggplot)
 
-6. **Statistics** (notebooks - ?)
+4. **Intro to Stats with R, Part 1** ([notebook 04](notebooks/4_basic_R_stats_t_test_quartodoc.qmd) - dplyr)
 
-    + also point to resources like Swirlstats
+5. **Takeaways & Questions**
 
-7. **Mapping and Geospatial Analysis** (notebooks - geopandas? + ?)
+### Day 2
+
+5. **Intro to Stats with R, Part 2** ([notebook 5](notebooks/5_r_swirl_stats_demo_quarto.qmd) - dplyr, tidyr, swirl)
+    + Swirlstats demo
+
+6. **Mind the Gap: Creating Custom Visualizations** (notebooks [06a](notebooks/06a_gapminder_viz.qmd)-[06b](notebooks/06b_gapminder_interactive-viz.qmd) - ggplot and plotly)
+
+7. **Geospatial Analysis and Mapping** ([notebook 8](notebooks/8_spatial_data_science_and_analysis_quartodoc.qmd) - many)
+
+8. **Next Steps, Takeaways, & Feedback**
 
