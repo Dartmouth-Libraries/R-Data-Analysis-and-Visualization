@@ -30,7 +30,7 @@ For a more detailed introduction to working with tidy data in R see:
 
 -   Silge and Robinson, [Text Mining with R](https://www.tidytextmining.com/), Ch. 1 "The tidy text format".
 
-## *Optional*: Working with Virtual Environments
+## *0. Optional*: Working with Virtual Environments
 
 If you are using R for a variety of different projects, you may risk encountering dependency conflicts. These occur when you may need Package *A* for a text analysis project and that package requires version 1.0 of Package *B*, while Package *C* for a machine-learning projects requires version 2.0 of Package *B*.
 
@@ -50,7 +50,7 @@ To set up a local virtual environment with packrat:\\
 #packrat::on
 ```
 
-## Getting Started with Tidyverse
+## 1. Getting Started with Tidyverse
 
 Data analysis usually involves working with two-dimensional datasets known as dataframes. There are different ways to work with dataframes in R, these include:
 
@@ -88,7 +88,7 @@ library(tidyverse)
 tidyverse_packages()
 ```
 
-## Combine functions into a pipe
+## 2. Combine functions into a pipe
 
 Using the symbol `|>` we can chain multiple functions together.
 
@@ -154,7 +154,7 @@ starwars |>
 ```         
 ```
 
-## Tidy Data
+## 3. Tidy Data & Tibbles
 
 From the [Tidyverse cookbook](https://rstudio-education.github.io/tidyverse-cookbook/tidy.html):
 
@@ -176,7 +176,7 @@ The definition of Tidy Data isn't complete until you define variable and observa
 
 As you work with data, you will be surprised to realize that what is a variable (or observation) will depend less on the data itself and more on what you are trying to do with it. With enough mental flexibility, you can consider anything to be a variable. However, some variables will be more useful than others for any specific task. In general, if you can formulate your task as an equation (math or code that contains an equals sign), the most useful variables will be the names in the equation.
 
-### Create a tibble from scratch
+### 3a. Create a tibble from scratch
 
 Rarely will you ever create a dataframe or tibble from scratch except to create small practice datasets.
 
@@ -216,14 +216,22 @@ tibble(name = c("Charles", "Mabel", "Oliver", "Howard", "Bunny"),
        )
 ```
 
-## Dataframes vs. tibbles
+### 3b. preloaded datasets
+
+We have already used the preloaded `starwars` dataset. But is it a tibble, a dataframe, or something else?
+
+```{r}
+class(starwars)
+```
+
+### 3c. Dataframes vs. tibbles
 
 ```{r}
 df <- read.csv("../data/census1970.csv") 
 
 ```
 
-### Convert a dataframe into a tibble
+#### Convert a dataframe into a tibble
 
 ```{r}
 head(df)
@@ -234,7 +242,7 @@ head(df)
 df2tib <- as_tibble(df)
 ```
 
-## 3. Tidyverse / dplyr verbs for Data Wrangling
+## 4. Tidyverse / dplyr verbs for Data Wrangling
 
 To modify and "wrangle" datasets, the tidyverse commonly uses the following verbs / functions:
 
@@ -260,22 +268,23 @@ To modify and "wrangle" datasets, the tidyverse commonly uses the following verb
 
 [More tidyverse verbs and functions here](https://dplyr.tidyverse.org/reference/index.html).
 
-# Common Data Science Operations in Tidyverse
+### 4a. Common Data Science Operations in Tidyverse
 
 +------------------------------------+------------------------------------------+----------------------------+---------------------------------+
 | Task                               | Python - Pandas                          | Base R                     | Tidyverse (R)                   |
 +====================================+==========================================+============================+=================================+
-| **Sort table by column**           | df.sort_values('col')                    | sort(df\$col)              | df %\>%                         |
-|                                    |                                          |                            |                                 |
-|                                    |                                          |                            | arrange(col)                    |
+| **Sort table by column**           | df.sort_values('col')                    | sort(df\$col)              | ```                             |
+|                                    |                                          |                            | df %>%                          |
+|                                    |                                          |                            |     arrange(col)                |
+|                                    |                                          |                            | ```                             |
 +------------------------------------+------------------------------------------+----------------------------+---------------------------------+
 | **Filter rows**                    | df.loc\[df\['col'\]\>0,:\]               | df\[df\[col\] \> 0, \]     | df %\>%                         |
 |                                    |                                          |                            |                                 |
 |                                    |                                          |                            | filter(col \> 0)                |
 +------------------------------------+------------------------------------------+----------------------------+---------------------------------+
-| **Subset columns**                 |                                          |                            | df %\>%                         |
+| **Subset columns**                 | df\[\[col\]\] or                         | df\$col                    | df %\>%                         |
 |                                    |                                          |                            |                                 |
-|                                    |                                          |                            | select(col)                     |
+|                                    | df.loc\[:, col\]                         |                            | select(col)                     |
 +------------------------------------+------------------------------------------+----------------------------+---------------------------------+
 | **Create a new column**            | df.loc\[:, "square"\] = df\[col\] \*\* 2 | df\$square = df\[col\] \^2 | df %\>%                         |
 |                                    |                                          |                            |                                 |
@@ -298,21 +307,21 @@ To modify and "wrangle" datasets, the tidyverse commonly uses the following verb
 | **Reshape data from wide to long** | *pd.wide_to_long()*                      | *melt()*                   | *use pivot_longer()*            |
 +------------------------------------+------------------------------------------+----------------------------+---------------------------------+
 
-## Sort Table (tibble)
+### 4b. ARRANGE: Sorting
 
 ```{r}
 starwars |>
   arrange(homeworld)  #descending order: arrange(desc(homeworld))
 ```
 
-## Filter Table
+### 4c. FILTER (rows)
 
 ```{r}
 starwars |>
   filter(species=="Droid")
 ```
 
-## Subset Tibble by Column Names
+### 4d. SELECT: Subset (columns)
 
 ```{r}
 starwars |>
@@ -320,7 +329,7 @@ starwars |>
 
 ```
 
-### For a range of columns
+#### For a range of columns
 
 ```{r}
 starwars |>
@@ -328,18 +337,57 @@ starwars |>
 
 ```
 
-### Rename columns
+### 4e. RENAME columns
 
 ```{r}
 starwars |>
   rename(character = name, planet = homeworld)
 ```
 
+### 4f. MUTATE: create new columns
+
 ```{r}
-starwars$vehicles[1]
+head(starwars)
 ```
 
-## Split-Apply-Combine
+```{r}
+starwars |>
+    mutate(taller_than122cm = ifelse(height > 122, TRUE, FALSE))
+```
+
+```{r}
+"A New Hope" %in% starwars$films[[1]]
+```
+
+```{r}
+starwars$films[12]
+```
+
+```{r}
+starwars |>
+    mutate(in_new_hope = map_lgl(films, ~"A New Hope" %in% .x)) |>
+    filter(in_new_hope == TRUE)
+```
+
+::: tip
+### Exercise
+
+Using what you learned above:
+
+1.  Subset the Star Wars dataset, keeping only characters' name, homeworld, and species.
+2.  Sort the dataset by species.
+3.  Then, create a new column that identifies whether the character is an organic lifeform or not.
+:::
+
+```{r}
+
+
+
+```
+
+## 5. Split-Apply-Combine
+
+A very common data science technique is to split a dataset into groups, perform some action on each of those groups, and then combine the results from each group into one new dataset. For example, we can use this technique to calculate the average height of Star Wars characters by species using the **group_by()** and **summarise()** functions.
 
 ```{r}
 starwars |>
@@ -359,9 +407,16 @@ starwars |>
   arrange(avg_height) 
 ```
 
-```{r}
+::: tip
+### Exercise
 
-```
+Using the split-apply-combine technique and other methods learned above, do at least one of the following:
+
+1.  Identify the most common species for each planet.
+2.  Identify the most common eye color for each species.
+3.  Identify the average and maximum age (so two columns) for each species.
+4.  answer a similar question of your own
+:::
 
 ```{r}
 
