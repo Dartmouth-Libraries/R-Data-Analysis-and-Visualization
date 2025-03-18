@@ -93,6 +93,8 @@ The "gg" in ggplot stands for Grammar of Graphics. GGplot was developed by Hadle
 
 ## 1. Importing Data (preloaded datasets)
 
+### 1.1 The Mammals Sleep dataset
+
 When conducting your own research, you will likely need to import your dataset into R and R Studio. Instructions for doing so are available in [Wickham, *R for Data Science*, Ch. 11](https://r4ds.had.co.nz/data-import.html).
 
 However, when you are learning R, it is often easiest to experiment with their preloaded datasets. Fortunately, with the installation of the **tidyverse packages** we have access to dozens of "play" datasets. Let's take a quick look at what is available using the `data()` function:
@@ -104,7 +106,7 @@ data()
 For this lesson we will use the **msleep** dataset, which contains data about the sleep times and weights of various mammal species.
 
 ::: callout-tip
-## Exercise 1.
+## Exercise 1.1
 
 *Before we begin, do you have a particular hypothesis about what types of animals sleep the most?*
 :::
@@ -112,6 +114,8 @@ For this lesson we will use the **msleep** dataset, which contains data about th
 ```         
 # hypothesis:
 ```
+
+### 1.2 Exploring the Mammals Sleep dataset
 
 We can begin by simply opening the **msleep dataset** by typing `msleep`. However, let's first examine the available metadata for the dataset using the `help()` function:
 
@@ -136,49 +140,14 @@ msleep
 
 How many species (rows) are included in this dataset? How many data fields / variables (columns) for each?
 
-## 2. Exploring a Dataset before visualization (with summary functions)
-
-In R, we can run some basic functions to get a quick overview of a dataset. Run the following functions, analyzing what each does and what you can (and cannot) learn from each.
+We can answer some of these questions using the basic summary functions introduced in notebook 01:
 
 ```         
-head(dataset_name)
-class(dataset_name)
-dim(dataset_name)
-colnames(dataset_name)
-str(dataset_name)
-summary(dataset_name)
+head(dataset_name) class(dataset_name) dim(dataset_name) colnames(dataset_name) str(dataset_name) summary(dataset_name)
 ```
-
-```{r}
-head(msleep)   # try "head(msleep, 3)" to see what that does differently
-```
-
-```{r}
-class(msleep)
-```
-
-```{r}
-dim(msleep)
-```
-
-```{r}
-colnames(msleep)
-```
-
-```{r}
-str(msleep)
-```
-
-```{r}
-summary(msleep)
-```
-
-### 2.1 Numerical Data
-
-One of the most useful ways to get summary data from a dataframe (or, in this case, a dplyr/tidyverse version of a dataframe known as a "tibble" - see *Intro to Tidyverse* notebook) is with the **summary() function**. Look at the results from the use of this function above. Then try to answer the following questions:
 
 ::: callout-tip
-## Exercise 2.1
+## Exercise 1.2
 
 1.  What are the two main data types stored in this dataset?
 
@@ -187,7 +156,7 @@ One of the most useful ways to get summary data from a dataframe (or, in this ca
 3.  Which columns have missing values ("NA's")? How many rows are missing data for these fields?
 :::
 
-### 2.2 Categorical Data
+### 1.3 Categorical Data
 
 You may have noticed that while the **summary()** function returns valuable information for the columns with numerical data, it does not provide any information about the columns containing "character" data (in this case, also known as categorical data). From the **head()** and **str()** functions above, we do have an idea of some of the values found in each column. However, it would be valuable to know how many unique categories are found in these columns and how frequently they appear.
 
@@ -244,7 +213,7 @@ According to the documentation retrieved by `help(msleep)` we know that conserva
 :::
 
 ::: callout-tip
-### Exercise 2.2.
+### Exercise 1.3.
 
 Try applying these same summary functions to a different preloaded dataset to better understand the data it contains.
 :::
@@ -255,37 +224,11 @@ Try applying these same summary functions to a different preloaded dataset to be
 
 ```
 
-## 3. Tidyverse / dplyr verbs for Data Wrangling
-
-To modify and "wrangle" datasets, the tidyverse commonly uses the following verbs / functions:
-
--   **select()**: to select specific columns by their names or data types
-
--   **arrange()**: to order rows by one or more columns
-
--   **rename()**: to rename columns
-
--   **mutate()**: to create columns
-
--   **filter()**: to filter out rows by a given condition
-
--   **distinct()**: to keep only distinct / unique rows
-
--   **gather()**: to make "wide" data longer
-
--   **spread()**: to make "long" data wider
-
--   **separate()**: to split a single column into multiple columns
-
--   **unite()**: to combine multiple columns into one
-
-[More tidyverse verbs and functions here](https://dplyr.tidyverse.org/reference/index.html). Review the *Intro to Tidyverse* notebook for practice using some of these functions.
-
-## 4. Visualizing Data Distributions
+## 2. Visualizing Data Distributions
 
 The package we will be using to visualize data in R is the popular `ggplot2` package, which has already been installed here as part of the **tidyverse** packages.
 
-### 4.1. Grammar of Graphics
+### 2.1. Grammar of Graphics
 
 **What is the "Grammar of Graphics"?**
 
@@ -296,14 +239,14 @@ Plot = Data + Mapping (how data variables are to be visualized)
 Five mapping components:
 
 | Component | Description |
-|----|----|
+|------------------------------------|------------------------------------|
 | layer | includes **geoms** (geometric elements visible in the plot like points, lines, polygons, etc.) and **stats** (statistical transformations that summarize the data, simplifying it for visualization; i.e. binning or counting observations to make a histogram, or fitting a linear model) |
 | scale | maps data values to visual variables like color, shape, and size |
 | coord | describes how data will be placed spatially and what coordinate system will be used |
 | facet | describes how to split data and display it in "small multiples" |
 | theme | control stylistic choices such as font size and color palettes |
 
-### 4.2. Histograms - Numerical Data
+### 2.2. Histograms - Numerical Data
 
 Histograms are useful for visualizing the distribution of numerical data for a particular variable.
 
@@ -339,7 +282,7 @@ ggplot(data=msleep, aes(x = sleep_total)) +
 ```
 
 ::: callout-tip
-### Exercise 4.2
+### Exercise 2.2
 
 Choose another data field or column containing numerical data besides total sleep. Create a histogram for this field.
 :::
@@ -349,7 +292,7 @@ Choose another data field or column containing numerical data besides total slee
 
 ```
 
-### 4.3. Bar Plots - Categorical Data
+### 2.3. Bar Plots - Categorical Data
 
 A histogram is a type of bar plot designed to show the distribution of numerical data by placing this data into "bins" covering a particular range of numerical values.
 
@@ -394,7 +337,7 @@ ggplot(msleep, aes(x=order, fill=conservation)) +
 ```
 
 ::: callout-tip
-### Exercise 4.3.
+### Exercise 2.3.
 
 1.  Try modifying one of the above bar graphs, transforming the bars from vertical to horizontal.
 2.  Create a bar plot for a different data column / field not included above.
@@ -406,9 +349,9 @@ ggplot(msleep, aes(x=order, fill=conservation)) +
 
 ```
 
-## 5. Other Ways to Visualize Distribution
+## 3. Other Ways to Visualize Distribution
 
-### 5.1. Boxplots
+### 3.1. Boxplots
 
 \![box plot diagram](https://r-graph-gallery.com/img/other/boxplot_explanation.png)
 
@@ -439,7 +382,7 @@ ggplot(msleep, aes(x=sleep_total, y=fct_rev(order), fill=order, alpha=0.6))+
 ```
 
 ::: callout-note
-### Exercise 5.1
+### Exercise 3.1
 
 Create a box plot, ridge plot, or other plot to further explore the distribution of data in one or more columns of the dataset. Choose columns not inspected above.
 :::
@@ -449,7 +392,7 @@ Create a box plot, ridge plot, or other plot to further explore the distribution
 
 ```
 
-## 5.2. Relationships - Scatter Plots
+## 3.2. Relationships - Scatter Plots
 
 This dataset seems to be especially suited to examining relationships in the animal world. More specifically: what types of animals (by genus, order, size, diet) sleep the most / least? What is the relationship between length of sleep cycles and Rem sleep to total daily sleep?
 
@@ -516,7 +459,7 @@ ggplot(msleep, aes(x=sleep_total, y=bodywt, color=vore)) +
 ```
 
 ::: callout-tip
-### Exercise 5.2: Create your own scatter plot
+### Exercise 3.2: Create your own scatter plot
 
 Think about which data variables you would like to plot and what visual variables (spatial location, color, size, shape, etc.) you could use to represent these data variables. Then create your own scatter plot visualizing the relationship between these variables.
 :::
@@ -527,9 +470,9 @@ Think about which data variables you would like to plot and what visual variable
 
 ```
 
-## 6. More Complex Plots for Exploratory Data Visualization
+## 4. More Complex Plots for Exploratory Data Visualization
 
-### 6.1. [Scatterplot Matrix](https://r-graph-gallery.com/199-correlation-matrix-with-ggally.html)
+### 4.1. [Scatterplot Matrix](https://r-graph-gallery.com/199-correlation-matrix-with-ggally.html)
 
 ```{r}
 install.packages("GGally")
@@ -541,7 +484,7 @@ ggpairs(msleep, columns=6:11, ggplot2::aes(color=vore))
 ```
 
 ::: callout-tip
-## For Continued Practice
+## 4. 1 Exercise - For Continued Practice
 
 1.  Create a new notebook. Choose another preloaded dataset. Explore the data within using the methods introduced here.
 :::
