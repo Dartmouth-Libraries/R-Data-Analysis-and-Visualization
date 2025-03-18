@@ -1,0 +1,71 @@
+---
+title: "GGPlot with Weather Data"
+author: "Jeremy Mikecz"
+format: html
+editor: visual
+---
+
+## 
+
+```{r}
+library(tidyverse)
+```
+
+```{r}
+year_avgs <- read.csv("../data/Hanover_temp-yearaverages.csv", row.names=1)
+
+tail(year_avgs)
+```
+
+```{r}
+ggplot() +
+    geom_line(data=year_avgs |> filter (type=="maxtemp" & Year < 2024), aes(x=Year, y=T_yravg), color="red") +
+    geom_line(data=year_avgs |> filter (type=="mintemp" & Year < 2024), aes(x=Year, y=T_yravg))
+```
+
+```{r}
+year_avgs_wide <- year_avgs |>
+    pivot_wider(names_from = type, values_from = T_yravg)
+```
+
+```{r}
+#install.packages("zoo")
+library(zoo)
+```
+
+```{r}
+ggplot(year_avgs_wide |> filter(Year<2025), aes(x=Year)) +
+    geom_line(aes(y=maxtemp), color="red") + 
+    geom_line(aes(y=rollmean(maxtemp, 10, na.pad=TRUE)), linetype="dashed") +
+    geom_line(aes(y=mintemp), color="blue")+
+    geom_line(aes(y=rollmean(mintemp, 10, na.pad=TRUE)), linetype="dashed")
+```
+
+```{r}
+temps <- read.csv("../data/Hanover-temps21c_w-daynums.csv")
+```
+
+```{r}
+head(temps)
+```
+
+```{r}
+colnames(temps)
+```
+
+```{r}
+library(viridis)
+ggplot(temps |> filter(Year == 2022), aes(x=daynum, y=maxdiff20c, fill=maxdiff20c)) +
+    geom_bar(stat="identity") +
+    scale_fill_viridis(option = "plasma")
+    #scale_fill_gradient(low = "blue", high = "red")
+
+```
+
+```{r fig.width=14, fig.height = 60}
+#options(repr.plot.width=30, repr.plot.height=50)
+ggplot(temps |> filter(Year>2015), aes(x=daynum, y=maxdiff20c, fill=maxdiff20c)) +
+    geom_bar(stat="identity") +
+    facet_wrap(~Year, ncol=1) +
+    scale_fill_viridis(option = "plasma")
+```
