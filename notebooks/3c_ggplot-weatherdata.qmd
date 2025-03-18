@@ -12,7 +12,7 @@ library(tidyverse)
 ```
 
 ```{r}
-temps <- read.csv("../data/Hanover_temps2.csv")
+temps <- read.csv("../data/Hanover-temps21c_w-daynums.csv")
 ```
 
 ```{r}
@@ -20,13 +20,12 @@ head(temps)
 ```
 
 ```{r}
-temps21c <- temps |>
-    filter(Year >= 2000)
+
 ```
 
 ```{r}
-ggplot(temps21c, aes(y=max_diff20c_avg)) +
-    geom_bar()
+ggplot(temps |> filter(Year == 2022), aes(x=daynum, y=max_diff20c_avg)) +
+    geom_bar(stat="identity", )
 
 ```
 
