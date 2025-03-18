@@ -3,6 +3,7 @@ old/
 others_notebooks/
 packrat/
 sites/
+teacher*
 
 # additional files to ignore
 *.Rproj

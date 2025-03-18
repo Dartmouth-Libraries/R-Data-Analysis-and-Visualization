@@ -79,7 +79,7 @@ We do not need to install or import ggplot because it is include with tidyverse.
 
 ### 0.3. Grammar of Graphics
 
-The "gg" in ggplot stands for Grammar of Graphics. GGplot was developed by Hadley Wickham following the Grammar of Graphics model, which.... **\[explain more\]**
+The "gg" in ggplot stands for Grammar of Graphics. GGplot was developed by Hadley Wickham following the Grammar of Graphics model proposed by Leland Wilkinson. The grammar of graphics reduces complex plots to their simplest visual components, thus allowing a user to customize each of these components. This is in contrast to many software applications that begin with a chart type (i.e. a line or bar plot), restricting the ability of the user to customize these plots (or to develop new plot types). Instead, the grammar of graphics is intended to make customization easier while also allowing the user to iteratively update one feature of a plot at a time.
 
 -   CU-Boulder Coursera course video on [Grammar of Graphics](https://www.youtube.com/watch?v=RCaFBJWXfZc)
 
@@ -156,7 +156,7 @@ head(dataset_name) class(dataset_name) dim(dataset_name) colnames(dataset_name) 
 3.  Which columns have missing values ("NA's")? How many rows are missing data for these fields?
 :::
 
-### 1.3 Categorical Data
+### 1.3 Exploring Categorical Data
 
 You may have noticed that while the **summary()** function returns valuable information for the columns with numerical data, it does not provide any information about the columns containing "character" data (in this case, also known as categorical data). From the **head()** and **str()** functions above, we do have an idea of some of the values found in each column. However, it would be valuable to know how many unique categories are found in these columns and how frequently they appear.
 
@@ -193,10 +193,6 @@ The dataset did not come with a dictionary defining these abbreviations. However
 
 According to the documentation retrieved by `help(msleep)` we know that conservation status was a field added to the original msleep dataset from Wikipedia. An online search reveals this field is using 9 categories established by the International Union for Conservation of Nature (IUCN) for threatened species:
 
--   not evaluated (not included here?)
-
--   data deficient (not included here?)
-
 -   least concern ("lc")
 
 -   near threatened ("nt")
@@ -210,6 +206,10 @@ According to the documentation retrieved by `help(msleep)` we know that conserva
 -   extinct in the wild (?)
 
 -   extinct (?)
+
+-   not evaluated (not included here?)
+
+-   data deficient (not included here?)
 :::
 
 ::: callout-tip
@@ -239,7 +239,7 @@ Plot = Data + Mapping (how data variables are to be visualized)
 Five mapping components:
 
 | Component | Description |
-|----|----|
+|------------------------------------|------------------------------------|
 | layer | includes **geoms** (geometric elements visible in the plot like points, lines, polygons, etc.) and **stats** (statistical transformations that summarize the data, simplifying it for visualization; i.e. binning or counting observations to make a histogram, or fitting a linear model) |
 | scale | maps data values to visual variables like color, shape, and size |
 | coord | describes how data will be placed spatially and what coordinate system will be used |
@@ -337,7 +337,7 @@ ggplot(msleep, aes(x=order, fill=conservation)) +
 ```
 
 ::: callout-tip
-### Exercise 2.3.
+### Exercise Bar Plots 2.3.
 
 1.  Try modifying one of the above bar graphs, transforming the bars from vertical to horizontal.
 2.  Create a bar plot for a different data column / field not included above.

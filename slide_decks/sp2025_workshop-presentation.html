@@ -30,6 +30,71 @@
       margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
       vertical-align: middle;
     }
+    /* CSS for syntax highlighting */
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #f8f8f2;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #f8f8f2; } /* Normal */
+    code span.al { color: #f07178; background-color: #2a0f15; font-weight: bold; } /* Alert */
+    code span.an { color: #d4d0ab; } /* Annotation */
+    code span.at { color: #00e0e0; } /* Attribute */
+    code span.bn { color: #d4d0ab; } /* BaseN */
+    code span.bu { color: #abe338; } /* BuiltIn */
+    code span.cf { color: #ffa07a; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #abe338; } /* Char */
+    code span.cn { color: #ffd700; } /* Constant */
+    code span.co { color: #f8f8f2; font-style: italic; } /* Comment */
+    code span.cv { color: #ffd700; } /* CommentVar */
+    code span.do { color: #f8f8f2; } /* Documentation */
+    code span.dt { color: #ffa07a; } /* DataType */
+    code span.dv { color: #d4d0ab; } /* DecVal */
+    code span.er { color: #f07178; text-decoration: underline; } /* Error */
+    code span.ex { color: #00e0e0; font-weight: bold; } /* Extension */
+    code span.fl { color: #d4d0ab; } /* Float */
+    code span.fu { color: #ffa07a; } /* Function */
+    code span.im { color: #abe338; } /* Import */
+    code span.in { color: #d4d0ab; } /* Information */
+    code span.kw { color: #ffa07a; font-weight: bold; } /* Keyword */
+    code span.op { color: #ffa07a; } /* Operator */
+    code span.ot { color: #00e0e0; } /* Other */
+    code span.pp { color: #dcc6e0; } /* Preprocessor */
+    code span.re { color: #00e0e0; background-color: #f8f8f2; } /* RegionMarker */
+    code span.sc { color: #abe338; } /* SpecialChar */
+    code span.ss { color: #abe338; } /* SpecialString */
+    code span.st { color: #abe338; } /* String */
+    code span.va { color: #00e0e0; } /* Variable */
+    code span.vs { color: #abe338; } /* VerbatimString */
+    code span.wa { color: #dcc6e0; } /* Warning */
   </style>
   <link rel="stylesheet" href="sp2025_workshop-presentation_files/libs/revealjs/dist/theme/quarto.css">
   <link href="sp2025_workshop-presentation_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -360,10 +425,10 @@ Dartmouth Libraries</p>
 <section id="this-workshop" class="slide level2">
 <h2>This Workshop</h2>
 <ul>
-<li><p>Download the workshop materials here</p></li>
+<li><p>Download the workshop materials at <a href="https://dartgo.org/r-data-viz">dartgo.org/r-data-viz</a>.</p></li>
 <li><p>materials also available on <a href="https://github.com/Dartmouth-Libraries/R-Data-Analysis-and-Visualization">our Github repository</a></p></li>
 </ul>
-<p>For additional help or research consultation, you can reach out to ResearchDataHelp@groups.dartmouth.edu, contact Jeremy &amp; Steve by email, or schedule appoints with us at: <a href="https:dartgo.org/jeremy">dartgo.org/jeremy</a> and <a href="https://dartgo.org/steve">dartgo.org/steve</a></p>
+<p>For additional help or research consultation, you can reach out to ResearchDataHelp@groups.dartmouth.edu, contact Jeremy &amp; Steve by email, or schedule appointments with us at: <a href="https:dartgo.org/jeremy">dartgo.org/jeremy</a> and <a href="https://dartgo.org/steve">dartgo.org/steve</a></p>
 </section>
 <section id="goals" class="slide level2">
 <h2>Goals</h2>
@@ -401,6 +466,169 @@ Dartmouth Libraries</p>
 <h1>Lesson 2: Intro to Data Wrangling (tidyverse / dplyr)</h1>
 
 </section>
+<section id="types-of-2d-data-in-r" class="slide level2">
+<h2>Types of 2d data in R</h2>
+<ul>
+<li><p><strong>dataframes (core R)</strong>: columns with column names; rows with indexes</p></li>
+<li><p><strong>tibbles (tidyverse)</strong>: a type of dataframe used with the tidyverse collection of packages</p></li>
+<li><p><strong>data.table</strong>: optimized for speed with large datasets</p></li>
+</ul>
+<p>In these lessons, we will work with <a href="https://www.tidyverse.org/">tidyverse</a> a collection of packages designed for data science. Tidyverse works with <strong>tibbles</strong>, a customized and newer form of dataframes.</p>
+</section>
+<section id="tidyverse-piping" class="slide level2">
+<h2>Tidyverse: Piping</h2>
+<p>Using the symbol <code>|&gt;</code> we can chain multiple functions together.</p>
+<p>Each new function in the pipeline operates on the results produced by the previous function.</p>
+</section>
+<section class="slide level2">
+
+<p>Chaining functions together in a pipe like this:</p>
+<pre><code>starwars |&gt;   
+    group_by(species) |&gt;   
+    summarise(avg_height = mean(height, na.rm = TRUE)) |&gt;   
+    arrange(avg_height)</code></pre>
+<p>vs.</p>
+<pre><code>arrange(
+  summarise(
+    group_by(starwars, species), 
+    avg_height = mean(height, na.rm = TRUE)
+  ), 
+  avg_height
+)</code></pre>
+<p>```</p>
+<p>or calling each function in order:</p>
+<pre><code>x1 &lt;- starwars 
+x2 &lt;- group_by(x1, species)
+x3 &lt;- summarise(x3, avg_height = mean(height, na.rm = TRUE))
+arrange(x3, avg_height)</code></pre>
+</section>
+<section id="tidy-data" class="slide level2">
+<h2>Tidy Data</h2>
+<p>Data tidying is an important first step for your analysis because every tidyverse function will expect your data to be stored as <strong>Tidy Data</strong>.</p>
+<p>Tidy data is tabular data organized so that:</p>
+<ol type="1">
+<li><p>Each column contains a single variable</p></li>
+<li><p>Each row contains a single observation</p></li>
+</ol>
+</section>
+<section id="untidy-data" class="slide level2">
+<h2>Untidy data</h2>
+<table class="caption-top" style="width:100%;">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 10%">
+<col style="width: 10%">
+<col style="width: 18%">
+<col style="width: 18%">
+<col style="width: 11%">
+<col style="width: 11%">
+<col style="width: 11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>id</th>
+<th>name</th>
+<th>class</th>
+<th>sex_and_age</th>
+<th>test_number</th>
+<th>term_1</th>
+<th>term_2</th>
+<th>term_3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Mike</td>
+<td>B</td>
+<td>M_12</td>
+<td>1</td>
+<td>76</td>
+<td>84</td>
+<td>87</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Linda</td>
+<td>C</td>
+<td>F_13</td>
+<td>1</td>
+<td>88</td>
+<td>90</td>
+<td>93</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Sam</td>
+<td>B</td>
+<td>M_11</td>
+<td>1</td>
+<td>68</td>
+<td>75</td>
+<td>74</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>Mike</td>
+<td>B</td>
+<td>M_12</td>
+<td>2</td>
+<td>85</td>
+<td>80</td>
+<td>83</td>
+</tr>
+</tbody>
+</table>
+<aside class="notes">
+<ul>
+<li><p>Some column headers are values, not variable names.</p></li>
+<li><p>Multiple variables are stored in one column</p></li>
+<li><p>Variables are stored in both rows and columns</p></li>
+<li><p>Multiple types of observational units are stored in the same table (should have one student table - with student metadata and one test table with just one test each)</p></li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="more-untidy-data" class="slide level2">
+<h2>more untidy data</h2>
+<pre><code>#&gt; # A tibble: 3 x 3
+#&gt;   country         `1999`     `2000`
+#&gt; * &lt;chr&gt;            &lt;int&gt;      &lt;int&gt;
+#&gt; 1 Afghanistan   19987071   20595360
+#&gt; 2 Brazil       172006362  174504898
+#&gt; 3 China       1272915272 1280428583</code></pre>
+</section>
+<section id="tidy-data-1" class="slide level2">
+<h2>tidy data</h2>
+<pre><code>#&gt; # A tibble: 6 x 3
+#&gt;   country     year  population
+#&gt;   &lt;chr&gt;       &lt;chr&gt;      &lt;int&gt;
+#&gt; 1 Afghanistan 1999    19987071
+#&gt; 2 Afghanistan 2000    20595360
+#&gt; 3 Brazil      1999   172006362
+#&gt; 4 Brazil      2000   174504898
+#&gt; 5 China       1999  1272915272
+#&gt; 6 China       2000  1280428583</code></pre>
+<p>For more on tidy data see <a href="https://r4ds.had.co.nz/tidy-data.html">Chapter 12 Tidy Data</a> in <em>R for Data Science.</em></p>
+<h3 id="create-a-tibble-from-scratch">Create a tibble from scratch</h3>
+<p>Rarely will you ever create a dataframe or tibble from scratch except to create small practice datasets.</p>
+<p>Here, we create a small practice dataset about the popular murder mystery TV show, <a href="https://www.imdb.com/title/tt11691774/"><em>Only Murders in the Building</em></a></p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource {r} omitb <- tribble(~name, ~occupation, ~apartment, ~is_suspect, ~is_dead, &quot;Charles&quot;, &quot;washed-up actor&quot;, &quot;14C&quot;, &quot;no&quot;, &quot;no&quot;,} number-lines code-with-copy"><code class="sourceCode"><span id="cb6-1"><a href=""></a>        "Mabel", "unemployed never-was", "12E", "maybe", "no",</span>
+<span id="cb6-2"><a href=""></a>        "Oliver", "theater director", "10D", "no", "no",</span>
+<span id="cb6-3"><a href=""></a>        "Howard", "childless cat guy", "3D", "yes", "no",</span>
+<span id="cb6-4"><a href=""></a>        "Bunny", "petty despot", "12A", "no", "maybe" ) </span>
+<span id="cb6-5"><a href=""></a></span>
+<span id="cb6-6"><a href=""></a>omitb</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
 <section id="dplyr-tidyverse-verbs-for-data-wrangling" class="slide level2 scrollable">
 <h2>dplyr / tidyverse verbs for data wrangling</h2>
 <p>To modify and “wrangle” datasets, the tidyverse commonly uses the following verbs / functions:</p>
@@ -417,11 +645,37 @@ Dartmouth Libraries</p>
 <li><p><strong>unite()</strong>: to combine multiple columns into one</p></li>
 </ul>
 <p><a href="https://dplyr.tidyverse.org/reference/index.html">More tidyverse verbs and functions here</a>.</p>
+<section id="exercise---tidyverse-verbs" class="tip">
+<h3>Exercise - Tidyverse Verbs</h3>
+<p>Using what you learned above:</p>
+<ol type="1">
+<li>Subset the Star Wars dataset, keeping only characters’ name, homeworld, and species.</li>
+<li>Sort the dataset by species.</li>
+<li>Then, create a new column that identifies whether the character is an organic lifeform or not.</li>
+</ol>
+</section>
+<section id="exercise---split-apply-combine" class="tip">
+<h3>Exercise - Split-Apply-Combine</h3>
+<p>Using the split-apply-combine technique and other methods learned above, do at least one of the following:</p>
+<ol type="1">
+<li>Identify the most common species for each planet.</li>
+<li>Identify the most common eye color for each species.</li>
+<li>Identify the average and maximum age (so two columns) for each species.</li>
+<li>answer a similar question of your own</li>
+</ol>
+</section>
 </section></section>
 <section>
 <section id="lesson-3-exploratory-data-visualization-ggplot" class="title-slide slide level1 center">
 <h1>Lesson 3: Exploratory Data Visualization (ggplot)</h1>
 
+</section>
+<section id="why-are-you-visualizing-data" class="slide level2">
+<h2>Why are you visualizing data?</h2>
+<ul>
+<li><p>to explore and better understand your data –&gt; <strong>Exploratory Data Visualization</strong></p></li>
+<li><p>to communicate what you already know –&gt; <strong>Data Viz Publication &amp; Storytelling</strong></p></li>
+</ul>
 </section>
 <section id="ggplot2-resources" class="slide level2 scrollable">
 <h2>GGplot2 resources</h2>
@@ -442,7 +696,10 @@ Dartmouth Libraries</p>
 </section>
 <section id="the-grammar-of-graphics" class="slide level2 scrollable">
 <h2>The Grammar of Graphics</h2>
-<p>The “gg” in ggplot stands for Grammar of Graphics. GGplot was developed by Hadley Wickham following the Grammar of Graphics model, which…. <strong>[explain more]</strong></p>
+<p>The “gg” in ggplot stands for Grammar of Graphics. GGplot was developed by Hadley Wickham following the Grammar of Graphics model proposed by Leland Wilkinson. The grammar of graphics reduces complex plots to their simplest visual components, thus allowing a user to customize each of these components. This is in contrast to many software applications that begin with a chart type (i.e.&nbsp;a line or bar plot), restricting the ability of the user to customize these plots (or to develop new plot types). Instead, the grammar of graphics is intended to make customization easier while also allowing the user to iteratively update one feature of a plot at a time.</p>
+</section>
+<section id="more-on-the-grammar-of-graphics" class="slide level2">
+<h2>More on the Grammar of Graphics</h2>
 <ul>
 <li><p>CU-Boulder Coursera course video on <a href="https://www.youtube.com/watch?v=RCaFBJWXfZc">Grammar of Graphics</a></p></li>
 <li><p>Hadley Wickham, <a href="https://vita.had.co.nz/papers/layered-grammar.html">“A Layered Grammar of Graphics”</a> in <em>Journal of Computational and Graphical Statistics</em> (2010).</p></li>
@@ -502,6 +759,21 @@ ggplot(mpg, aes(x = displ, y = hwy)) +
 <section id="theme" class="slide level2">
 <h2>theme</h2>
 <p>control stylistic choices such as font size and color palettes</p>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Exercise 1.1</strong></p>
+</div>
+<div class="callout-content">
+<p><em>Before we begin, do you have a particular hypothesis about what types of animals sleep the most?</em></p>
+</div>
+</div>
+</div>
+<pre><code># hypothesis:</code></pre>
+<h3 id="section"></h3>
 </section></section>
 <section id="lesson-4-intro-to-stats-with-r-part-1-dplyr" class="title-slide slide level1 center">
 <h1>Lesson 4: Intro to Stats with R, Part 1 (dplyr)</h1>

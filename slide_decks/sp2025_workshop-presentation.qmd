@@ -13,7 +13,7 @@ editor: visual
 logo: "../hds_images/logo_white.png"
 ---
 
-# Data Analysis & Visualization with R  {.scrollable}
+# Data Analysis & Visualization with R {.scrollable}
 
 Instructors: Jeremy Mikecz & Steve Gaughan\
 Research Data Services / Research Facilitation\
@@ -27,11 +27,11 @@ Dartmouth Libraries
 
 ## This Workshop
 
--   Download the workshop materials here
+-   Download the workshop materials at [dartgo.org/r-data-viz](https://dartgo.org/r-data-viz).
 
 -   materials also available on [our Github repository](https://github.com/Dartmouth-Libraries/R-Data-Analysis-and-Visualization)
 
-For additional help or research consultation, you can reach out to ResearchDataHelp\@groups.dartmouth.edu, contact Jeremy & Steve by email, or schedule appoints with us at: [dartgo.org/jeremy](https:dartgo.org/jeremy) and [dartgo.org/steve](https://dartgo.org/steve)
+For additional help or research consultation, you can reach out to ResearchDataHelp\@groups.dartmouth.edu, contact Jeremy & Steve by email, or schedule appointments with us at: [dartgo.org/jeremy](https:dartgo.org/jeremy) and [dartgo.org/steve](https://dartgo.org/steve)
 
 ## Goals
 
@@ -69,7 +69,128 @@ Berry Classroom 180a ("The LINK")
 
 # Lesson 2: Intro to Data Wrangling (tidyverse / dplyr)
 
-## dplyr / tidyverse verbs for data wrangling {.scrollable}
+## Types of 2d data in R
+
+-   **dataframes (core R)**: columns with column names; rows with indexes
+
+-   **tibbles (tidyverse)**: a type of dataframe used with the tidyverse collection of packages
+
+-   **data.table**: optimized for speed with large datasets
+
+In these lessons, we will work with [tidyverse](https://www.tidyverse.org/) a collection of packages designed for data science. Tidyverse works with **tibbles**, a customized and newer form of dataframes.
+
+## Tidyverse: Piping
+
+Using the symbol `|>` we can chain multiple functions together.
+
+Each new function in the pipeline operates on the results produced by the previous function.
+
+---
+
+Chaining functions together in a pipe like this:
+
+```         
+starwars |>   
+    group_by(species) |>   
+    summarise(avg_height = mean(height, na.rm = TRUE)) |>   
+    arrange(avg_height)
+```
+
+vs.
+
+```         
+arrange(
+  summarise(
+    group_by(starwars, species), 
+    avg_height = mean(height, na.rm = TRUE)
+  ), 
+  avg_height
+)
+```
+
+\`\`\`
+
+or calling each function in order:
+
+```         
+x1 <- starwars 
+x2 <- group_by(x1, species)
+x3 <- summarise(x3, avg_height = mean(height, na.rm = TRUE))
+arrange(x3, avg_height)
+```
+
+## Tidy Data
+
+Data tidying is an important first step for your analysis because every tidyverse function will expect your data to be stored as **Tidy Data**.
+
+Tidy data is tabular data organized so that:
+
+1.  Each column contains a single variable
+
+2.  Each row contains a single observation
+
+## Untidy data
+
+| id  | name  | class | sex_and_age | test_number | term_1 | term_2 | term_3 |
+|-----|-------|-------|-------------|-------------|--------|--------|--------|
+| 1   | Mike  | B     | M_12        | 1           | 76     | 84     | 87     |
+| 2   | Linda | C     | F_13        | 1           | 88     | 90     | 93     |
+| 3   | Sam   | B     | M_11        | 1           | 68     | 75     | 74     |
+| 1   | Mike  | B     | M_12        | 2           | 85     | 80     | 83     |
+
+::: notes
+-   Some column headers are values, not variable names.
+
+-   Multiple variables are stored in one column
+
+-   Variables are stored in both rows and columns
+
+-   Multiple types of observational units are stored in the same table (should have one student table - with student metadata and one test table with just one test each)
+:::
+
+## more untidy data
+
+```         
+#> # A tibble: 3 x 3
+#>   country         `1999`     `2000`
+#> * <chr>            <int>      <int>
+#> 1 Afghanistan   19987071   20595360
+#> 2 Brazil       172006362  174504898
+#> 3 China       1272915272 1280428583
+```
+
+## tidy data
+
+```         
+#> # A tibble: 6 x 3
+#>   country     year  population
+#>   <chr>       <chr>      <int>
+#> 1 Afghanistan 1999    19987071
+#> 2 Afghanistan 2000    20595360
+#> 3 Brazil      1999   172006362
+#> 4 Brazil      2000   174504898
+#> 5 China       1999  1272915272
+#> 6 China       2000  1280428583
+```
+
+For more on tidy data see [Chapter 12 Tidy Data](https://r4ds.had.co.nz/tidy-data.html) in *R for Data Science.*
+
+## Create a tibble from scratch
+
+Rarely will you ever create a dataframe or tibble from scratch except to create small practice datasets.
+
+Here, we create a small practice dataset about the popular murder mystery TV show, [*Only Murders in the Building*](https://www.imdb.com/title/tt11691774/)
+
+```{r} omitb <- tribble(~name, ~occupation, ~apartment, ~is_suspect, ~is_dead,              "Charles", "washed-up actor", "14C", "no", "no",}
+        "Mabel", "unemployed never-was", "12E", "maybe", "no",
+        "Oliver", "theater director", "10D", "no", "no",
+        "Howard", "childless cat guy", "3D", "yes", "no",
+        "Bunny", "petty despot", "12A", "no", "maybe" ) 
+
+omitb
+```
+
+## dplyr / tidyverse verbs for data wrangling
 
 To modify and "wrangle" datasets, the tidyverse commonly uses the following verbs / functions:
 
@@ -95,9 +216,88 @@ To modify and "wrangle" datasets, the tidyverse commonly uses the following verb
 
 [More tidyverse verbs and functions here](https://dplyr.tidyverse.org/reference/index.html).
 
+::: tip
+### Exercise - Tidyverse Verbs
+
+Using what you learned above:
+
+1.  Subset the Star Wars dataset, keeping only characters' name, homeworld, and species.
+2.  Sort the dataset by species.
+3.  Then, create a new column that identifies whether the character is an organic lifeform or not.
+:::
+
+::: tip
+### Exercise - Split-Apply-Combine
+
+Using the split-apply-combine technique and other methods learned above, do at least one of the following:
+
+1.  Identify the most common species for each planet.
+2.  Identify the most common eye color for each species.
+3.  Identify the average and maximum age (so two columns) for each species.
+4.  answer a similar question of your own
+:::
+
 # Lesson 3: Exploratory Data Visualization (ggplot)
 
-## GGplot2 resources  {.scrollable}
+## Why are you visualizing data?
+
+-   to explore and better understand your data –\> **Exploratory Data Visualization**
+
+-   to communicate what you already know –\> **Data Viz Publication & Storytelling**
+
+::: callout-tip
+## Exercise 1.1
+
+*Before we begin, do you have a particular hypothesis about what types of animals sleep the most?*
+:::
+
+```         
+# hypothesis:
+```
+
+::: callout-tip
+## Exercise 1.2
+
+1.  What are the two main data types stored in this dataset?
+
+2.  What are the maximum and minimum sleep times (in hours per day) for mammals in this dataset?
+
+3.  Which columns have missing values ("NA's")? How many rows are missing data for these fields?
+:::
+
+## Mammal Sleep: Conservation field  {.scrollable}
+
+-   least concern ("lc")
+
+-   near threatened ("nt")
+
+-   vulnerable ("vu")
+
+-   endangered ("en")
+
+-   critically endangered ("cd")
+
+-   extinct in the wild (?)
+
+-   extinct (?)
+
+-   not evaluated (not included here?)
+
+-   data deficient (not included here?)
+
+:::: notes
+::: callout-note
+According to the documentation retrieved by `help(msleep)` we know that conservation status was a field added to the original msleep dataset from Wikipedia. An online search reveals this field is using 9 categories established by the International Union for Conservation of Nature (IUCN) for threatened species:
+:::
+::::
+
+## ggplot
+
+-   popular data visualization library for R
+
+-   part of the tidyverse library
+
+## GGplot2 resources {.scrollable}
 
 -   ggplot2 [cheat sheet](https://github.com/rstudio/cheatsheets/blob/main/data-visualization.pdf)
 
@@ -117,9 +317,19 @@ To modify and "wrangle" datasets, the tidyverse commonly uses the following verb
 The [**R Graph Gallery**](https://r-graph-gallery.com/)is a particularly valuable tool for helping you decide what plot type to use for your data and to obtain code for creating such charts.
 :::
 
-## The Grammar of Graphics  {.scrollable}
+## The Grammar of Graphics {.scrollable}
 
-The "gg" in ggplot stands for Grammar of Graphics. GGplot was developed by Hadley Wickham following the Grammar of Graphics model, which.... **\[explain more\]**
+GG in ggplot = Grammar of Graphics
+
+-   identifies simplest, base-level components of data visualizations, allowing
+
+    -   extensive customization
+
+    -   iterative plotting
+
+The "gg" in ggplot stands for Grammar of Graphics. GGplot was developed by Hadley Wickham following the Grammar of Graphics model proposed by Leland Wilkinson. The grammar of graphics reduces complex plots to their simplest visual components, thus allowing a user to customize each of these components. This is in contrast to many software applications that begin with a chart type (i.e. a line or bar plot), restricting the ability of the user to customize these plots (or to develop new plot types). Instead, the grammar of graphics is intended to make customization easier while also allowing the user to iteratively update one feature of a plot at a time.
+
+## More on the Grammar of Graphics
 
 -   CU-Boulder Coursera course video on [Grammar of Graphics](https://www.youtube.com/watch?v=RCaFBJWXfZc)
 
@@ -144,20 +354,15 @@ mapping = **aesthetic mappings** (link between data and visual variables) + laye
 sample code:
 
 ```         
-library(tidyverse)
-ggplot(mpg, aes(x = displ, y = hwy)) + 
-  geom_point()
+library(tidyverse) ggplot(mpg, aes(x = displ, y = hwy)) +    geom_point()
 ```
 
----
+------------------------------------------------------------------------
 
-```{r}
-library(tidyverse)
-ggplot(mpg, aes(x = displ, y = hwy)) + 
-  geom_point()
+```{r} library(tidyverse) ggplot(mpg, aes(x = displ, y = hwy)) +    geom_point()}
 ```
 
----
+------------------------------------------------------------------------
 
 Five mapping components:
 
@@ -193,16 +398,42 @@ describes how to split data and display it in "small multiples"
 
 control stylistic choices such as font size and color palettes
 
+## ggplot syntax
+
+```         
+ggplot(data=dataset_name, aes(columns assigned to particular visual variables such as x coord, y coord, color fill, color outline, etc.), constant_values) + 
+    geom_name(any_additional_arguments)
+```
+
+::: callout-tip
+### Exercise: Bar Plots
+
+1.  Try modifying one of the above bar graphs, transforming the bars from vertical to horizontal.
+2.  Create a bar plot for a different data column / field not included above.
+:::
+
+::: callout-tip
+### Exercise 3.2: Create your own scatter plot
+
+Think about which data variables you would like to plot and what visual variables (spatial location, color, size, shape, etc.) you could use to represent these data variables. Then create your own scatter plot visualizing the relationship between these variables.
+:::
+
+::: callout-tip
+### Exercise 3.2: Create your own scatter plot
+
+Think about which data variables you would like to plot and what visual variables (spatial location, color, size, shape, etc.) you could use to represent these data variables. Then create your own scatter plot visualizing the relationship between these variables.
+:::
+
 # Lesson 4: Intro to Stats with R, Part 1 (dplyr)
 
 # Reflections / Lessons (Day 1)
 
----
+------------------------------------------------------------------------
 
 1.  What did you learn today that you are excited to implement in your own work?
 2.  Lingering questions
 
----
+------------------------------------------------------------------------
 
 1.  Blue post-its: What did we do well / should continue doing?
 2.  Pink: what can we do better / differently?
