@@ -25,13 +25,23 @@ temps21c <- temps |>
 ```
 
 ```{r}
+
+```
+
+```{r}
 days_of_year <- temps21c |>
     group_by(Month, Day) |>
     summarise(avg_max = mean(TMAX)) |>
     arrange(Month, Day) |>
     rownames_to_column("daynum") |>
-    select(!avg_max)
+    select(!c(avg_max))
     
+
+```
+
+```{r}
+
+
 
 ```
 
@@ -39,6 +49,17 @@ days_of_year <- temps21c |>
 temps21c <- temps21c |>
     left_join(days_of_year, by=join_by(Month, Day)) |>
     select(!X.1)
+```
+
+```{r}
+colnames(temps21c)
+```
+
+```{r}
+temps21c <- temps21c |>
+    mutate(maxdiff20c = (TMAX - Avg_TMAX_20c),
+           mindiff20c = (TMIN - Avg_TMIN_20c)) |>
+    select(!c(max_diff20c_avg, min_diff20c_avg))
 ```
 
 ```{r}
