@@ -360,16 +360,105 @@ We can also run scripts from the terminal.
     q
     ```
 
-# Explain what terminal is / does
+### 7.3 Why use the terminal
+
+Beginning programmers often find using their computer's terminal or command line intimidating. Fortunately, you can get started with R and R Studio without using the command line.
+
+That said, as you advance your skills you may find various reasons to use it. Some examples include:
+
+1.  Using the terminal found within R Studio (or using your computer's native terminal) to perform version control using [git](https://git-scm.com/book/ms/v2/Getting-Started-About-Version-Control) For example, the materials in this workshop's directory were 'pushed' to [our Github repository](https://github.com/Dartmouth-Libraries/R-Data-Analysis-and-Visualization)using the terminal.
+2.  It allows you to call completed R scripts quickly, without the need to open the script itself.
+3.  Using the terminal allows you to interact with your computer's system and administration in ways not possible through the graphical user interface (GUI).
+4.  You can quickly and more efficiently navigate through your folders and files.
+5.  Command History - the terminal keeps track of your past commands, making it easier to repeat them.
 
 ## 8. Coding in R (from a notebook)
 
+Coding scripts in R are saved in `.R` files (as we saw above). These R scripts are the most common file type for software apps and packages.
+
+However, if you are teaching, learning, sharing your code with collaborators (with varying knowledge of the code), or simply performing data analysis and visualization, you may prefer using a **coding notebook**. Coding notebooks include a mixture of:
+
+-   metadata for the notebook itself (this includes instructions telling the computer how to "publish" your notebook as a website, slideshow, or report)
+
+-   code cells with machine-readable code
+
+-   text cells with instructions intended for humans (i.e. instructions, explanations, tutorials, links to resources, etc.)
+
+    -   these cells are often called *markdown* cells because they are written following markdown format that allows the users to encode styling instructions using relatively basic set of characters (see the difference between unrendered and the rendered markdown below):
+
+        ```         
+        # Header 1
+        ## Header 2
+        ### Header 3
+
+        *italics*
+
+        **bold**
+
+        ~~strikethrough~~ 
+
+        numbered list:
+        1. first item
+        2. second item
+        2. third item
+
+        unordered list:
+        + item
+            + sub-item
+        + item
+        + item
+
+        links & images:
+
+        [CNN](www.cnn.com)
+
+        ![Dartmouth Library](https://live.staticflickr.com/65535/67023922_0dfbf259a9_b.jpg)
+        ```
+
+# Header 1
+
+## Header 2
+
+### Header 3
+
+*italics*
+
+**bold**
+
+~~strikethrough~~
+
+numbered list: 1. first item 2. second item 2. third item
+
+unordered list: + item + sub-item + item + item
+
+links & images:
+
+[CNN](www.cnn.com)
+
+![Dartmouth Library](https://live.staticflickr.com/65535/67023922_0dfbf259a9_b.jpg)
+
 ### 8.1. R Markdown notebooks (`.Rmd`) vs. Quarto notebooks (`.qmd`)
+
+For a long time, the primary type of notebook used in R Studio was the **R Notebook** which was saved using the R Markdown `.Rmd` extension. However, recently Posit has developed **Quarto notebooks** (`.qmd`). Some advantages of Quarto:
+
+1.  Quarto automatically renders markdown live as you type it whereas R notebooks only render the markdown when you publish them. Thus what looks like this
+
+    ```         
+    [link](https://r-graph-gallery.com/) to R Graph Gallery
+    ```
+
+    looks like this in Quarto:
+
+    [link](https://r-graph-gallery.com/) to R Graph Gallery
+
+2.  its language-agnostic. Sure you can run R code with them. But, you can also run Python, Julia, Observable, etc.
+
+3.  Quarto notebooks offer multiple publication options in one tool. You can convert and publish your Quarto notebooks into slideshow presentations, webpages, or online books.
+
+4.  unlike R Notebooks, Quarto is a command line interface, meaning you can more easily work with Quarto outside R Studio.
+
+5.  for more on the differences see [jumpingrivers](https://www.jumpingrivers.com/blog/quarto-rmarkdown-comparison/), Posit's [FAQs](https://quarto.org/docs/faq/rmarkdown.html), the [Quarto documentation](https://quarto.org/), and the [Quarto chapter](https://r4ds.hadley.nz/quarto.html) in *R for Data Science.*
 
 ### 8.2. Working with Quarto notebooks (`.qmd`)
 
-#### Headers
-
-#### Markdown Text
-
-#### Code Cells
+We will demonstrate how to work with Quarto notebooks in subsequent lessons.
