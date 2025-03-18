@@ -27,12 +27,12 @@ Steve Gaughan, Research Data Services (Dartmouth Libraries)
 
 ### Day 2
 
-5. **Intro to Stats with R, Part 2** ([notebook 5](notebooks/5_r_swirl_stats_demo_quarto.qmd) - dplyr, tidyr, swirl)
+6. **Intro to Stats with R, Part 2** ([notebook 5](notebooks/5_r_swirl_stats_demo_quarto.qmd) - dplyr, tidyr, swirl)
     + Swirlstats demo
 
-6. **Mind the Gap: Creating Custom Visualizations** (notebooks [06a](notebooks/06a_gapminder_viz.qmd)-[06b](notebooks/06b_gapminder_interactive-viz.qmd) - ggplot and plotly)
+7. **Mind the Gap: Creating Custom Visualizations** (notebooks [06a](notebooks/06a_gapminder_viz.qmd)-[06b](notebooks/06b_gapminder_interactive-viz.qmd) - ggplot and plotly)
 
-7. **Geospatial Analysis and Mapping** ([notebook 8](notebooks/8_spatial_data_science_and_analysis_quartodoc.qmd) - many)
+8. **Geospatial Analysis and Mapping** ([notebook 8](notebooks/8_spatial_data_science_and_analysis_quartodoc.qmd) - many)
 
-8. **Next Steps, Takeaways, & Feedback**
+9. **Next Steps, Takeaways, & Feedback**
 
