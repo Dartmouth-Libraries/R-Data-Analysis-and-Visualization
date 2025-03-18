@@ -437,6 +437,8 @@ links & images:
 
 ![Dartmouth Library](https://live.staticflickr.com/65535/67023922_0dfbf259a9_b.jpg)
 
+For more on markdown syntax see [Markdown Basics](https://quarto.org/docs/authoring/markdown-basics.html).
+
 ### 8.1. R Markdown notebooks (`.Rmd`) vs. Quarto notebooks (`.qmd`)
 
 For a long time, the primary type of notebook used in R Studio was the **R Notebook** which was saved using the R Markdown `.Rmd` extension. However, recently Posit has developed **Quarto notebooks** (`.qmd`). Some advantages of Quarto:

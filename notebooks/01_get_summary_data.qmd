@@ -12,26 +12,41 @@ jupyter: ir
 
 Base R and some of its core data science packages (like tidyverse and its dependencies) come with preloaded datasets. We can use these preloaded to practice our data science skills.
 
-First, to view the available preloaded datasets, run the following cell:
+First, we must install and run **dplyr**:
 
 ```{r}
-data()
+#install.packages("tidyverse")
+library(dplyr)
 ```
+
+to view the available preloaded datasets, run the following cell:
 
 ```{r}
-help(starwars) 
+#data()
 ```
 
-In this lesson we will work with the **Star Wars** dataset that loads with the **dplyr** library (part of the tidyverse package).
+In this lesson we will work with the **Star Wars** dataset (`starwars`) that loads with the **dplyr** library (part of the tidyverse package).
+
+`{r} starwars}`
+
+To learn more about this dataset run:
+
+```{r}
+help(starwars)
+```
 
 ```{r}
 starwars
 ```
 
-## Get Summary Data about a Dataframe
+## 2. Get Summary Data about a Dataframe
+
+When working with an unfamiliar dataset, it helps to first extract some basic summary data from that dataset. Run the following commands and examine what each did.
 
 ```{r}
 head(starwars)
+#also try:
+head(starwars, 3)
 ```
 
 ```{r}
@@ -47,16 +62,21 @@ table(starwars$species)
 ```
 
 ```{r}
-xtabs(data=starwars, ~species + homeworld) 
+xtabs(data=starwars, ~species + homeworld) |>
+    as_tibble() |>
+    filter(n > 0)
 ```
 
 ```{r}
-summary(starwars)
+#summary(starwars)
+
 ```
 
-## 
+```{r}
+str(starwars)
+```
 
-## Retrieve Data
+## 3. Retrieve Data
 
 Get one row
 
@@ -76,3 +96,9 @@ Get item in list
 print(starwars$starships[1]) 
 starwars$starships[[1]][1]
 ```
+
+::: tip
+## Exercise
+
+Choose another built-in dataset visible when you run `data()`. Use the commands above to explore the size, shape, type, and nature of the data stored in that dataset.
+:::
