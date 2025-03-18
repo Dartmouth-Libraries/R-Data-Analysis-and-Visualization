@@ -85,7 +85,7 @@ Using the symbol `|>` we can chain multiple functions together.
 
 Each new function in the pipeline operates on the results produced by the previous function.
 
----
+------------------------------------------------------------------------
 
 Chaining functions together in a pipe like this:
 
@@ -181,14 +181,11 @@ Rarely will you ever create a dataframe or tibble from scratch except to create 
 
 Here, we create a small practice dataset about the popular murder mystery TV show, [*Only Murders in the Building*](https://www.imdb.com/title/tt11691774/)
 
-```{r} omitb <- tribble(~name, ~occupation, ~apartment, ~is_suspect, ~is_dead,              "Charles", "washed-up actor", "14C", "no", "no",}
-        "Mabel", "unemployed never-was", "12E", "maybe", "no",
-        "Oliver", "theater director", "10D", "no", "no",
-        "Howard", "childless cat guy", "3D", "yes", "no",
-        "Bunny", "petty despot", "12A", "no", "maybe" ) 
+\`\`\`{r} omitb \<- tribble(\~name, \~occupation, \~apartment, \~is_suspect, \~is_dead, "Charles", "washed-up actor", "14C", "no", "no",} "Mabel", "unemployed never-was", "12E", "maybe", "no", "Oliver", "theater director", "10D", "no", "no", "Howard", "childless cat guy", "3D", "yes", "no", "Bunny", "petty despot", "12A", "no", "maybe" )
 
 omitb
-```
+
+```         
 
 ## dplyr / tidyverse verbs for data wrangling
 
@@ -250,10 +247,11 @@ Using the split-apply-combine technique and other methods learned above, do at l
 
 *Before we begin, do you have a particular hypothesis about what types of animals sleep the most?*
 :::
+```
+
+# hypothesis:
 
 ```         
-# hypothesis:
-```
 
 ::: callout-tip
 ## Exercise 1.2
@@ -352,10 +350,11 @@ data + mapping
 mapping = **aesthetic mappings** (link between data and visual variables) + layers (**geom** functions) + scale + coord + facet + theme
 
 sample code:
+```
+
+library(tidyverse) ggplot(mpg, aes(x = displ, y = hwy)) + geom_point()
 
 ```         
-library(tidyverse) ggplot(mpg, aes(x = displ, y = hwy)) +    geom_point()
-```
 
 ------------------------------------------------------------------------
 
