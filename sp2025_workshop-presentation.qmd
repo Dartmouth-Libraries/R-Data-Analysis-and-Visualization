@@ -1,0 +1,96 @@
+---
+title: "Data Analysis and Visualization with R"
+subtitle: "A 2025 Reproducible Research workshop"
+author: "Jeremy Mikecz & Steve Gaughan"
+institute: "Research Data Services, Dartmouth Libraries"
+date: "2026"
+format: 
+  revealjs:
+    theme: night
+    navigation-mode: vertical
+    chalkboard: true
+editor: visual
+logo: "../hds_images/logo_white.png"
+---
+
+# Data Analysis & Visualization with R
+
+Instructors: Jeremy Mikecz & Steve Gaughan \
+Research Data Services / Research Facilitation\
+Dartmouth Libraries
+
+**A Reproducible Research workshop** (Dartmouth Libraries + Research Computing)
+
+-   details about [this workshop](https://libcal.dartmouth.edu/event/14286329)
+
+-   [view and sign up for other workshops](https://dartgo.org/RRADworkshops)
+
+For additional help or research consultation, you can reach out to ResearchDataHelp\@groups.dartmouth.edu, contact Jeremy & Steve by email, or schedule appoints with us ([Jeremy](https://dartgo.org/jeremy) and ??)
+
+## This Workshop
+
+-   Download the workshop materials here
+
+-   materials also available on [our Github repository](https://github.com/Dartmouth-Libraries/R-Data-Analysis-and-Visualization)
+
+## Goals
+
+## Schedule
+
+# Day 1
+
+Wednesday, March 19, 2025 (9am - 12:30pm)
+
+Berry Classroom 180a ("The LINK")
+
+# Lesson 1: Intro to R / R Studio
+
+# Lesson 2: Intro to Data Wrangling (tidyverse / dplyr)
+
+## dplyr / tidyverse verbs for data wrangling  {.scrollable}
+
+To modify and "wrangle" datasets, the tidyverse commonly uses the following verbs / functions:
+
+-   **select()**: to select specific columns by their names or data types
+
+-   **arrange()**: to order rows by one or more columns
+
+-   **rename()**: to rename columns
+
+-   **mutate()**: to create columns
+
+-   **filter()**: to filter out rows by a given condition
+
+-   **distinct()**: to keep only distinct / unique rows
+
+-   **gather()**: to make "wide" data longer
+
+-   **spread()**: to make "long" data wider
+
+-   **separate()**: to split a single column into multiple columns
+
+-   **unite()**: to combine multiple columns into one
+
+[More tidyverse verbs and functions here](https://dplyr.tidyverse.org/reference/index.html).
+
+# Lesson 3: Exploratory Data Visualization (ggplot)
+
+# Lesson 4: Intro to Stats with R, Part 1 (dplyr) 
+
+# Day 1 - Reflections / Lessons
+
+# Day 2
+
+Thursday, March 19, 2025 (9am - 12:30pm)
+
+Berry Classroom 180a ("The LINK")
+
+# Lesson 5: Intro to States with R, Part 2 (dplyr, tidyr, swirl)
+
+# Lesson 6: Mind the Gap: Creating Custom Visualizations (ggplot, plotly)
+
+# Lesson 7: Geospatial Analysis and Mapping
+
+# Workshop - Reflections / Lessons / Feedback
+
+Please let us know what we did well and what we could do better next time. Leave feedback at [dartgo.org/feedback](https://dartgo.org/feedback).
