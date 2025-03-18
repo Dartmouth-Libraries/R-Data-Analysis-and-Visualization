@@ -320,7 +320,7 @@ ggsave(file="../images/gapminder.png", width=10, height=12)
 
 Rendering the **gapminder** dataset as an interactive and animated plot will allow us to visualize change over time.
 
-In this case, there are two principal options for writing code for plotly. We could create a plotly visualization using plotly syntax. Or, we could use the [**ggplotly package**](https://plotly.com/ggplot2/)to render code written using ggplot syntax in plotly. Since we have been using ggplot thusfar, let's use the latter option.
+In this case, there are two principal options for writing code for plotly. We could create a plotly visualization using plotly syntax. Or, we could use the [**ggplotly package**](https://plotly.com/ggplot2/) to render code written using ggplot syntax in plotly. Since we have been using ggplot thusfar, let's use the latter option.
 
 Note: *Creating plotly graphs using plotly syntax is much faster.*
 
@@ -396,6 +396,7 @@ text(x = 3, y = 85, "Outlier", family = "pacifico", cex = 1.2, col = "red")
 Go to [Google Fonts](https://fonts.google.com) and find one font family you like. Copy and paste the code from the above two code cells below, this time replacing it with the name of the font of your choice.
 
 ```{r}
+#install.packages("showtext")
 library(showtext)
 
 fontname = "Montserrat"

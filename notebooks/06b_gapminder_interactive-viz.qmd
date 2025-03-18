@@ -5,18 +5,26 @@ format: html
 editor: visual
 ---
 
-# Title
+# Interactive Visualizations: Gapminder dataset
+
+## Setup
+
+### 1.1 Import Libraries
 
 ```{r}
 library(tidyverse)
 library(plotly)
 ```
 
+### 1.2 Import Data
+
 ```{r}
 gapdf <- read.csv("../data/gapminder.csv")
 head(gapdf)
 
 ```
+
+## 2. Create animated scatter plot graph (plotly)
 
 ```{r}
 fig <- plot_ly(data = gapdf, 
@@ -45,16 +53,7 @@ fig <- plot_ly(data = gapdf,
 fig
 ```
 
-```{r}
-p <- ggplot(gapdf, aes(x=gdpPercap, y=lifeExp)) +
-  geom_point()
-
-p
-```
-
-```{r}
-
-```
+## 3. Re-create interactive scatterplot (ggplotly)
 
 ```{r}
 p <- ggplot(gapdf, aes(x=gdpPercap, y=lifeExp, size = pop, color = continent,frame = year)) +
