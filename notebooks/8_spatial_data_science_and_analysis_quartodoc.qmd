@@ -223,6 +223,154 @@ head(enriched_zipcodes_df)
 
 ```
 
+
+# Overlay Analysis / Spatial Analysis (point in polygon )
+
+```{r}
+# Set working directory
+setwd('~/Downloads')
+#setwd('~/Desktop')
+
+# Linux - control return / control enter on mac laptop keyboard (not command enter)
+
+# runs on Mac laptop computer 
+
+# Unzip the dataset containing polygons
+#unzip(zipfile = "nationalparks_ak_1.zip", exdir = "data")
+#unzip {utils}
+
+
+utils::unzip(zipfile = "nationalparks_ak.zip", exdir = "data")
+
+
+# Load point data using read.csv
+points <- read.csv('point-locations.csv')
+
+# Load required libraries
+library(sp)         # For spatial objects and functionalities
+library(sf)         # For handling simple features
+library(terra)      # For working with raster and vector data
+library(maps)       # For plotting maps
+
+# library(tidyverse)
+
+
+# Convert the points data frame to a simple features object and set the crs to 
+# epsg code 4326
+points_sf <- sf::st_as_sf(points, coords = c('longitude', 'latitude'), crs = 4326)  # Let's set CRS to WGS84 directly
+
+# Plot point locations, just using the base plot function (not ggplot yet )
+base::plot(sf::st_geometry(points_sf), main = "points - locations")
+# see the output in RStudio's "plots" window s
+
+# add a rough outline of the map region using the 'maps' package
+maps::map("world", region="usa", add=TRUE)
+
+# Load a polygon shapefile into R using the 'terra' package's 'vect' function
+polygons <- terra::vect('nationalparks_ak.shp')
+
+# Convert polygons to an "sf" object  from SpatVector
+polygons_sf <- sf::st_as_sf(polygons)
+
+# Check and repair invalid geometries in polygons_sf
+polygons_sf <- sf::st_make_valid(polygons_sf)
+
+# set, and print the projection of the polygons to check
+polygons_crs <- terra::crs(polygons_sf)
+print(polygons_crs)
+
+# Set the projection of points to the same as polygons dataset
+sf::st_crs(points_sf) <- polygons_crs
+
+# use st_within and sapply to build a true/false dataframe of whether a point is within a polygon
+points_in_polygons <- sf::st_within(points_sf, polygons_sf)
+points_in_polygons <- base::sapply(points_in_polygons, function(x) length(x) > 0)
+head(points_in_polygons)
+
+# Store the name of the polygon as an attribute of the points dataset
+points_sf_join <- sf::st_join(points_sf, polygons_sf, join = sf::st_intersects)  # Use polygons_sf directly
+# take a look at the first few rows 
+head(points_sf_join, 7)
+
+library(dplyr)
+
+#####
+#points_sf_join <- points_sf_join %>%
+#  mutate(Unit_Name=replace_na(Unit_Name, "not in polygon"))
+######
+#points_sf_join[is.na("Unit_Type")] = "no-type"
+
+#dplyr::mutate(points_sf_join, )
+
+#mutate(Unit_Type = if_else(is.na("Unit_Type), "no-type", points_sf_join))
+
+#points_sf_join[is.na(unit_name)] = "some new value"
+
+#dplyr pipe, 
+#then 
+#mutate(unit_name = if_else(is.na(unit_name), "some new value", vec))
+
+# Write a CSV file with points and polygon names (if found)
+write.csv(as.data.frame(points_sf_join), "points-in-polyons.csv", row.names = FALSE)
+
+# Set the projection of points to the same as polygons dataset CRS 
+st_crs(points_sf) <- polygons_crs  
+
+# Use st_within to check overlay - are points inside polygons? 
+insidePolygons <- st_within(points_sf, polygons_sf)
+
+# Check if any point falls inside a polygon (True if inside any polygon )
+insidePolygons <- sapply(insidePolygons, function(x) length(x) > 0)
+
+# Calculate the fraction of points inside polygons
+fractionInsidePolygons <- mean(insidePolygons)
+
+# Print the percentage ofpoints inside polygons
+cat("Percent inside polygons: ", 100 * fractionInsidePolygons, ' percent ')
+
+# Create a pie chart to visualize points inside and outside the polygons
+slices <- c(fractionInsidePolygons, 1 - fractionInsidePolygons)
+lbls <- c("Points in the polygons", "Points outside the polygons")
+pct <- round(slices/sum(slices)*100, 2)
+
+# Add percentages to the labels
+lbls <- paste(lbls, pct)
+lbls <- paste(lbls, "%", sep="")
+
+# Generate the pie chart
+pie(slices, labels = lbls, col = rainbow(length(lbls)), main = "Points inside Polygons")
+
+# Save the pie chart to results folder
+dev.copy(jpeg, 'points-in-polygons-pct.jpg')
+dev.off()  # Close the plotting device
+
+# Store the name of the polygon as an attribute of the points dataset
+points_sf <- st_join(points_sf, polygons_sf, join = st_intersects)  
+
+# Write a CSV file with points that fall within the polygons (if found)
+write.csv(as.data.frame(points_sf), "points-by-polygon.csv", row.names = FALSE)
+
+# Plot the point locations and polygons and where there is overlay
+plot(st_geometry(points_sf), main = "Points inside Polygons")
+#map("world", region = "usa", add = TRUE)  # Add the USA map
+maps::map("world", region="usa", add=TRUE)
+
+plot(st_geometry(polygons_sf), border = "green", col = NA, add = TRUE)  # Add polygons to the plot
+
+# Set the colors for the points: red for points inside polygons, green for points outside polygons
+points(points_sf[insidePolygons, ], pch = 16, col = "red")
+points(points_sf[!insidePolygons, ], pch = 1, col = "green")
+
+# Save this map to the results folder
+dev.copy(jpeg, 'points-in-polygons-map.jpg')
+dev.off()  # Close the plotting device
+
+
+
+```
+
+# Nearest Neighbor Analysis
+
 ```{r}
 #install.packages(c("sf", "spatstat", "ggplot2", "dplyr", "ggmap", "viridis", "classInt"))
 # Load required libraries
