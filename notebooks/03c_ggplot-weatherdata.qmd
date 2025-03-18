@@ -1,11 +1,14 @@
 ---
-title: "GGPlot with Weather Data"
+title: "How about that weather?"
+subtitle: "GGPlot with Weather Data"
 author: "Jeremy Mikecz"
 format: html
 editor: visual
 ---
 
-## 
+# 1. Set up
+
+In this notebook, will work with some time-series weather data
 
 ```{r}
 library(tidyverse)
@@ -29,15 +32,10 @@ year_avgs_wide <- year_avgs |>
 ```
 
 ```{r}
-#install.packages("zoo")
-library(zoo)
-```
-
-```{r}
 ggplot(year_avgs_wide |> filter(Year<2025), aes(x=Year)) +
-    geom_line(aes(y=maxtemp), color="red") + 
+    geom_line(aes(y=maxtemp), color="red", size=1, alpha=0.5) + 
     geom_line(aes(y=rollmean(maxtemp, 10, na.pad=TRUE)), linetype="dashed") +
-    geom_line(aes(y=mintemp), color="blue")+
+    geom_line(aes(y=mintemp), color="blue", size=1, alpha=0.5)+
     geom_line(aes(y=rollmean(mintemp, 10, na.pad=TRUE)), linetype="dashed")
 ```
 

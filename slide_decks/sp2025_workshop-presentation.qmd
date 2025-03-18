@@ -13,9 +13,9 @@ editor: visual
 logo: "../hds_images/logo_white.png"
 ---
 
-# Data Analysis & Visualization with R
+# Data Analysis & Visualization with R  {.scrollable}
 
-Instructors: Jeremy Mikecz & Steve Gaughan \
+Instructors: Jeremy Mikecz & Steve Gaughan\
 Research Data Services / Research Facilitation\
 Dartmouth Libraries
 
@@ -25,17 +25,39 @@ Dartmouth Libraries
 
 -   [view and sign up for other workshops](https://dartgo.org/RRADworkshops)
 
-For additional help or research consultation, you can reach out to ResearchDataHelp\@groups.dartmouth.edu, contact Jeremy & Steve by email, or schedule appoints with us ([Jeremy](https://dartgo.org/jeremy) and ??)
-
 ## This Workshop
 
 -   Download the workshop materials here
 
 -   materials also available on [our Github repository](https://github.com/Dartmouth-Libraries/R-Data-Analysis-and-Visualization)
 
+For additional help or research consultation, you can reach out to ResearchDataHelp\@groups.dartmouth.edu, contact Jeremy & Steve by email, or schedule appoints with us at: [dartgo.org/jeremy](https:dartgo.org/jeremy) and [dartgo.org/steve](https://dartgo.org/steve)
+
 ## Goals
 
 ## Schedule
+
+::: {.scrollable .incremental}
+-   1: Intro to R / R Studio
+
+-   2: Intro to Data Wrangling
+
+-   3: Exploratory Data Viz
+
+-   4: Intro to Stats with R, Part 1
+
+-   Reflection: Takeaways & Questions
+
+-   **Day 2**
+
+-   5: Intro to Stats with R, Part 2
+
+-   6: Mind the Gap: Creating Custom Visualizations
+
+-   7: Geospatial Analysis and Mapping
+
+-   Reflection: Takeaways, Questions, Next Steps, & Feedback
+:::
 
 # Day 1
 
@@ -47,7 +69,7 @@ Berry Classroom 180a ("The LINK")
 
 # Lesson 2: Intro to Data Wrangling (tidyverse / dplyr)
 
-## dplyr / tidyverse verbs for data wrangling  {.scrollable}
+## dplyr / tidyverse verbs for data wrangling {.scrollable}
 
 To modify and "wrangle" datasets, the tidyverse commonly uses the following verbs / functions:
 
@@ -75,9 +97,115 @@ To modify and "wrangle" datasets, the tidyverse commonly uses the following verb
 
 # Lesson 3: Exploratory Data Visualization (ggplot)
 
-# Lesson 4: Intro to Stats with R, Part 1 (dplyr) 
+## GGplot2 resources  {.scrollable}
 
-# Day 1 - Reflections / Lessons
+-   ggplot2 [cheat sheet](https://github.com/rstudio/cheatsheets/blob/main/data-visualization.pdf)
+
+-   ggplot2 library [home page](https://ggplot2.tidyverse.org/) (with links to suggested tutorials / learning materials)
+
+-   ggplot2 book: Wickham, [*ggplot2: Elegant Graphics for Data Analysis*](https://ggplot2-book.org/)(3rd edition).
+
+-   Specific Visualization tutorials:
+
+    -   ggplot2 cookbook: Chang, [*R Graphics Cookbook*](https://r-graphics.org/) *(2024).*
+
+    -   [*R Graph Gallery*](https://r-graph-gallery.com/)
+
+-   ggplot extensions: <https://exts.ggplot2.tidyverse.org/gallery/>
+
+::: important
+The [**R Graph Gallery**](https://r-graph-gallery.com/)is a particularly valuable tool for helping you decide what plot type to use for your data and to obtain code for creating such charts.
+:::
+
+## The Grammar of Graphics  {.scrollable}
+
+The "gg" in ggplot stands for Grammar of Graphics. GGplot was developed by Hadley Wickham following the Grammar of Graphics model, which.... **\[explain more\]**
+
+-   CU-Boulder Coursera course video on [Grammar of Graphics](https://www.youtube.com/watch?v=RCaFBJWXfZc)
+
+-   Hadley Wickham, ["A Layered Grammar of Graphics"](https://vita.had.co.nz/papers/layered-grammar.html) in *Journal of Computational and Graphical Statistics* (2010).
+
+-   [Cornell course guide](https://info5940.infosci.cornell.edu/notes/dataviz/grammar-of-graphics/)
+
+-   Wickham, [*ggplot2: Elegant Graphics for Data Analysis*](https://ggplot2-book.org/)(3rd edition)
+
+    -   especially Introduction and "The Grammar" chapters (Chapters 13-17)
+
+## "Grammar of Graphics" plots
+
+Plot = Data + Mapping (how data variables are to be visualized)
+
+## ggplot components
+
+data + mapping
+
+mapping = **aesthetic mappings** (link between data and visual variables) + layers (**geom** functions) + scale + coord + facet + theme
+
+sample code:
+
+```         
+library(tidyverse)
+ggplot(mpg, aes(x = displ, y = hwy)) + 
+  geom_point()
+```
+
+---
+
+```{r}
+library(tidyverse)
+ggplot(mpg, aes(x = displ, y = hwy)) + 
+  geom_point()
+```
+
+---
+
+Five mapping components:
+
+::: incremental
+-   layer
+
+-   scale
+
+-   coord
+
+-   facet
+
+-   theme
+:::
+
+## layers
+
+includes **geoms** (geometric elements like points, lines, polygons, etc.) and **stats** (statistical transformations that summarize the data, simplifying it for visualization)
+
+## scale
+
+maps data values to visual variables like color, shape, and size
+
+## coord
+
+describes how data will be placed spatially and what coordinate system will be used
+
+## facet
+
+describes how to split data and display it in "small multiples"
+
+## theme
+
+control stylistic choices such as font size and color palettes
+
+# Lesson 4: Intro to Stats with R, Part 1 (dplyr)
+
+# Reflections / Lessons (Day 1)
+
+---
+
+1.  What did you learn today that you are excited to implement in your own work?
+2.  Lingering questions
+
+---
+
+1.  Blue post-its: What did we do well / should continue doing?
+2.  Pink: what can we do better / differently?
 
 # Day 2
 
@@ -88,6 +216,8 @@ Berry Classroom 180a ("The LINK")
 # Lesson 5: Intro to States with R, Part 2 (dplyr, tidyr, swirl)
 
 # Lesson 6: Mind the Gap: Creating Custom Visualizations (ggplot, plotly)
+
+Begin by watching the famous video of Hans Rosling's Presentation with the Gapminder dataset: ["200 Countries, 200 Years, 4 Minutes"](https://www.youtube.com/watch?v=jbkSRLYSojo).
 
 # Lesson 7: Geospatial Analysis and Mapping
 
