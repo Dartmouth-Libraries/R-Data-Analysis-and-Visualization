@@ -33,8 +33,6 @@ Dartmouth Libraries
 
 For additional help or research consultation, you can reach out to ResearchDataHelp\@groups.dartmouth.edu, contact Jeremy & Steve by email, or schedule appointments with us at: [dartgo.org/jeremy](https:dartgo.org/jeremy) and [dartgo.org/steve](https://dartgo.org/steve)
 
-## Goals
-
 ## Schedule
 
 ::: {.scrollable .incremental}
@@ -66,6 +64,18 @@ Wednesday, March 19, 2025 (9am - 12:30pm)
 Berry Classroom 180a ("The LINK")
 
 # Lesson 1: Intro to R / R Studio
+
+One Project / One Folder
+
+```         
+spiny_anteaters/ 
+    data/
+    field_notes/ 
+    Images/ 
+    notebooks/ 
+    results/ 
+    README.txt
+```
 
 # Lesson 2: Intro to Data Wrangling (tidyverse / dplyr)
 
@@ -181,13 +191,31 @@ Rarely will you ever create a dataframe or tibble from scratch except to create 
 
 Here, we create a small practice dataset about the popular murder mystery TV show, [*Only Murders in the Building*](https://www.imdb.com/title/tt11691774/)
 
-\`\`\`{r} omitb \<- tribble(\~name, \~occupation, \~apartment, \~is_suspect, \~is_dead, "Charles", "washed-up actor", "14C", "no", "no",} "Mabel", "unemployed never-was", "12E", "maybe", "no", "Oliver", "theater director", "10D", "no", "no", "Howard", "childless cat guy", "3D", "yes", "no", "Bunny", "petty despot", "12A", "no", "maybe" )
-
-omitb
-
 ```         
+library(tidyverse)
+ omitb <- tribble(~name, ~occupation, ~apartment, ~is_suspect, ~is_dead, 
+    "Charles", "washed-up actor", "14C", "no", "no", 
+    "Mabel", "unemployed never-was", "12E", "maybe", "no", 
+    "Oliver", "theater director", "10D", "no", "no", 
+    "Howard", "childless cat guy", "3D", "yes", "no", 
+    "Bunny", "petty despot", "12A", "no", "maybe" )
+```
 
-## dplyr / tidyverse verbs for data wrangling
+---
+
+```{r}
+library(tidyverse)
+ omitb <- tribble(~name, ~occupation, ~apartment, ~is_suspect, ~is_dead, 
+    "Charles", "washed-up actor", "14C", "no", "no", 
+    "Mabel", "unemployed never-was", "12E", "maybe", "no", 
+    "Oliver", "theater director", "10D", "no", "no", 
+    "Howard", "childless cat guy", "3D", "yes", "no", 
+    "Bunny", "petty despot", "12A", "no", "maybe" )
+ 
+ omitb
+```
+
+## dplyr / tidyverse verbs for data wrangling {.scrollable}
 
 To modify and "wrangle" datasets, the tidyverse commonly uses the following verbs / functions:
 
@@ -234,6 +262,17 @@ Using the split-apply-combine technique and other methods learned above, do at l
 4.  answer a similar question of your own
 :::
 
+::: tip
+### Exercise - Split-Apply-Combine
+
+Using the split-apply-combine technique and other methods learned above, do at least one of the following:
+
+1.  Identify the most common species for each planet.
+2.  Identify the most common eye color for each species.
+3.  Identify the average and maximum age (so two columns) for each species.
+4.  answer a similar question of your own
+:::
+
 # Lesson 3: Exploratory Data Visualization (ggplot)
 
 ## Why are you visualizing data?
@@ -247,11 +286,10 @@ Using the split-apply-combine technique and other methods learned above, do at l
 
 *Before we begin, do you have a particular hypothesis about what types of animals sleep the most?*
 :::
-```
-
-# hypothesis:
 
 ```         
+hypothesis:
+```
 
 ::: callout-tip
 ## Exercise 1.2
@@ -263,7 +301,7 @@ Using the split-apply-combine technique and other methods learned above, do at l
 3.  Which columns have missing values ("NA's")? How many rows are missing data for these fields?
 :::
 
-## Mammal Sleep: Conservation field  {.scrollable}
+## Mammal Sleep: Conservation field {.scrollable}
 
 -   least concern ("lc")
 
@@ -349,16 +387,14 @@ data + mapping
 
 mapping = **aesthetic mappings** (link between data and visual variables) + layers (**geom** functions) + scale + coord + facet + theme
 
-sample code:
-```
-
-library(tidyverse) ggplot(mpg, aes(x = displ, y = hwy)) + geom_point()
-
-```         
-
 ------------------------------------------------------------------------
 
-```{r} library(tidyverse) ggplot(mpg, aes(x = displ, y = hwy)) +    geom_point()}
+sample code:
+
+```{r}
+library(tidyverse) 
+ggplot(mpg, aes(x = displ, y = hwy)) + 
+    geom_point()
 ```
 
 ------------------------------------------------------------------------
@@ -443,7 +479,7 @@ Thursday, March 19, 2025 (9am - 12:30pm)
 
 Berry Classroom 180a ("The LINK")
 
-# Lesson 5: Intro to States with R, Part 2 (dplyr, tidyr, swirl)
+# Lesson 5: Intro to Stats with R, Part 2 (dplyr, tidyr, swirl)
 
 # Lesson 6: Mind the Gap: Creating Custom Visualizations (ggplot, plotly)
 

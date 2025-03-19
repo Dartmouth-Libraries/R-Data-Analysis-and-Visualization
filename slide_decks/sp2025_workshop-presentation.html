@@ -365,9 +365,6 @@ Dartmouth Libraries</p>
 </ul>
 <p>For additional help or research consultation, you can reach out to ResearchDataHelp@groups.dartmouth.edu, contact Jeremy &amp; Steve by email, or schedule appointments with us at: <a href="https:dartgo.org/jeremy">dartgo.org/jeremy</a> and <a href="https://dartgo.org/steve">dartgo.org/steve</a></p>
 </section>
-<section id="goals" class="slide level2">
-<h2>Goals</h2>
-</section>
 <section id="schedule" class="slide level2">
 <h2>Schedule</h2>
 <div class="scrollable">
@@ -393,7 +390,14 @@ Dartmouth Libraries</p>
 
 <section id="lesson-1-intro-to-r-r-studio" class="title-slide slide level1 center">
 <h1>Lesson 1: Intro to R / R Studio</h1>
-
+<p>One Project / One Folder</p>
+<pre><code>spiny_anteaters/ 
+    data/
+    field_notes/ 
+    Images/ 
+    notebooks/ 
+    results/ 
+    README.txt</code></pre>
 </section>
 
 <section>
@@ -559,177 +563,219 @@ arrange(x3, avg_height)</code></pre>
 <h2>Create a tibble from scratch</h2>
 <p>Rarely will you ever create a dataframe or tibble from scratch except to create small practice datasets.</p>
 <p>Here, we create a small practice dataset about the popular murder mystery TV show, <a href="https://www.imdb.com/title/tt11691774/"><em>Only Murders in the Building</em></a></p>
-<p>```{r} omitb &lt;- tribble(~name, ~occupation, ~apartment, ~is_suspect, ~is_dead, “Charles”, “washed-up actor”, “14C”, “no”, “no”,} “Mabel”, “unemployed never-was”, “12E”, “maybe”, “no”, “Oliver”, “theater director”, “10D”, “no”, “no”, “Howard”, “childless cat guy”, “3D”, “yes”, “no”, “Bunny”, “petty despot”, “12A”, “no”, “maybe” )</p>
-<p>omitb</p>
-<pre><code>
-## dplyr / tidyverse verbs for data wrangling
+<pre><code>library(tidyverse)
+ omitb &lt;- tribble(~name, ~occupation, ~apartment, ~is_suspect, ~is_dead, 
+    "Charles", "washed-up actor", "14C", "no", "no", 
+    "Mabel", "unemployed never-was", "12E", "maybe", "no", 
+    "Oliver", "theater director", "10D", "no", "no", 
+    "Howard", "childless cat guy", "3D", "yes", "no", 
+    "Bunny", "petty despot", "12A", "no", "maybe" )</code></pre>
+</section>
+<section class="slide level2">
 
-To modify and "wrangle" datasets, the tidyverse commonly uses the following verbs / functions:
-
--   **select()**: to select specific columns by their names or data types
-
--   **arrange()**: to order rows by one or more columns
-
--   **rename()**: to rename columns
-
--   **mutate()**: to create columns
-
--   **filter()**: to filter out rows by a given condition
-
--   **distinct()**: to keep only distinct / unique rows
-
--   **gather()**: to make "wide" data longer
-
--   **spread()**: to make "long" data wider
-
--   **separate()**: to split a single column into multiple columns
-
--   **unite()**: to combine multiple columns into one
-
-[More tidyverse verbs and functions here](https://dplyr.tidyverse.org/reference/index.html).
-
-::: tip
-### Exercise - Tidyverse Verbs
-
-Using what you learned above:
-
-1.  Subset the Star Wars dataset, keeping only characters' name, homeworld, and species.
-2.  Sort the dataset by species.
-3.  Then, create a new column that identifies whether the character is an organic lifeform or not.
-:::
-
-::: tip
-### Exercise - Split-Apply-Combine
-
-Using the split-apply-combine technique and other methods learned above, do at least one of the following:
-
-1.  Identify the most common species for each planet.
-2.  Identify the most common eye color for each species.
-3.  Identify the average and maximum age (so two columns) for each species.
-4.  answer a similar question of your own
-:::
-
-# Lesson 3: Exploratory Data Visualization (ggplot)
-
-## Why are you visualizing data?
-
--   to explore and better understand your data –\&gt; **Exploratory Data Visualization**
-
--   to communicate what you already know –\&gt; **Data Viz Publication &amp; Storytelling**
-
-::: callout-tip
-## Exercise 1.1
-
-*Before we begin, do you have a particular hypothesis about what types of animals sleep the most?*
-:::</code></pre>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5 × 5
+  name    occupation           apartment is_suspect is_dead
+  &lt;chr&gt;   &lt;chr&gt;                &lt;chr&gt;     &lt;chr&gt;      &lt;chr&gt;  
+1 Charles washed-up actor      14C       no         no     
+2 Mabel   unemployed never-was 12E       maybe      no     
+3 Oliver  theater director     10D       no         no     
+4 Howard  childless cat guy    3D        yes        no     
+5 Bunny   petty despot         12A       no         maybe  </code></pre>
+</div>
+</div>
+</section>
+<section id="dplyr-tidyverse-verbs-for-data-wrangling" class="slide level2 scrollable">
+<h2>dplyr / tidyverse verbs for data wrangling</h2>
+<p>To modify and “wrangle” datasets, the tidyverse commonly uses the following verbs / functions:</p>
+<ul>
+<li><p><strong>select()</strong>: to select specific columns by their names or data types</p></li>
+<li><p><strong>arrange()</strong>: to order rows by one or more columns</p></li>
+<li><p><strong>rename()</strong>: to rename columns</p></li>
+<li><p><strong>mutate()</strong>: to create columns</p></li>
+<li><p><strong>filter()</strong>: to filter out rows by a given condition</p></li>
+<li><p><strong>distinct()</strong>: to keep only distinct / unique rows</p></li>
+<li><p><strong>gather()</strong>: to make “wide” data longer</p></li>
+<li><p><strong>spread()</strong>: to make “long” data wider</p></li>
+<li><p><strong>separate()</strong>: to split a single column into multiple columns</p></li>
+<li><p><strong>unite()</strong>: to combine multiple columns into one</p></li>
+</ul>
+<p><a href="https://dplyr.tidyverse.org/reference/index.html">More tidyverse verbs and functions here</a>.</p>
+<section id="exercise---tidyverse-verbs" class="tip">
+<h3>Exercise - Tidyverse Verbs</h3>
+<p>Using what you learned above:</p>
+<ol type="1">
+<li>Subset the Star Wars dataset, keeping only characters’ name, homeworld, and species.</li>
+<li>Sort the dataset by species.</li>
+<li>Then, create a new column that identifies whether the character is an organic lifeform or not.</li>
+</ol>
+</section>
+<section id="exercise---split-apply-combine" class="tip">
+<h3>Exercise - Split-Apply-Combine</h3>
+<p>Using the split-apply-combine technique and other methods learned above, do at least one of the following:</p>
+<ol type="1">
+<li>Identify the most common species for each planet.</li>
+<li>Identify the most common eye color for each species.</li>
+<li>Identify the average and maximum age (so two columns) for each species.</li>
+<li>answer a similar question of your own</li>
+</ol>
+</section>
+<section id="exercise---split-apply-combine-1" class="tip">
+<h3>Exercise - Split-Apply-Combine</h3>
+<p>Using the split-apply-combine technique and other methods learned above, do at least one of the following:</p>
+<ol type="1">
+<li>Identify the most common species for each planet.</li>
+<li>Identify the most common eye color for each species.</li>
+<li>Identify the average and maximum age (so two columns) for each species.</li>
+<li>answer a similar question of your own</li>
+</ol>
+</section>
 </section></section>
 <section>
-<section id="hypothesis" class="title-slide slide level1 center">
-<h1>hypothesis:</h1>
-<pre><code>
-::: callout-tip
-## Exercise 1.2
+<section id="lesson-3-exploratory-data-visualization-ggplot" class="title-slide slide level1 center">
+<h1>Lesson 3: Exploratory Data Visualization (ggplot)</h1>
 
-1.  What are the two main data types stored in this dataset?
-
-2.  What are the maximum and minimum sleep times (in hours per day) for mammals in this dataset?
-
-3.  Which columns have missing values ("NA's")? How many rows are missing data for these fields?
-:::
-
-## Mammal Sleep: Conservation field  {.scrollable}
-
--   least concern ("lc")
-
--   near threatened ("nt")
-
--   vulnerable ("vu")
-
--   endangered ("en")
-
--   critically endangered ("cd")
-
--   extinct in the wild (?)
-
--   extinct (?)
-
--   not evaluated (not included here?)
-
--   data deficient (not included here?)
-
-:::: notes
-::: callout-note
-According to the documentation retrieved by `help(msleep)` we know that conservation status was a field added to the original msleep dataset from Wikipedia. An online search reveals this field is using 9 categories established by the International Union for Conservation of Nature (IUCN) for threatened species:
-:::
-::::
-
-## ggplot
-
--   popular data visualization library for R
-
--   part of the tidyverse library
-
-## GGplot2 resources {.scrollable}
-
--   ggplot2 [cheat sheet](https://github.com/rstudio/cheatsheets/blob/main/data-visualization.pdf)
-
--   ggplot2 library [home page](https://ggplot2.tidyverse.org/) (with links to suggested tutorials / learning materials)
-
--   ggplot2 book: Wickham, [*ggplot2: Elegant Graphics for Data Analysis*](https://ggplot2-book.org/)(3rd edition).
-
--   Specific Visualization tutorials:
-
-    -   ggplot2 cookbook: Chang, [*R Graphics Cookbook*](https://r-graphics.org/) *(2024).*
-
-    -   [*R Graph Gallery*](https://r-graph-gallery.com/)
-
--   ggplot extensions: &lt;https://exts.ggplot2.tidyverse.org/gallery/&gt;
-
-::: important
-The [**R Graph Gallery**](https://r-graph-gallery.com/)is a particularly valuable tool for helping you decide what plot type to use for your data and to obtain code for creating such charts.
-:::
-
-## The Grammar of Graphics {.scrollable}
-
-GG in ggplot = Grammar of Graphics
-
--   identifies simplest, base-level components of data visualizations, allowing
-
-    -   extensive customization
-
-    -   iterative plotting
-
-The "gg" in ggplot stands for Grammar of Graphics. GGplot was developed by Hadley Wickham following the Grammar of Graphics model proposed by Leland Wilkinson. The grammar of graphics reduces complex plots to their simplest visual components, thus allowing a user to customize each of these components. This is in contrast to many software applications that begin with a chart type (i.e. a line or bar plot), restricting the ability of the user to customize these plots (or to develop new plot types). Instead, the grammar of graphics is intended to make customization easier while also allowing the user to iteratively update one feature of a plot at a time.
-
-## More on the Grammar of Graphics
-
--   CU-Boulder Coursera course video on [Grammar of Graphics](https://www.youtube.com/watch?v=RCaFBJWXfZc)
-
--   Hadley Wickham, ["A Layered Grammar of Graphics"](https://vita.had.co.nz/papers/layered-grammar.html) in *Journal of Computational and Graphical Statistics* (2010).
-
--   [Cornell course guide](https://info5940.infosci.cornell.edu/notes/dataviz/grammar-of-graphics/)
-
--   Wickham, [*ggplot2: Elegant Graphics for Data Analysis*](https://ggplot2-book.org/)(3rd edition)
-
-    -   especially Introduction and "The Grammar" chapters (Chapters 13-17)
-
-## "Grammar of Graphics" plots
-
-Plot = Data + Mapping (how data variables are to be visualized)
-
-## ggplot components
-
-data + mapping
-
-mapping = **aesthetic mappings** (link between data and visual variables) + layers (**geom** functions) + scale + coord + facet + theme
-
-sample code:</code></pre>
-<p>library(tidyverse) ggplot(mpg, aes(x = displ, y = hwy)) + geom_point()</p>
-<pre><code>
-------------------------------------------------------------------------
-
-```{r} library(tidyverse) ggplot(mpg, aes(x = displ, y = hwy)) +    geom_point()}</code></pre>
 </section>
+<section id="why-are-you-visualizing-data" class="slide level2">
+<h2>Why are you visualizing data?</h2>
+<ul>
+<li><p>to explore and better understand your data –&gt; <strong>Exploratory Data Visualization</strong></p></li>
+<li><p>to communicate what you already know –&gt; <strong>Data Viz Publication &amp; Storytelling</strong></p></li>
+</ul>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Exercise 1.1</strong></p>
+</div>
+<div class="callout-content">
+<p><em>Before we begin, do you have a particular hypothesis about what types of animals sleep the most?</em></p>
+</div>
+</div>
+</div>
+<pre><code>hypothesis:</code></pre>
+<div class="callout callout-tip callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Exercise 1.2</strong></p>
+</div>
+<div class="callout-content">
+<ol type="1">
+<li><p>What are the two main data types stored in this dataset?</p></li>
+<li><p>What are the maximum and minimum sleep times (in hours per day) for mammals in this dataset?</p></li>
+<li><p>Which columns have missing values (“NA’s”)? How many rows are missing data for these fields?</p></li>
+</ol>
+</div>
+</div>
+</div>
+</section>
+<section id="mammal-sleep-conservation-field" class="slide level2 scrollable">
+<h2>Mammal Sleep: Conservation field</h2>
+<ul>
+<li><p>least concern (“lc”)</p></li>
+<li><p>near threatened (“nt”)</p></li>
+<li><p>vulnerable (“vu”)</p></li>
+<li><p>endangered (“en”)</p></li>
+<li><p>critically endangered (“cd”)</p></li>
+<li><p>extinct in the wild (?)</p></li>
+<li><p>extinct (?)</p></li>
+<li><p>not evaluated (not included here?)</p></li>
+<li><p>data deficient (not included here?)</p></li>
+</ul>
+<aside class="notes">
+<div class="callout callout-note callout-titled callout-style-default">
+<div class="callout-body">
+<div class="callout-title">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<p><strong>Note</strong></p>
+</div>
+<div class="callout-content">
+<p>According to the documentation retrieved by <code>help(msleep)</code> we know that conservation status was a field added to the original msleep dataset from Wikipedia. An online search reveals this field is using 9 categories established by the International Union for Conservation of Nature (IUCN) for threatened species:</p>
+</div>
+</div>
+</div>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</section>
+<section id="ggplot" class="slide level2">
+<h2>ggplot</h2>
+<ul>
+<li><p>popular data visualization library for R</p></li>
+<li><p>part of the tidyverse library</p></li>
+</ul>
+</section>
+<section id="ggplot2-resources" class="slide level2 scrollable">
+<h2>GGplot2 resources</h2>
+<ul>
+<li><p>ggplot2 <a href="https://github.com/rstudio/cheatsheets/blob/main/data-visualization.pdf">cheat sheet</a></p></li>
+<li><p>ggplot2 library <a href="https://ggplot2.tidyverse.org/">home page</a> (with links to suggested tutorials / learning materials)</p></li>
+<li><p>ggplot2 book: Wickham, <a href="https://ggplot2-book.org/"><em>ggplot2: Elegant Graphics for Data Analysis</em></a>(3rd edition).</p></li>
+<li><p>Specific Visualization tutorials:</p>
+<ul>
+<li><p>ggplot2 cookbook: Chang, <a href="https://r-graphics.org/"><em>R Graphics Cookbook</em></a> <em>(2024).</em></p></li>
+<li><p><a href="https://r-graph-gallery.com/"><em>R Graph Gallery</em></a></p></li>
+</ul></li>
+<li><p>ggplot extensions: <a href="https://exts.ggplot2.tidyverse.org/gallery/" class="uri">https://exts.ggplot2.tidyverse.org/gallery/</a></p></li>
+</ul>
+<div class="important">
+<p>The <a href="https://r-graph-gallery.com/"><strong>R Graph Gallery</strong></a>is a particularly valuable tool for helping you decide what plot type to use for your data and to obtain code for creating such charts.</p>
+</div>
+</section>
+<section id="the-grammar-of-graphics" class="slide level2 scrollable">
+<h2>The Grammar of Graphics</h2>
+<p>GG in ggplot = Grammar of Graphics</p>
+<ul>
+<li><p>identifies simplest, base-level components of data visualizations, allowing</p>
+<ul>
+<li><p>extensive customization</p></li>
+<li><p>iterative plotting</p></li>
+</ul></li>
+</ul>
+<p>The “gg” in ggplot stands for Grammar of Graphics. GGplot was developed by Hadley Wickham following the Grammar of Graphics model proposed by Leland Wilkinson. The grammar of graphics reduces complex plots to their simplest visual components, thus allowing a user to customize each of these components. This is in contrast to many software applications that begin with a chart type (i.e.&nbsp;a line or bar plot), restricting the ability of the user to customize these plots (or to develop new plot types). Instead, the grammar of graphics is intended to make customization easier while also allowing the user to iteratively update one feature of a plot at a time.</p>
+</section>
+<section id="more-on-the-grammar-of-graphics" class="slide level2">
+<h2>More on the Grammar of Graphics</h2>
+<ul>
+<li><p>CU-Boulder Coursera course video on <a href="https://www.youtube.com/watch?v=RCaFBJWXfZc">Grammar of Graphics</a></p></li>
+<li><p>Hadley Wickham, <a href="https://vita.had.co.nz/papers/layered-grammar.html">“A Layered Grammar of Graphics”</a> in <em>Journal of Computational and Graphical Statistics</em> (2010).</p></li>
+<li><p><a href="https://info5940.infosci.cornell.edu/notes/dataviz/grammar-of-graphics/">Cornell course guide</a></p></li>
+<li><p>Wickham, <a href="https://ggplot2-book.org/"><em>ggplot2: Elegant Graphics for Data Analysis</em></a>(3rd edition)</p>
+<ul>
+<li>especially Introduction and “The Grammar” chapters (Chapters 13-17)</li>
+</ul></li>
+</ul>
+</section>
+<section id="grammar-of-graphics-plots" class="slide level2">
+<h2>“Grammar of Graphics” plots</h2>
+<p>Plot = Data + Mapping (how data variables are to be visualized)</p>
+</section>
+<section id="ggplot-components" class="slide level2">
+<h2>ggplot components</h2>
+<p>data + mapping</p>
+<p>mapping = <strong>aesthetic mappings</strong> (link between data and visual variables) + layers (<strong>geom</strong> functions) + scale + coord + facet + theme</p>
+</section>
+<section class="slide level2">
+
+<p>sample code:</p>
+
+<img data-src="sp2025_workshop-presentation_files/figure-revealjs/unnamed-chunk-2-1.png" width="960" class="r-stretch"></section>
 <section class="slide level2">
 
 <p>Five mapping components:</p>
@@ -840,8 +886,8 @@ sample code:</code></pre>
 <p>Berry Classroom 180a (“The LINK”)</p>
 </section>
 
-<section id="lesson-5-intro-to-states-with-r-part-2-dplyr-tidyr-swirl" class="title-slide slide level1 center">
-<h1>Lesson 5: Intro to States with R, Part 2 (dplyr, tidyr, swirl)</h1>
+<section id="lesson-5-intro-to-stats-with-r-part-2-dplyr-tidyr-swirl" class="title-slide slide level1 center">
+<h1>Lesson 5: Intro to Stats with R, Part 2 (dplyr, tidyr, swirl)</h1>
 
 </section>
 
@@ -1077,6 +1123,82 @@ sample code:</code></pre>
         ]
       });
     </script>
+    
+
+    <script>
+
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+
+      // slide changes (different for each slide format).
+
+      (function () {
+
+        // dispatch for htmlwidgets
+
+        function fireSlideEnter() {
+
+          const event = window.document.createEvent("Event");
+
+          event.initEvent("slideenter", true, true);
+
+          window.document.dispatchEvent(event);
+
+        }
+
+    
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+
+          fireSlideEnter();
+
+    
+
+          // dispatch for shiny
+
+          if (window.jQuery) {
+
+            if (previousSlide) {
+
+              window.jQuery(previousSlide).trigger("hidden");
+
+            }
+
+            if (currentSlide) {
+
+              window.jQuery(currentSlide).trigger("shown");
+
+            }
+
+          }
+
+        }
+
+    
+
+        // hookup for slidy
+
+        if (window.w3c_slidy) {
+
+          window.w3c_slidy.add_observer(function (slide_num) {
+
+            // slide_num starts at position 1
+
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+
+          });
+
+        }
+
+    
+
+      })();
+
+    </script>
+
+    
+
     <script id="quarto-html-after-body" type="application/javascript">
     window.document.addEventListener("DOMContentLoaded", function (event) {
       const toggleBodyColorMode = (bsSheetEl) => {

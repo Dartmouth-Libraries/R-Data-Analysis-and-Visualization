@@ -262,7 +262,7 @@ Plot = Data + Mapping (how data variables are to be visualized)
 Five mapping components:
 
 | Component | Description |
-|----|----|
+|------------------------------------|------------------------------------|
 | layer | includes **geoms** (geometric elements visible in the plot like points, lines, polygons, etc.) and **stats** (statistical transformations that summarize the data, simplifying it for visualization; i.e. binning or counting observations to make a histogram, or fitting a linear model) |
 | scale | maps data values to visual variables like color, shape, and size |
 | coord | describes how data will be placed spatially and what coordinate system will be used |
@@ -304,19 +304,6 @@ ggplot(titanic, aes(x = Class, y = n, fill = Survived)) +
   facet_grid(Sex ~ Age) 
 ```
 
-## Mosaic Plots
-
-```{r}
-# Calculate survival rates by Class and Sex
-survival_rates <- titanic_summary %>%
-  group_by(Class, Sex) %>%
-  summarize(survival_rate = mean(survival_rate, na.rm=TRUE))
-
-# Heatmap of survival rates
-ggplot(survival_rates, aes(x = Class, y = Sex, fill = survival_rate)) +
-  geom_tile()
-```
-
 ## Calculate Survival Rate
 
 At the moment, the dataset is grouped by sex, age (child or adult), passenger class, and survival. To help us identify the passengers most likely to survive, we first need to know how many people were in each demographic group (i.e. sex, age, class with survival excluded) and then calculate the percent of each group that survived.
@@ -350,6 +337,21 @@ titanic_summary <- titanic_summary |>
 titanic_summary <- titanic_summary |>
     arrange(survival_rate)
 ```
+
+## Mosaic Plots
+
+```{r}
+# Calculate survival rates by Class and Sex 
+survival_rates <- titanic_summary %>% 
+    group_by(Class, Sex) %>% 
+    summarize(survival_rate = mean(survival_rate, na.rm=TRUE))
+
+# Heatmap of survival rates
+ggplot(survival_rates, aes(x = Class, y = Sex, fill = survival_rate)) +
+  geom_tile()
+```
+
+# 
 
 ## problem - code below causes an error if run multiple times
 
