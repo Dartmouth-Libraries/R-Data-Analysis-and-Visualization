@@ -4,8 +4,6 @@ format: html
 editor: visual
 ---
 
-
-
 ```{r}
 #install.packages('gapminder')
 library(tidyverse)
@@ -17,13 +15,11 @@ library(rnaturalearth)
 library(rnaturalearthdata)
 ```
 
-
 ```{r}
 data(gapminder)
 head(gapminder)
 
 ```
-
 
 ```{r}
 # Filter the gapminder dataset for the year 2007
@@ -84,7 +80,6 @@ plot1 <- ggplot() +
 print(plot1)
 ```
 
-
 ```{r}
 library(ggmap)      # For creating heatmap (Optional)
 library(MASS)       # For the kde2d function used in creating a heat map
@@ -105,7 +100,6 @@ heatmap_plot_with_legend <- ggplot() +
 print(heatmap_plot_with_legend)
 ```
 
-
 ```{r}
 usstates_map <- ggplot2::map_data("state")
 # Create the plot with the base map and add the points_sf layer 
@@ -117,8 +111,6 @@ plot1 <- ggplot() +
 # Display the plot
 print(plot1)
 ```
-
-
 
 ```{r}
 # Overlay Analysis / Spatial Analysis (point in polygon )

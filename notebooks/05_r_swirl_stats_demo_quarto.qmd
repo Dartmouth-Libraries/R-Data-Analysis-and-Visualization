@@ -102,6 +102,33 @@ ggplot(mtcars, aes(x = hp, y = mpg)) +
 ```
 
 ```{r}
+# Load necessary libraries
+library(ggplot2)
+
+# Load the mtcars dataset
+data(mtcars)
+
+# Fit a linear model to predict mpg based on hp
+model <- lm(mpg ~ hp, data = mtcars)
+
+# Extract fit parameters from the model
+fit_parameters <- summary(model)$coefficients
+
+# Display the fit parameters
+print("Fit Parameters:")
+print(fit_parameters)
+
+# Plot the correlation
+ggplot(mtcars, aes(x = hp, y = mpg)) +
+  geom_point() +
+  geom_smooth(method = 'lm', color = 'blue') +
+  labs(title = "Correlation between Horsepower and Miles Per Gallon",
+       x = "Horsepower",
+       y = "Miles Per Gallon") +
+  theme_minimal()
+```
+
+```{r}
 # 4. Chi-Squared Test: Testing association between two categorical variables (Transmission and Cylinders)
 chi_squared_result <- chisq.test(table(mtcars$am, mtcars$cyl))
 chi_square_result
