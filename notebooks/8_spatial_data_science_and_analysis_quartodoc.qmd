@@ -4,33 +4,26 @@ format: html
 editor: visual
 ---
 
+
+
 ```{r}
-# insert > executable cell > R
 #install.packages('gapminder')
-library(gapminder)
-#install.packages('tidyverse')
-```
-
-```{r}
-
-```
-
-```{library(tidyverse)}
-
-library(gapminder)
+library(tidyverse)
 library(ggplot2)
 library(dplyr)
+library(gapminder)
 library(sf)
 library(rnaturalearth)
 library(rnaturalearthdata)
+```
 
-# Load gapminder dataset
+
+```{r}
 data(gapminder)
 head(gapminder)
 
 ```
 
-spatial data science
 
 ```{r}
 # Filter the gapminder dataset for the year 2007
@@ -55,65 +48,8 @@ ggplot(data = world_gdp) +
   theme_minimal()
 ```
 
-====
-
 ```{r}
-library(gapminder)
-library(dplyr)
-library(ggplot2)
-library(sf)
-library(tidygeocoder)
-library(tidyverse)
-
-# Define a list of cities
-cities <- data.frame(
-  city = c("New York", "London", "Tokyo", "Beijing", "Rio de Janeiro", 
-           "Sydney", "Cairo", "Mumbai", "Berlin"),
-  stringsAsFactors = FALSE
-)
-
-# Geocode all cities using tidygeocoder
-cities_with_coords <- cities %>%
-  geocode(address = city, method = "osm", lat = latitude, long = longitude)
-
-# Check the geocoded results
-print(cities_with_coords)
-
-# Get world map data
-world <- rnaturalearth::ne_countries(scale = "medium", returnclass = "sf")
-
-# Convert the cities_with_coords dataframe to sf format
-cities_sf <- st_as_sf(cities_with_coords, coords = c("longitude", "latitude"), crs = 4326)
-
-# Perform a spatial join to find which country each city belongs to
-cities_with_country <- st_join(cities_sf, world, join = st_intersects)
-
-# Extract coordinates
-coords <- st_coordinates(cities_with_country)
-           
-head(cities_with_country)
-
-
-```
-
-```{r}
-coordinates <- sf::st_coordinates(cities_with_country$geometry)
-
-# Access the latitude (second element) of the first row
-latitude <- coordinates[1, 2]
-
-print(latitude)
-
-longitude <- coordinates[1, 1]
-
-print(longitude)
-
-```
-
-Heatmap of point data
-
-```{r}
-
+# heat map of point data 
 # Load libraries
 library(sf)         # For handling simple features
 library(ggplot2)    # For plotting
@@ -146,12 +82,10 @@ plot1 <- ggplot() +
   theme_minimal()
 # Display the plot
 print(plot1)
+```
 
-# https://jtr13.github.io/cc19/different-ways-of-plotting-u-s-map-in-r.html 
 
-#===
-#install.packages('ggmap')
-
+```{r}
 library(ggmap)      # For creating heatmap (Optional)
 library(MASS)       # For the kde2d function used in creating a heat map
 # see also https://www.rdocumentation.org/packages/MASS/versions/7.3-64/topics/kde2d
@@ -169,8 +103,10 @@ heatmap_plot_with_legend <- ggplot() +
   theme(legend.position = "right")  # Position the legend on the right side
 # Display the heatmap
 print(heatmap_plot_with_legend)
+```
 
-# ============
+
+```{r}
 usstates_map <- ggplot2::map_data("state")
 # Create the plot with the base map and add the points_sf layer 
 plot1 <- ggplot() +
@@ -180,53 +116,12 @@ plot1 <- ggplot() +
   theme_minimal()
 # Display the plot
 print(plot1)
-
-# join data 
-# https://r4ds.hadley.nz/joins.html
-
-
-
-zipcode_lat_lon_lookup_df <- read.csv('zipcode_centroids.csv')
-# Load the dplyr package
-library(dplyr)
-
-# Assuming zipcodes_df is your data frame with just zip codes
-# and lookup_df is your lookup table with zipcodes, latitudes, and longitudes
-
-# Perform a left join to add latitude and longitude to the zipcode data frame
-# Note: Make sure the column names are correctly specified according to your data frames
-
-# Create a new data frame with Massachusetts zip codes
-massachusetts_zipcodes <- data.frame(zipcode = c("47435", "02115", "01890"))
-head(massachusetts_zipcodes)
-
-# Create a new field called 'zipcode' populated with values from the 'ZIP' field
-zipcode_lat_lon_lookup_df <- zipcode_lat_lon_lookup_df %>%
-  mutate(zipcode = ZCTA5CE20)
-head(zipcode_lat_lon_lookup_df)
-
-# Make sure both zipcode columns are of character type
-zipcode_lat_lon_lookup_df$zipcode <- as.character(zipcode_lat_lon_lookup_df$zipcode)
-head(zipcode_lat_lon_lookup_df)
-
-# Perform the left join after ensuring compatible types
-enriched_zipcodes_df <- massachusetts_zipcodes %>%
-  left_join(zipcode_lat_lon_lookup_df, by = "zipcode")
-head(enriched_zipcodes_df)
-
-
-enriched_zipcodes_df <- massachusetts_zipcodes %>%
-  left_join(zipcode_lat_lon_lookup_df, by = "zipcode")
-
-head(enriched_zipcodes_df)
-
-
 ```
 
 
-# Overlay Analysis / Spatial Analysis (point in polygon )
 
 ```{r}
+# Overlay Analysis / Spatial Analysis (point in polygon )
 # Set working directory
 setwd('~/Downloads')
 #setwd('~/Desktop')
@@ -239,9 +134,7 @@ setwd('~/Downloads')
 #unzip(zipfile = "nationalparks_ak_1.zip", exdir = "data")
 #unzip {utils}
 
-
 utils::unzip(zipfile = "nationalparks_ak.zip", exdir = "data")
-
 
 # Load point data using read.csv
 points <- read.csv('point-locations.csv')
@@ -251,9 +144,6 @@ library(sp)         # For spatial objects and functionalities
 library(sf)         # For handling simple features
 library(terra)      # For working with raster and vector data
 library(maps)       # For plotting maps
-
-# library(tidyverse)
-
 
 # Convert the points data frame to a simple features object and set the crs to 
 # epsg code 4326
