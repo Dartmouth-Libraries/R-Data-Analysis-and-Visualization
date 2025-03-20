@@ -5,6 +5,27 @@ editor: visual
 ---
 
 ```{r}
+install.packages("leaflet")
+library(leaflet)
+longitude_x <-   -72.2900578
+latitude_y <-   43.703016
+# add OpenStreetMap map tiles, right in R Studio! 
+m <- leaflet() %>%
+  addTiles()  
+  # draw the map
+m
+
+```
+
+```{r}
+m <- leaflet() %>%
+  addTiles() %>%  # add OpenStreetMap map tiles
+  addMarkers(lng=longitude_x, lat=latitude_y, popup="Dartmouth College!")
+m  
+
+```
+
+```{r}
 #install.packages('gapminder')
 library(tidyverse)
 library(ggplot2)
