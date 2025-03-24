@@ -1,0 +1,24 @@
+---
+title: "Approaches to Data Visualization"
+subtitle: ""
+
+author: "Jeremy Mikecz"
+institute: "Research Data Services, Dartmouth Libraries"
+format: 
+  revealjs:
+    theme: night
+    navigation-mode: vertical
+    chalkboard: true
+editor: visual
+logo: "../hds_images/logo_white.png"
+---
+
+# Exploring Data: Exploratory Viz 1
+
+# Sharing Data: Exploratory Viz 2
+
+# Persuading with Data
+
+# Telling Stories with Data
+
+# Humanizing Data

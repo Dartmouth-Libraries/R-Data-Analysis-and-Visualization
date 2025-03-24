@@ -49,7 +49,7 @@ also [William Playfair](https://www.scotsmagazine.com/articles/series/william-pl
 
 ![Playfair also apparently created the world's first pie chart in 1801, published with his "Statistical Breviary".](images/Playfair-piechart.jpg)
 
----
+------------------------------------------------------------------------
 
 ![This pie chart was part of a larger graphic examining the land area, populations, and revenues of European countries.](images/Playfair_piecharts_1280px.jpg)
 
@@ -61,7 +61,7 @@ also [William Playfair](https://www.scotsmagazine.com/articles/series/william-pl
 
 ![Mixed bar and line plots (1821).](images/Playfair_bar-and-line-plots_1821.png)
 
----
+------------------------------------------------------------------------
 
 ![Complex, overlapping line plots showing revenues, expenses, debt, price of commodities, etc. all on the same line plot and timeline (1824). Note the different y values and scales used for each line.](images/Playfair_1824_lineplots_1920px-.jpg)
 
@@ -97,7 +97,7 @@ Essay with accompanying interactive graphic: RJ Andrews, ["Interacting with Hist
 
 ![1918 Influenza - line plot of cases in major northern cities.](images/1918_flu_lineplot_1919.jpg)
 
----
+------------------------------------------------------------------------
 
 ![Map of geographic distribution of influenza cases (1918).](images/1918_flu_map_1921.jpg)
 
