@@ -1,0 +1,143 @@
+---
+title: "nbs02-03c_teacher-notes"
+author: "Jeremy Mikecz"
+format: html
+editor: visual
+---
+
+# Introduction to Tidyverse
+
+Tidyverse is a system of R packages for data wrangling and analysis. It provides a different method and syntax for working with data tables (often called "data frames" in data science; but, tidyverse dataframes are known as "tibbles") from base R.
+
+For additional help learning how to use R's tidyverse system of packages, see notebook 02 or slideshow.
+
+## Types of 2d data in R
+
+-   **dataframes (core R)**: columns with column names; rows with indexes
+
+-   **tibbles (tidyverse)**: a type of dataframe used with the tidyverse collection of packages
+
+-   **data.table**: optimized for speed with large datasets
+
+In these lessons, we will work with [tidyverse](https://www.tidyverse.org/) a collection of packages designed for data science. Tidyverse works with **tibbles**, a customized and newer form of dataframes.
+
+# \[PRES: pipes, tidyverse syntax, tidy data, tribbles\]
+
+# 1. Setup
+
+```{r}
+## install tidyverse with:
+#install.packages("tidyverse")
+
+## update tidyverse with:
+#tidyverse_update()
+
+## import tidyverse with:
+library(tidyverse)
+
+## see what packages are included with tidyverse:
+tidyverse_packages()
+```
+
+## 
+
+### 3b. preloaded datasets
+
+We have already used the preloaded `starwars` dataset. But is it a tibble, a dataframe, or something else?
+
+```{r} class(starwars)}
+```
+
+### 3c. Dataframes vs. tibbles
+
+```{r} df <- read.csv("../data/census1970.csv")}
+```
+
+#### Convert a dataframe into a tibble
+
+```{r} head(df)}
+```
+
+```{r} df2tib <- as_tibble(df)}
+```
+
+# \[PRES: tidyverse verbs\]
+
+### 4b. ARRANGE: Sorting
+
+```{r} starwars |>   arrange(homeworld)  #descending order: arrange(desc(homeworld))}
+```
+
+### 4c. FILTER (rows)
+
+```{r} starwars |>   filter(species=="Droid")}
+```
+
+### 4d. SELECT: Subset (columns)
+
+```{r} starwars |>   select(name, homeworld, species)  #reorder names here to reorder columns}
+```
+
+#### For a range of columns
+
+```{r} starwars |>   select(name:hair_color, species)}
+```
+
+### 4e. RENAME columns
+
+```{r} starwars |>   rename(character = name, planet = homeworld)}
+```
+
+### 4f. MUTATE: create new columns
+
+```{r} head(starwars)}
+```
+
+```{r} starwars |>     mutate(taller_than122cm = ifelse(height > 122, TRUE, FALSE))}
+```
+
+```{r} "A New Hope" %in% starwars$films[[1]]}
+```
+
+```{r} starwars$films[12]}
+```
+
+```{r} starwars |>     mutate(in_new_hope = map_lgl(films, ~"A New Hope" %in% .x)) |>     filter(in_new_hope == TRUE)}
+```
+
+::: tip
+### Exercise
+
+Using what you learned above:
+
+1.  Subset the Star Wars dataset, keeping only characters' name, homeworld, and species.
+2.  Sort the dataset by species.
+3.  Then, create a new column that identifies whether the character is an organic lifeform or not.
+:::
+
+```{r}
+```
+
+## 5. Split-Apply-Combine
+
+A very common data science technique is to split a dataset into groups, perform some action on each of those groups, and then combine the results from each group into one new dataset. For example, we can use this technique to calculate the average height of Star Wars characters by species using the **group_by()** and **summarise()** functions.
+
+```{r} starwars |>   group_by(species)}
+```
+
+```{r} starwars |>    group_by(species) |>   summarise(avg_height = mean(height, na.rm = TRUE))}
+```
+
+```{r} starwars |>       group_by(species) |>      summarise(avg_height = mean(height, na.rm = TRUE)) |>     arrange(avg_height)}
+```
+
+::: tip
+### Exercise: Split-Apply-Combine
+
+Using the split-apply-combine technique and other methods learned above, do at least one of the following:
+
+1.  Identify the most common species for each planet.
+2.  Identify the most common eye color for each species.
+3.  Identify the average and maximum age (so two columns) for each species.
+4.  answer a similar question of your own
+:::

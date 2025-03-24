@@ -25,22 +25,74 @@ logo: "../hds_images/logo_white.png"
 
 ![COVID-19 Flatten the Curve graphic](images/COVID_flatten-the-curve-01.jpg){fig-alt="two area graphs: one steep showing the impacts of COVID-19 if not precautionary measures are taken and the other, with a flatter slope, showing how following pre-cautionary measures will prevent hospitals from being overwhelmed."}
 
-## 
-
-# Data Visualization & Public Health
-
-## John Snow
-
-## Florence Nightingale
-
-## 1918 Influenza Epidemic
-
 # Origins of Modern Data Visualization
 
 ## Pre-Modern Maps
 
-## A Data Visualization of Data Visualization History
+## A Scottish Scoundrel & Spy (and Data Viz Innovator)
 
-![](images/Andrews_MapOfFirsts.png)
+::: notes
+Cara Giaimo, ["The Scottish Scoundrel who Changed how we see Data,"](https://www.atlasobscura.com/articles/the-scottish-scoundrel-who-changed-how-we-see-data) *Atlas Obscure* (2016).
+
+also [William Playfair](https://www.scotsmagazine.com/articles/series/william-playfair/) in *A-Z of Great Scots.*
+:::
+
+## First Line Plot? (1786)
+
+![William Playfair published perhaps the world's first "statistical graphic" in his \*Commercial and Political Atlas\*, which was printed in 1786.](images/Playfair_TimeSeries-2.png){fig-alt="Line chart and time-series graphic where the x axis represents years between 1700 and 1780 and the y axis represents number of exports / imports in thousands. Shows two lines, the number imports from and the number of exports to Denmark and Norway."}
+
+## First Bar Chart? (1786)
+
+![William Playfair's bar chart showing exports and imports to ad from Scotland, 1781. Experts have argued this is the world's first bar plot.](images/Playfair_1781_first-bar-chart.jpg){fig-alt="Bar plot comparing imports/exports to/from Scotland by various countries and territories (including Ireland, Greenland, the United States, the West Indies, and Russia)."}
+
+## First Pie Chart? (1801)
+
+![Playfair also apparently created the world's first pie chart in 1801, published with his "Statistical Breviary".](images/Playfair-piechart.jpg)
+
+---
+
+![This pie chart was part of a larger graphic examining the land area, populations, and revenues of European countries.](images/Playfair_piecharts_1280px.jpg)
+
+## First Ridgeline Plot?
+
+![Playfair's "Chart of Universal Commercial History" tracking the rise and fall of "powerful and wealthy nations" (1805).](images/Playfair_Chart_of_Universal_Commercial_History_1805.jpg)
+
+## Mixed Plots
+
+![Mixed bar and line plots (1821).](images/Playfair_bar-and-line-plots_1821.png)
+
+---
+
+![Complex, overlapping line plots showing revenues, expenses, debt, price of commodities, etc. all on the same line plot and timeline (1824). Note the different y values and scales used for each line.](images/Playfair_1824_lineplots_1920px-.jpg)
+
+# Maps
+
+## Early Maps
+
+\[insert\]
+
+## An Early Road Atlas
+
+![A road map from John Ogilby's 1675 road atlas of Great Britain.](https://infowetrust.com/wp-content/uploads/2017/01/1675-Ogilby_-_The_Road_From_LONDON_to_the_LANDS_END.jpg)
+
+## 
+
+# A Data Visualization of Data Visualization History
+
+![Snapshot from RJ Andrews' "Map of Firsts"](https://infowetrust.com/wp-content/uploads/2019/12/history-essay-banner.jpg)
 
 Essay with accompanying interactive graphic: RJ Andrews, ["Interacting with History: 300 years of information graphic milestones"](https://infowetrust.com/project/history-essay) (2017).
+
+# Data Visualization & Public Health
+
+## John Snow (1854)
+
+![John Snow's map of cholera cases (1854).](images/Snow-cholera.jpg)
+
+## Florence Nightingale
+
+![Florence Nightingale's "Diagram of the Causes of Mortality" for the Crimean War (1858).](images/Nightingale.jpg)
+
+## 1918 Influenza Epidemic
+
+# 
