@@ -95,4 +95,10 @@ Essay with accompanying interactive graphic: RJ Andrews, ["Interacting with Hist
 
 ## 1918 Influenza Epidemic
 
+![1918 Influenza - line plot of cases in major northern cities.](images/1918_flu_lineplot_1919.jpg)
+
+---
+
+![Map of geographic distribution of influenza cases (1918).](images/1918_flu_map_1921.jpg)
+
 # 
