@@ -35,6 +35,8 @@ logo: "../hds_images/logo_white.png"
 Cara Giaimo, ["The Scottish Scoundrel who Changed how we see Data,"](https://www.atlasobscura.com/articles/the-scottish-scoundrel-who-changed-how-we-see-data) *Atlas Obscure* (2016).
 
 also [William Playfair](https://www.scotsmagazine.com/articles/series/william-playfair/) in *A-Z of Great Scots.*
+
+Cairo, *How Charts Lie,* p. 23 and Tufte, Ch. 1 also discuss Playfair
 :::
 
 ## First Line Plot? (1786)
@@ -93,6 +95,10 @@ Essay with accompanying interactive graphic: RJ Andrews, ["Interacting with Hist
 
 ![Florence Nightingale's "Diagram of the Causes of Mortality" for the Crimean War (1858).](images/Nightingale.jpg)
 
+::: notes
+\[see Cairo, How Charts Lie, Concl.\]
+:::
+
 ## 1918 Influenza Epidemic
 
 ![1918 Influenza - line plot of cases in major northern cities.](images/1918_flu_lineplot_1919.jpg)
@@ -101,4 +107,10 @@ Essay with accompanying interactive graphic: RJ Andrews, ["Interacting with Hist
 
 ![Map of geographic distribution of influenza cases (1918).](images/1918_flu_map_1921.jpg)
 
-# 
+# The Megascope: Visualizations & Social Progress
+
+## DuBois
+
+## The Opportunity Atlas
+
+\[or save this for later?\]
