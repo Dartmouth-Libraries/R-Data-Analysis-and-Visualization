@@ -5,7 +5,22 @@ format: html
 editor: visual
 ---
 
-# 
+# Data Wrangling for Visualization
+
+In this lesson we
+
+## 1. Setup
+
+```{r}
+library(tidyverse)
+
+```
+
+## Import Data
+
+```{r}
+df <- read.csv("../data/Hanover_weather-data_1884-2025.csv")
+```
 
 ## Exploring the Dataset
 
