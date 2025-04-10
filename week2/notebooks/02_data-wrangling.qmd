@@ -1,0 +1,16 @@
+---
+title: "Data Wrangling for Visualization"
+author: "Jeremy Mikecz"
+format: html
+editor: visual
+---
+
+# 
+
+## Exploring the Dataset
+
+## Wide to Long
+
+## Long to Wide
+
+## Factors & Data Type Conversion
