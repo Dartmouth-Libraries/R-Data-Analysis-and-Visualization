@@ -16,12 +16,14 @@ When searching for local weather data, I found [*Climate Data Online*](https://w
 
 ```{r}
 library(tidyverse)
+#install.packages("zoo")
+library(zoo)
 ```
 
 ## 1.2 import data
 
 ```{r}
-year_avgs <- read.csv("../data/Hanover_temp-yearaverages.csv", row.names=1)
+year_avgs <- read.csv("../../data/Hanover_temp-yearaverages.csv", row.names=1)
 
 tail(year_avgs)
 ```
@@ -54,7 +56,7 @@ ggplot(year_avgs_wide |> filter(Year<2025), aes(x=Year)) +
 ## 3.1 Import data
 
 ```{r}
-temps <- read.csv("../data/Hanover-temps21c_w-daynums.csv")
+temps <- read.csv("../../data/Hanover-temps21c_w-daynums.csv")
 ```
 
 ## 3.2 Examine daily temperature data
