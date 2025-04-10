@@ -67,8 +67,6 @@ Brainstorm how you would need to modify this dataset to do this analysis. Write 
 
 
 
-
-
 ```
 
 # 4. Subsetting the dataset
@@ -159,7 +157,13 @@ yearly_temps2 <- df |>
     filter(YEAR >= 1894 & YEAR <= 2024)
 ```
 
-## 5. Visualizing 
+We should save this dataset before doing anything else:
+
+```{r}
+write.csv(yearly_temps, "../data/Hanover_yearly-temp-averages_1894-2024.csv")
+```
+
+## 5. Visualizing
 
 ```{r}
 ggplot(data=yearly_temps) +
