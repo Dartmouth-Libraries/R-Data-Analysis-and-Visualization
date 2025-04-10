@@ -96,6 +96,10 @@ adjust currency by years
 
 ------------------------------------------------------------------------
 
+## Misleading Relationships
+
+spurious relationships
+
 [spurious correlations](https://tylervigen.com/spurious-correlations) by tyler vigen.
 
 ------------------------------------------------------------------------
@@ -118,8 +122,4 @@ map projections
 
 ## 
 
-## Misleading Relationships
-
-::: notes
-spurious relationships
-:::
+## 
