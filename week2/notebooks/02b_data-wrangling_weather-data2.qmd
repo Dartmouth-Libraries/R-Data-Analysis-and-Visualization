@@ -38,8 +38,6 @@ df <- read.csv("../data/Hanover_weather-data_1884-2025.csv")
 
 
 
-
-
 ```
 
 ## 5. Visualizing

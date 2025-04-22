@@ -21,9 +21,35 @@ logo: "../hds_images/logo_white.png"
 
 ## Goals
 
+-   Trace the historical development and evolution of data visualization as a practice
+
 ## "Flatten the Curve": First Visualized Global Crisis
 
 ![COVID-19 Flatten the Curve graphic](images/COVID_flatten-the-curve-01.jpg){fig-alt="two area graphs: one steep showing the impacts of COVID-19 if not precautionary measures are taken and the other, with a flatter slope, showing how following pre-cautionary measures will prevent hospitals from being overwhelmed."}
+
+::: notes
+In an earlier lesson we discussed the importance of this graphic in educating people across the world about the need to slow the spread of Covid to allow healthcare systems the chance to catch up.
+
+*Interesting: this "data visualization" is not based on any real data. Rather, it exploited the fact that many people worldwide had learned the symbolic language of data visualization.*\
+\
+For seasoned readers of such visualizations, it is easy to take for granted all the implicit messages they convey. For example, many of us just intuit that the x axis represents the passage of time, the higher the location on the y axis - the higher the value, and that a steep upward slopes indicates a sharp increase.
+
+However, even in 2020, not all people initially understood this graphic. And, for most of human history, such charts would have been illegible.
+:::
+
+# What was the world's first visualization?
+
+## What makes a data visualization?
+
+Alberto Cairo:
+
+-   **visualization**: "visual representation of information designed to enable communication, analysis, discovery, exploration, etc."
+
+-   **chart / plot**: "display in which data are encoded with symbols that have different shapes, colors, or proportions."
+
+-   **infographic**: "multi-section visual representation of information intended to communicate one or more specific messages"
+
+-   **data visualization**: "display of data designed to analysis, exploration, and discovery."
 
 # Origins of Modern Data Visualization
 
@@ -71,13 +97,14 @@ Cairo, *How Charts Lie,* p. 23 and Tufte, Ch. 1 also discuss Playfair
 
 ## Early Maps
 
-\[insert\]
+![The Yü Chi Thu Map (China, 11th century A.D.): an example of a sophisticated geographic map centuries before the creation of the first "data" or "statistical maps".](images/Tufte_21_Chinese-map_cropped.png){alt="The Yü Chi Thu Map (China, 11th century A.D.): an example of a sophisticated geographic map centuries before the creation of the first \"data\" or \"statistical maps\"."}
 
 ## An Early Road Atlas
 
 ![A road map from John Ogilby's 1675 road atlas of Great Britain.](https://infowetrust.com/wp-content/uploads/2017/01/1675-Ogilby_-_The_Road_From_LONDON_to_the_LANDS_END.jpg)
 
-## 
+::: notes
+:::
 
 # A Data Visualization of Data Visualization History
 
@@ -111,6 +138,10 @@ Essay with accompanying interactive graphic: RJ Andrews, ["Interacting with Hist
 
 ## DuBois
 
+::: notes
 ## The Opportunity Atlas
 
 \[or save this for later?\]
+:::
+
+## 
