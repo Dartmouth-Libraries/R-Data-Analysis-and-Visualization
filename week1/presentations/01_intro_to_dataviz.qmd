@@ -1,10 +1,8 @@
 ---
 title: "Introduction to Data Visualization"
 subtitle: "From Data Exploration to Communication & Storytelling"
-title-slide-attributes: 
-  data-background-image: images/nyt2022_imageOnly.png
-  data-background-size: contain
-  data-background-opacity: "0.3"
+
+
   
 author: "Jeremy Mikecz"
 institute: "Research Data Services, Dartmouth Libraries"
@@ -15,24 +13,32 @@ format:
     navigation-mode: vertical
     chalkboard: true
 editor: visual
-logo: "../hds_images/logo_white.png"
+logo: "../../general-images/2408_GEISEL_SubBrandLogos-M_KO-HDS.png"
 ---
 
-# Introduction to Data Visualization
+# Introduction to Data Visualization, Part 1 ("Flatten the Curve")
+
+::: notes
+title-slide-attributes:
+
+data-background-image: images/nyt2022_imageOnly.png #data-background-size: contain #data-backgsround-opacity: "0.3"
+:::
 
 ## Goals
 
 1.  Data Visualization Today
-2.  Myths about data visualization
+2.  Why data visualization is so important (to various fields: scientific research, journalism, education, etc.)
 
 ::: notes
-1.  the *importance* of Data Visualization Today
-2.  *yet* still some myths about data visualizations remain
+1.  a recent historically significant event where visualizations played a central role
+2.  and what this event reveals about the growing importance of data visualization to many different fields.
 :::
 
 # Why Data Viz?
 
 <!--COVID - first visualized disaster?-->
+
+With these examples, reflect on why data visualization has become so central to both biomedical research AND public health education.
 
 # The Outbreak of COVID-19
 
@@ -53,10 +59,14 @@ The interesting thing: the data in this "data visualization" are not real. Rathe
 \
 Question: do you remember when you first saw this graphic. Did you understand what it meant?
 
-I didn't. I needed it explained - either in a news article or by a television commentator.
+I didn't. I needed it explained - either in a news article or by a television commentator, as in this case....
 :::
 
-## "Flatten the Curve"
+## "Flatten the Curve" on Live TV, March 12, 2020
+
+[Video from March 12, 2020](https://abcnews.go.com/Health/video/flattening-curve-coronavirus-matters-69555459)
+
+## "Flatten the Curve" (2007)
 
 2007 CDC paper, "Interim pre-pandemic planning guidance"
 
@@ -78,15 +88,9 @@ On Feb 29, 2020, Slavea Chankova of *The Economist* adapted the 2007 graphic to 
 
 ![Alternative "flatten the curve" graphic](images/flatten-the-curve_alt.png)
 
----
-
-[Video from March 12, 2020](https://abcnews.go.com/Health/video/flattening-curve-coronavirus-matters-69555459)
-
----
-
 ## Data Viz Lessons:
 
-Andy Krackov (data analyst):
+Andy Krackov (data analyst), ["Flattening the Curve and Expanding my Understanding"](https://nightingaledvs.com/flattening-the-curve-and-expanding-my-understanding/):
 
 1.  Headlines matter
 2.  Annotations are good.
@@ -97,11 +101,10 @@ Andy Krackov (data analyst):
 1.  Headlines matter. Don’t go generic when we need to tell people that they need to pay attention. Use a chart headline that helps orient the reader.
 2.  Annotations are good. I mean, with flattening the curve, you don’t even need numbers. Just make sure your explanations have clear messages in easy-to-read type.
 3.  Know your users. For example, many of us encounter visualizations on COVID-19 while we’re on our phones — which can make it difficult to digest what we see. Keep in mind that mobile experience.
-4.  Animations are great, but if you’re in a face-to-face setting, so is
-    drawing out the concept live on a white board or a sheet of paper.
+4.  Animations are great, but if you’re in a face-to-face setting, so is drawing out the concept live on a white board or a sheet of paper.
 :::
 
----
+------------------------------------------------------------------------
 
 "The first visualized global crisis in history"
 
@@ -122,12 +125,22 @@ I remember regularly visiting the NYT COVID-19 dashboard to see whether cases we
 ![New York Times COVID Tracker](images/COVIDhistory_NYT.png)
 
 ::: notes
-The problem with some of these dashboards? All this data was a week or more behind. By the time cases were reported and people hospitalized, the illness
+The problem with some of these dashboards? All this data was a week or more behind. By the time cases were reported and people hospitalized, the illness. As the pandemic progressed, health scientists and data scientists collaborated to acquire and study other data that could give us more real-time updates about the spread of the pandemic, this included:
+
+-   testing sewers (which often revealed a surge in local cases a week or two before tests did)
+
+-   Google Trends data (an examination of Google searches for the symptoms of COVID-19 by location)
 :::
 
 ## Coronavirus Simulation
 
 [Covid Simulator](https://www.washingtonpost.com/graphics/2020/world/corona-simulator/) (*Washington Post,* March 14, 2020)
+
+::: notes
+Yet, others came up with animated and interactive visualizations to teach how COVID spreads (and, thus, the best way to slow this spread).
+:::
+
+## End Part 1
 
 # Climate Change
 
@@ -136,11 +149,25 @@ The problem with some of these dashboards? All this data was a week or more behi
 ![The iconic "hockey stick" graph that became the focus of intense climate debate. First published by Michael Mann, Raymond S. Bradley, and Malcolm Hughes in "Northern hemisphere temperatures during the past millennium: Inferences, uncertainties, and limitations," Geophysical Research Letters (1999). It achieved a wider audience with its publication in a 2001 report by the Intergovernmental Panel on Climate Change of the United Nations.](https://psu-gatsby-files-prod.s3.amazonaws.com/s3fs-public/hockeystick.gif)
 
 ::: notes
+The coronavirus pandemic may have been "The first visualized global crisis in history". However, visualizations had played a role in helping us understand other crises of the past and present. Climate scientists produced this now-classic line graph in 1998 at a time when few in the public were paying attention to the imminent threat of climate change at a global scale.
+
+Note: lacking temperature readings for most of human history before the 19th century, the scientists had to estimate pre-modern historical climate variation using different types of "proxy" data (tree rings, corals, ice cores, and historical records like shipping logs).
+
+The Hockey Stick achieved greater prominence after a 2001 UN report on
+climate change included this graph. It quickly became a central symbol of the "climate wars.
 :::
 
 ------------------------------------------------------------------------
 
-Al Gore, *An Inconvenient Truth* and ["off-the-charts" climate change](https://www.youtube.com/watch?v=9tkDK2mZlOo)".
+## "Off the Charts"
+
+Al Gore, *An Inconvenient Truth* (2006) and ["off-the-charts" climate change](https://www.youtube.com/watch?v=9tkDK2mZlOo)".
+
+::: notes
+This graph took on a new life in 2006 with the release of Al Gore's climate change documentary *An Inconvenient Truth*.
+
+\[play video\]
+:::
 
 ------------------------------------------------------------------------
 
@@ -149,6 +176,7 @@ Al Gore, *An Inconvenient Truth* and ["off-the-charts" climate change](https://w
 <!--ELECTION MAPS, GRAPHS, NYT NEEDLE-->
 
 ::: notes
+The release of this graph and new climate science research provoked a backlash from the fossil fuels industry and other corporations that felt threatened by the implications of this research. One of the creators of this graphic wrote a book about the subsequent turmoil.
 :::
 
 # Visualized Elections
@@ -183,7 +211,7 @@ Al Gore, *An Inconvenient Truth* and ["off-the-charts" climate change](https://w
 ::: notes
 :::
 
----
+------------------------------------------------------------------------
 
 ["Music genres"](https://pudding.cool/2023/10/genre/) *The Pudding* (October 2023).
 
