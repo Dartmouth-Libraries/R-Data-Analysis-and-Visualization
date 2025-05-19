@@ -1,0 +1,253 @@
+---
+title: "Data Wrangling with Tidyverse and Weather Data"
+author: "Jeremy Mikecz"
+format: html
+editor: visual
+---
+
+# Data Wrangling with Tidyverse
+
+## Using Local Weather Data
+
+In this notebook, we will work with some time-series weather data.
+
+When searching for local weather data, I found [*Climate Data Online*](https://www.ncei.noaa.gov/cdo-web/) found on NOAA's National Centers for Environmental Information website. I chose "Hanover", the type of data I wanted, and the date range (earliest to present). Next, I requested this data, and downloaded it from a link they sent me. Finally, I ran the following code to create a series of visualizations.
+
+## 1. Import Necessary Packages
+
+```{r}
+# install.packages("tidyverse")
+```
+
+```{r}
+library(tidyverse)
+```
+
+## 2. Load Data
+
+To load a csv, adapt the following code:
+
+```         
+df <- read.csv("relative_path_to_csv.csv")
+```
+
+```{r}
+df <- read.csv("data/Hanover_weather-data_1884-2025.csv")
+```
+
+## 3. Review Data
+
+Review the dataset by:
+
+1.  Examine the data in the **Environment** panel (usually in the top right of R Studio).
+
+2.  Examine the data using the following commands:
+
+    ```         
+    head(df)
+    dim(df)
+    colnames(df)
+    ```
+
+```{r}
+head(df)
+```
+
+```{r}
+summary(df)
+```
+
+```{r}
+dim(df)
+```
+
+```{r}
+colnames(df)
+```
+
+```{r}
+
+```
+
+## 4. Examine Data: How can we track changes in local climate using this data?
+
+```         
+## insert notes below:
+
+
+
+
+```
+
+## 5. Normalize Dates and then separate day, month, and year
+
+```{r}
+library(lubridate)
+```
+
+```{r}
+unique(guess_formats(df$DATE, orders = c("mdy", "dmy", "ymd", "bdY")))
+```
+
+```{r}
+#date = "2025-05-20"
+date = "5/20/2025"
+parse_date_time("2025-05-20", orders = c("ymd", "mdy"))
+```
+
+Now, let's normalize the `DATE` column as some columns are in YYYY-MM-DD format and others are in M-D-YYYY. To create a new column based on the value of other columns we use the **mutate()** function.
+
+```{r}
+
+df <- df |>
+  mutate(DATE2 = parse_date_time(DATE, orders = c("ymd", "mdy")))
+```
+
+```{r}
+df <- df |> 
+    select(STATION, NAME, DATE, DATE2, everything())
+```
+
+```         
+```
+
+Next, we can use the **separate** function to separate the year, month, and day values into separate columns.
+
+```{r}
+df<- df |>
+  separate(DATE2, into = c("Year", "Month", "Day"), sep = "-|/", convert = TRUE)
+  # to keep original DATE column use `remove=FALSE`
+colnames(df)
+```
+
+```{r}
+#no_tmax <- df |>
+#  filter(is.na(TMAX))
+
+#no_tmax[c(3000:3010),]
+```
+
+## 6. Select columns to keep, drop the rest
+
+```{r}
+df <- df |>
+    select(NAME, Year, Month, Day, PRCP, SNOW, TMAX, TMIN)
+```
+
+```{r}
+summary(df)
+```
+
+```{r}
+df <- df |>
+    drop_na(TMAX, TMIN)
+```
+
+```{r}
+write.csv(temp_df, "../data/Hanover_temps.csv")
+
+
+```
+
+## 7. Summarize by Year
+
+```{r}
+year_maxtempdf <- df |>
+  group_by(Year) |>
+  summarize(TMAX_yravg = mean(TMAX, na.rm = TRUE))
+```
+
+```{r}
+year_mintempdf <- df |>
+  group_by(Year) |>
+  summarize(TMIN_yravg = mean(TMIN, na.rm = TRUE))
+```
+
+```{r}
+head(year_maxtempdf)
+```
+
+To more easily create visualizations showing both yearly maximum temperature `TMAX_yravg` and yearly minimum temperature `TMIN_yravg` it would help to concatenate the two dataframes vertically (for a long dataframe). We can then store the temperature values for both in the same column and simply add a new column indicating whether the value is a maximum or minimum temperature.
+
+```{r}
+year_maxtempdf <- year_maxtempdf |>
+    mutate(type = "maxtemp") |>
+    mutate(T_yravg = TMAX_yravg)|>
+    select(Year, T_yravg, type)
+
+
+```
+
+```{r}
+year_mintempdf <- year_mintempdf |>
+    mutate(type = "mintemp") |>
+    mutate(T_yravg = TMIN_yravg)|>
+    select(Year, T_yravg, type)
+```
+
+```{r}
+
+year_tempdf <- rbind(year_maxtempdf, year_mintempdf) |>
+    arrange(Year)
+  
+```
+
+```{r}
+write.csv(year_tempdf, "../data/Hanover_temp-yearaverages.csv")
+```
+
+## Extract Snowfall & Precipitation Data
+
+Visualize relationship between snow fall and snow depth
+
+```{r}
+head(df)
+```
+
+```{r}
+snow_df <- df |>
+  drop_na(PRCP, SNOW) |>
+  select(NAME, Year, Month, Day, PRCP, SNOW, SNWD)
+```
+
+```{r}
+write.csv(snow_df, "../data/Hanover_precip-snow.csv")
+```
+
+```{r}
+
+```
+
+### Yearly summaries
+
+```{r}
+snow_year_df <- snow_df |>
+  group_by(Year) |>
+  #summarise_at(vars(PRCP, SNOW, SNWD), list(sum=sum, max=max), na.rm=TRUE) |>
+  summarise(
+    PRCP_sum = sum(PRCP, na.rm = TRUE),
+    PRCP_max = max(PRCP, na.rm = TRUE),
+    SNOW_sum = sum(SNOW, na.rm = TRUE),
+    SNOW_max = max(SNOW, na.rm = TRUE),
+    SNWD_sum = sum(SNWD, na.rm = TRUE),
+    SNWD_max = max(SNWD, na.rm = TRUE),
+    .groups = 'drop' 
+  ) |>
+  select(-SNWD_sum)
+  
+```
+
+```{r}
+snow_year_df[snow_year_df == -Inf] <- NA
+
+```
+
+```{r}
+ggplot(snow_year_df, aes(x=Year)) +
+  geom_line(aes(y=PRCP_sum), color="blue") +
+  geom_line(aes(y=SNOW_sum), color = "purple") +
+  geom_smooth(aes(y=PRCP_sum)) +
+  geom_smooth(aes(y=SNOW_sum)) + 
+  geom_line(aes(y=SNWD_max, color = "red")) + 
+  geom_smooth(aes(y=SNOW_max))
+```
