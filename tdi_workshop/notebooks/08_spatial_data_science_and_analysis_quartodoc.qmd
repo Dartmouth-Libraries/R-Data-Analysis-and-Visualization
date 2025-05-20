@@ -1,0 +1,352 @@
+---
+title: "r_geospatial"
+format: html
+editor: visual
+---
+
+```{r}
+install.packages("leaflet")
+library(leaflet)
+longitude_x <-   -72.2900578
+latitude_y <-   43.703016
+# add OpenStreetMap map tiles, right in R Studio! 
+m <- leaflet() %>%
+  addTiles()  
+  # draw the map
+m
+
+```
+
+```{r}
+m <- leaflet() %>%
+  addTiles() %>%  # add OpenStreetMap map tiles
+  addMarkers(lng=longitude_x, lat=latitude_y, popup="Dartmouth College!")
+m  
+
+```
+
+```{r}
+#install.packages('gapminder')
+library(tidyverse)
+library(ggplot2)
+library(dplyr)
+library(gapminder)
+library(sf)
+library(rnaturalearth)
+library(rnaturalearthdata)
+```
+
+```{r}
+data(gapminder)
+head(gapminder)
+
+```
+
+```{r}
+# Filter the gapminder dataset for the year 2007
+gapminder_2007 <- gapminder::gapminder %>% filter(year == 2007)
+
+# Get world map data
+world <- rnaturalearth::ne_countries(scale = "medium", returnclass = "sf")
+
+# NOTE: US, Denmark, etc not joining properly due to name conflicts
+
+countries = rnaturalearth::ne_countries()
+
+# Join gapminder data with world data
+world_gdp <- world %>%
+  left_join(gapminder_2007, by = c("name" = "country"))
+
+# Plot GDP per capita
+ggplot(data = world_gdp) +
+  geom_sf(aes(fill = gdpPercap), color = "white") +
+  scale_fill_viridis_c(option = "plasma", name = "GDP per Capita") +
+  labs(title = "GDP per Capita by Country (2007)") +
+  theme_minimal()
+```
+
+```{r}
+# heat map of point data 
+# Load libraries
+library(sf)         # For handling simple features
+library(ggplot2)    # For plotting
+library(maps)       # To get map data
+
+# Set working directory (adjust path if necessary)
+setwd('~/Downloads')
+
+# Load point data with latitude and longitude from CSV file
+points <- read.csv('geocoded_eee_data_valid_lat_long.csv')
+
+# Check the first few rows of the dataframe to view field names, numbers, etc 
+head(points)
+
+# Filter to make sure there are no NA values in lat/long columns (if needed)
+points <- points[complete.cases(points[c('longitude', 'latitude')]), ]
+
+# Convert the points data frame to a simple features object and set the CRS to EPSG 4326 (WGS 84)
+points_sf <- sf::st_as_sf(points, coords = c('longitude', 'latitude'), crs = 4326)
+head(points_sf)
+
+# Create the base map of Massachusetts
+massachusetts_map <- ggplot2::map_data("state", "massachusetts")
+
+# Create the plot with the base map and add the points_sf layer 
+plot1 <- ggplot() +
+  geom_polygon(data = massachusetts_map, aes(x = long, y = lat, group = group), fill = "lightblue", color = "black") +
+  geom_sf(data = points_sf, aes(geometry = geometry), color = "red", size = 3) +
+  ggtitle("Map of Massachusetts with Points") +
+  theme_minimal()
+# Display the plot
+print(plot1)
+```
+
+```{r}
+library(ggmap)      # For creating heatmap (Optional)
+library(MASS)       # For the kde2d function used in creating a heat map
+# see also https://www.rdocumentation.org/packages/MASS/versions/7.3-64/topics/kde2d
+
+# Create a heatmap of the points
+heatmap_plot_with_legend <- ggplot() +
+  geom_polygon(data = massachusetts_map, aes(x = long, y = lat, group = group), fill = "lightblue", color = "black") + 
+  # Generate a density estimate of the point locations
+  ggplot2::stat_density_2d(data = points, aes(x = longitude, y = latitude, fill = ..level..), 
+                  geom = "polygon", alpha = 0.5) +  # Use polygon for fill
+  geom_sf(data = points_sf, aes(geometry = geometry), color = "black", size = 0.5, alpha = 0.3) +
+  ggtitle("Heatmap of Points in Massachusetts") +
+  scale_fill_viridis_c(name = "Density Level") +  # Specify fill scale and legend title
+  theme_minimal() +
+  theme(legend.position = "right")  # Position the legend on the right side
+# Display the heatmap
+print(heatmap_plot_with_legend)
+```
+
+```{r}
+usstates_map <- ggplot2::map_data("state")
+# Create the plot with the base map and add the points_sf layer 
+plot1 <- ggplot() +
+  geom_polygon(data = usstates_map, aes(x = long, y = lat, group = group), fill = "lightblue", color = "black") +
+  geom_sf(data = points_sf, aes(geometry = geometry), color = "red", size = 3) +
+  ggtitle("Map with Points") +
+  theme_minimal()
+# Display the plot
+print(plot1)
+```
+
+```{r}
+# Overlay Analysis / Spatial Analysis (point in polygon )
+# Set working directory
+setwd('~/Downloads')
+#setwd('~/Desktop')
+
+# Linux - control return / control enter on mac laptop keyboard (not command enter)
+
+# runs on Mac laptop computer 
+
+# Unzip the dataset containing polygons
+#unzip(zipfile = "nationalparks_ak_1.zip", exdir = "data")
+#unzip {utils}
+
+utils::unzip(zipfile = "nationalparks_ak.zip", exdir = "data")
+
+# Load point data using read.csv
+points <- read.csv('point-locations.csv')
+
+# Load required libraries
+library(sp)         # For spatial objects and functionalities
+library(sf)         # For handling simple features
+library(terra)      # For working with raster and vector data
+library(maps)       # For plotting maps
+
+# Convert the points data frame to a simple features object and set the crs to 
+# epsg code 4326
+points_sf <- sf::st_as_sf(points, coords = c('longitude', 'latitude'), crs = 4326)  # Let's set CRS to WGS84 directly
+
+# Plot point locations, just using the base plot function (not ggplot yet )
+base::plot(sf::st_geometry(points_sf), main = "points - locations")
+# see the output in RStudio's "plots" window s
+
+# add a rough outline of the map region using the 'maps' package
+maps::map("world", region="usa", add=TRUE)
+
+# Load a polygon shapefile into R using the 'terra' package's 'vect' function
+polygons <- terra::vect('nationalparks_ak.shp')
+
+# Convert polygons to an "sf" object  from SpatVector
+polygons_sf <- sf::st_as_sf(polygons)
+
+# Check and repair invalid geometries in polygons_sf
+polygons_sf <- sf::st_make_valid(polygons_sf)
+
+# set, and print the projection of the polygons to check
+polygons_crs <- terra::crs(polygons_sf)
+print(polygons_crs)
+
+# Set the projection of points to the same as polygons dataset
+sf::st_crs(points_sf) <- polygons_crs
+
+# use st_within and sapply to build a true/false dataframe of whether a point is within a polygon
+points_in_polygons <- sf::st_within(points_sf, polygons_sf)
+points_in_polygons <- base::sapply(points_in_polygons, function(x) length(x) > 0)
+head(points_in_polygons)
+
+# Store the name of the polygon as an attribute of the points dataset
+points_sf_join <- sf::st_join(points_sf, polygons_sf, join = sf::st_intersects)  # Use polygons_sf directly
+# take a look at the first few rows 
+head(points_sf_join, 7)
+
+library(dplyr)
+
+#####
+#points_sf_join <- points_sf_join %>%
+#  mutate(Unit_Name=replace_na(Unit_Name, "not in polygon"))
+######
+#points_sf_join[is.na("Unit_Type")] = "no-type"
+
+#dplyr::mutate(points_sf_join, )
+
+#mutate(Unit_Type = if_else(is.na("Unit_Type), "no-type", points_sf_join))
+
+#points_sf_join[is.na(unit_name)] = "some new value"
+
+#dplyr pipe, 
+#then 
+#mutate(unit_name = if_else(is.na(unit_name), "some new value", vec))
+
+# Write a CSV file with points and polygon names (if found)
+write.csv(as.data.frame(points_sf_join), "points-in-polyons.csv", row.names = FALSE)
+
+# Set the projection of points to the same as polygons dataset CRS 
+st_crs(points_sf) <- polygons_crs  
+
+# Use st_within to check overlay - are points inside polygons? 
+insidePolygons <- st_within(points_sf, polygons_sf)
+
+# Check if any point falls inside a polygon (True if inside any polygon )
+insidePolygons <- sapply(insidePolygons, function(x) length(x) > 0)
+
+# Calculate the fraction of points inside polygons
+fractionInsidePolygons <- mean(insidePolygons)
+
+# Print the percentage ofpoints inside polygons
+cat("Percent inside polygons: ", 100 * fractionInsidePolygons, ' percent ')
+
+# Create a pie chart to visualize points inside and outside the polygons
+slices <- c(fractionInsidePolygons, 1 - fractionInsidePolygons)
+lbls <- c("Points in the polygons", "Points outside the polygons")
+pct <- round(slices/sum(slices)*100, 2)
+
+# Add percentages to the labels
+lbls <- paste(lbls, pct)
+lbls <- paste(lbls, "%", sep="")
+
+# Generate the pie chart
+pie(slices, labels = lbls, col = rainbow(length(lbls)), main = "Points inside Polygons")
+
+# Save the pie chart to results folder
+dev.copy(jpeg, 'points-in-polygons-pct.jpg')
+dev.off()  # Close the plotting device
+
+# Store the name of the polygon as an attribute of the points dataset
+points_sf <- st_join(points_sf, polygons_sf, join = st_intersects)  
+
+# Write a CSV file with points that fall within the polygons (if found)
+write.csv(as.data.frame(points_sf), "points-by-polygon.csv", row.names = FALSE)
+
+# Plot the point locations and polygons and where there is overlay
+plot(st_geometry(points_sf), main = "Points inside Polygons")
+#map("world", region = "usa", add = TRUE)  # Add the USA map
+maps::map("world", region="usa", add=TRUE)
+
+plot(st_geometry(polygons_sf), border = "green", col = NA, add = TRUE)  # Add polygons to the plot
+
+# Set the colors for the points: red for points inside polygons, green for points outside polygons
+points(points_sf[insidePolygons, ], pch = 16, col = "red")
+points(points_sf[!insidePolygons, ], pch = 1, col = "green")
+
+# Save this map to the results folder
+dev.copy(jpeg, 'points-in-polygons-map.jpg')
+dev.off()  # Close the plotting device
+
+
+
+```
+
+# Nearest Neighbor Analysis
+
+```{r}
+#install.packages(c("sf", "spatstat", "ggplot2", "dplyr", "ggmap", "viridis", "classInt"))
+# Load required libraries
+library(sf)
+library(spatstat)
+library(sp)
+library(ggplot2)
+library(dplyr)
+library(ggmap)
+library(classInt)
+library(viridis)
+library(maps)
+library(spdep)     # Load spdep for spatial dependency analysis
+
+# Set a seed for reproducibility
+set.seed(42)
+
+# Generate 50 random locations in Massachusetts
+ma_bounds <- c(-73.5, 41.25, -69.9, 42.5) # Approximate bounding box for Massachusetts
+lon <- runif(50, min = ma_bounds[1], max = ma_bounds[3])
+lat <- runif(50, min = ma_bounds[2], max = ma_bounds[4])
+locations <- data.frame(lon, lat)
+
+# Create a spatial points dataframe
+locations_sf <- sf::st_as_sf(locations, coords = c("lon", "lat"), crs = 4326)
+
+
+# Perform Getis-Ord analysis using the spdep package
+# Create a spatial weight matrix
+coords <- as.matrix(locations[, c("lon", "lat")])
+# K-nearest neighbors
+k <- 4  # Choose the number of neighbors
+neighbors <- spdep::knearneigh(coords, k = k)
+
+
+# Create a list of neighbors
+listw <- spdep::nb2listw(knn2nb(neighbors), style = "W")
+
+
+# Calculate the local G statistic for Getis-Ord
+# Here, we just use a binary presence variable (1 for each point)
+presence_variable <- rep(1, nrow(locations_sf))
+gstat <- spdep::localG(presence_variable, listw)
+
+
+# Add Getis-Ord G* statistic info to the locations
+locations_sf$G_star <- gstat
+
+# Create a base map of Massachusetts
+base_map <- ggplot() +
+  borders("state", region = "massachusetts", fill = "lightgray") +
+  geom_point(data = locations_sf, aes(x = lon, y = lat), color = "red") +
+  theme_minimal() +
+  ggtitle("Random Locations in Massachusetts")
+
+# Create heatmap (Optional)
+heatmap_data <- ggplot() +
+  borders("state", region = "massachusetts", fill = "lightgray") +
+  geom_density_2d(data = locations_sf, aes(x = lon, y = lat), color = "blue", alpha = 0.5) +
+  geom_point(data = locations_sf, aes(x = lon, y = lat), color = "red", alpha = 0.3) +
+  theme_minimal() +
+  labs(title = "Heatmap of Random Locations in Massachusetts")
+
+# Save the points to a CSV file
+write.csv(locations_sf, "massachusetts_locations.csv", row.names = FALSE)
+
+base_map
+
+heatmap_data
+
+# Save the plots
+ggsave("massachusetts_map.png", plot = base_map)
+ggsave("massachusetts_heatmap.png", plot = heatmap_data)
+
+print("Analysis complete. Files saved: massachusetts_locations.csv, massachusetts_map.png, massachusetts_heatmap.png")
+```
