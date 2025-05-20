@@ -17,7 +17,7 @@ library(tidyverse)
 ## 1.2 import data
 
 ```{r}
-year_avgs <- read.csv("../data/Hanover_temp-yearaverages.csv", row.names=1)
+year_avgs <- read.csv("data/Hanover_temp-yearaverages.csv", row.names=1)
 
 tail(year_avgs)
 ```
@@ -29,6 +29,8 @@ ggplot(year_avgs |> filter(Year < 2025), aes(x=Year, y=T_yravg, color = type)) +
   geom_line() +
   geom_smooth()
 ```
+
+Another way to do the same thing.
 
 ```{r}
 ggplot() +
@@ -57,7 +59,7 @@ ggplot(year_avgs_wide |> filter(Year<2025), aes(x=Year)) +
 ## 3.1 Import data
 
 ```{r}
-temps <- read.csv("../data/Hanover-temps21c_w-daynums.csv")
+temps <- read.csv("data/Hanover_temps2.csv")
 ```
 
 ## 3.2 Examine daily temperature data
@@ -74,7 +76,7 @@ colnames(temps)
 
 ```{r}
 library(viridis)
-ggplot(temps |> filter(Year == 2022), aes(x=daynum, y=maxdiff20c, fill=maxdiff20c)) +
+ggplot(temps |> filter(Year == 2022), aes(x=daynum, y=max_diff20c_avg, fill=max_diff20c_avg)) +
     geom_bar(stat="identity") +
     scale_fill_viridis(option = "plasma")
     #scale_fill_gradient(low = "blue", high = "red")
@@ -85,7 +87,7 @@ ggplot(temps |> filter(Year == 2022), aes(x=daynum, y=maxdiff20c, fill=maxdiff20
 
 ```{r fig.width=14, fig.height = 60}
 #options(repr.plot.width=30, repr.plot.height=50)
-ggplot(temps |> filter(Year>2015), aes(x=daynum, y=maxdiff20c, fill=maxdiff20c)) +
+ggplot(temps |> filter(Year>2015), aes(x=daynum, y=max_diff20c_avg, fill=max_diff20c_avg)) +
     geom_bar(stat="identity") +
     facet_wrap(~Year, ncol=1) +
     scale_fill_viridis(option = "plasma")
