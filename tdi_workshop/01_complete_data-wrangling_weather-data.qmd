@@ -144,7 +144,7 @@ df <- df |>
 ```
 
 ```{r}
-write.csv(temp_df, "../data/Hanover_temps.csv")
+write.csv(temp_df, "data/Hanover_temps.csv")
 
 
 ```
@@ -193,61 +193,57 @@ year_tempdf <- rbind(year_maxtempdf, year_mintempdf) |>
 ```
 
 ```{r}
-write.csv(year_tempdf, "../data/Hanover_temp-yearaverages.csv")
+write.csv(year_tempdf, "data/Hanover_temp-yearaverages.csv")
 ```
 
-## Extract Snowfall & Precipitation Data
+## 8. Compare daily temperatures to 20th century average
 
-Visualize relationship between snow fall and snow depth
+A. Filter to retrieve 20th century data only
 
 ```{r}
-head(df)
+df20c <- temp_df |>
+  filter(Year >= 1900 & Year <= 1999)
 ```
 
+B. Calculate average 20th century max and min temperatures by Day and Month
+
 ```{r}
-snow_df <- df |>
-  drop_na(PRCP, SNOW) |>
-  select(NAME, Year, Month, Day, PRCP, SNOW, SNWD)
+TMAX20c_df <- df20c |>
+  group_by(Month, Day) |>
+  summarize(Avg_TMAX_20c = mean(TMAX, na.rm = TRUE), .groups = 'drop')
+
+TMIN20c_df <- df20c |>
+  group_by(Month, Day) |>
+  summarize(Avg_TMIN_20c = mean(TMIN, na.rm = TRUE), .groups = 'drop')
 ```
 
+C. Merge average 20th century temperatures back into full dataset
+
 ```{r}
-write.csv(snow_df, "../data/Hanover_precip-snow.csv")
+temp_df <- temp_df |>
+  left_join(TMAX20c_df, by = c("Month", "Day")) |>
+  left_join(TMIN20c_df, by = c("Month", "Day"))
 ```
 
-```{r}
+D. Create new columns by calculating the difference of each daily min and max temp to the 20th century average.
 
+```{r}
+temp_df <- temp_df |>
+    mutate(max_diff20c_avg = TMAX - Avg_TMAX_20c,
+           min_diff20c_avg = TMIN - Avg_TMIN_20c)
 ```
 
-### Yearly summaries
+E. Create a `daynum` column to record the number of day of the year, i.e. January 1 = 1 and December 31 = 365 (366 on leap years)
 
 ```{r}
-snow_year_df <- snow_df |>
+temp_df <- temp_df |>
+  filter(Year > 1893 & Year < 2025) |>  # 1893 missing first 5 months and #2025 missing last 9
   group_by(Year) |>
-  #summarise_at(vars(PRCP, SNOW, SNWD), list(sum=sum, max=max), na.rm=TRUE) |>
-  summarise(
-    PRCP_sum = sum(PRCP, na.rm = TRUE),
-    PRCP_max = max(PRCP, na.rm = TRUE),
-    SNOW_sum = sum(SNOW, na.rm = TRUE),
-    SNOW_max = max(SNOW, na.rm = TRUE),
-    SNWD_sum = sum(SNWD, na.rm = TRUE),
-    SNWD_max = max(SNWD, na.rm = TRUE),
-    .groups = 'drop' 
-  ) |>
-  select(-SNWD_sum)
-  
+  mutate(daynum = row_number())
 ```
 
-```{r}
-snow_year_df[snow_year_df == -Inf] <- NA
-
-```
+F. Write results to csv.
 
 ```{r}
-ggplot(snow_year_df, aes(x=Year)) +
-  geom_line(aes(y=PRCP_sum), color="blue") +
-  geom_line(aes(y=SNOW_sum), color = "purple") +
-  geom_smooth(aes(y=PRCP_sum)) +
-  geom_smooth(aes(y=SNOW_sum)) + 
-  geom_line(aes(y=SNWD_max, color = "red")) + 
-  geom_smooth(aes(y=SNOW_max))
+write.csv(temp_df, "data/Hanover_temps2.csv")
 ```
