@@ -1,10 +1,11 @@
 ---
-title: "tidyverse intro"
+title: "Data Wrangling with Tidyverse and Weather Data"
 author: "Jeremy Mikecz"
 format: html
 editor: visual
-#jupyter: ir
 ---
+
+# Data Wrangling with Tidyverse
 
 # Introduction to Tidyverse
 
@@ -14,7 +15,7 @@ For additional help learning how to use R's tidyverse system of packages, see:
 
 -   Wickham, Çetinkaya-Rundel, and Grolemund, [*R for Data Science*](https://r4ds.hadley.nz/)
 
--   Grolemund, [A Tidyverse Cookbook](https://rstudio-education.github.io/tidyverse-cookbook/) (2020).!
+-   Grolemund, [A Tidyverse Cookbook](https://rstudio-education.github.io/tidyverse-cookbook/) (2020).
 
 -   package documentation: [tidyverse](https://tidyverse.tidyverse.org/)
 
@@ -44,197 +45,78 @@ To set up a local virtual environment with packrat:\\
 2.  From within your project folder, initialize it using the command `packrat::init()`.
 3.  R should activite your new virtual environment automatically whenever you work in that project folder. To ensure it is activated, however, you can run the code `packrat::on()`. To deactivate, simply run `packrat::off()`.
 
+## Using Local Weather Data
+
+In this notebook, we will work with some time-series weather data.
+
+When searching for local weather data, I found [*Climate Data Online*](https://www.ncei.noaa.gov/cdo-web/) found on NOAA's National Centers for Environmental Information website. I chose "Hanover", the type of data I wanted, and the date range (earliest to present). Next, I requested this data, and downloaded it from a link they sent me. Finally, I ran the following code to create a series of visualizations.
+
+## 1. Import Necessary Packages
+
 ```{r}
-#install.packages("packrat")
-#packrat::init()
-#packrat::on
-```
-
-## Getting Started with Tidyverse
-
-Data analysis usually involves working with two-dimensional datasets known as dataframes. There are different ways to work with dataframes in R, these include:
-
--   using core R dataframe functions
-
--   using the **tibble** a type of dataframe used with the tidyverse collection of packages
-
--   using other dataframe types like **data.table** for speed and to facilitate working with large datasets (i.e. with millions of rows)
-
-In these lessons, we will work with [tidyverse](https://www.tidyverse.org/) a collection of packages designed for data science. Tidyverse works with **tibbles**, a customized and newer form of dataframes. For more on the differences between tibbles and dataframes see the [explanation here](https://r4ds.had.co.nz/tibbles.html). Key packages in tidyverse include (borrowing from Kyle Walker's [**Analyzing US Census Data: Methods, Maps, and Models in R**](https://walker-data.com/census-r/index.html)**)**:
-
-```         
-    * readr (Wickham and Hester 2021), which contains tools for importing and exporting datasets;
-
-    * dplyr (Wickham et al. 2021), a powerful framework for data wrangling tasks;
-
-    * tidyr (Wickham 2021b), a package for reshaping data;
-
-    * purrr (Henry and Wickham 2020), a comprehensive framework for functional programming and iteration;
-
-    * ggplot2 (Wickham 2016), a data visualization package based on the Grammar of Graphics
+# install.packages("tidyverse")
 ```
 
 ```{r}
-## install tidyverse with:
-#install.packages("tidyverse")
-
-## update tidyverse with:
-#tidyverse_update()
-
-## import tidyverse with:
 library(tidyverse)
-
-## see what packages are included with tidyverse:
-tidyverse_packages()
 ```
 
-## Combine functions into a pipe
+## 2. Load Data
 
-Using the symbol `|>` we can chain multiple functions together.
-
-::: callout.note
-Previously, `%>%` was commonly used for pipes. Now, it is recommended to use `|>` instead. In R Studio, you can use the keyboard shortcut `CTRL/CMD + SHIFT + M` to create a pipe. However, you can update R Studio's default pipe using the instructions in *R for Data Science*, [Ch. 3.4](https://r4ds.hadley.nz/data-transform.html#sec-the-pipe).
-:::
-
-Each new function in the pipeline operates on the results produced by the previous function.
-
-Chaining functions together in a pipe like this:
+To load a csv, adapt the following code:
 
 ```         
-starwars |>
-  group_by(species) |>
-  summarise(avg_height = mean(height, na.rm = TRUE)) |>
-  arrange(avg_height)
+df <- read.csv("relative_path_to_csv.csv")
 ```
 
 ```{r}
-starwars |>
-  group_by(species) |>
-  summarise(avg_height = mean(height, na.rm = TRUE)) |>
-  arrange(avg_height)
+df <- read.csv("../data/Hanover_weather-data_1884-2025.csv")
 ```
 
-produces the same results as nesting a series of functions within another:
+## 3. Review Data
 
-```         
-arrange(
-  summarise(
-    group_by(starwars, species), 
-    avg_height = mean(height, na.rm = TRUE)
-  ), 
-  avg_height
-)
-```
+Review the dataset by:
 
-or calling each function in order:
+1.  Examine the data in the **Environment** panel (usually in the top right of R Studio).
 
-```         
-x1 <- starwars 
-x2 <- group_by(x1, species)
-x3 <- summarise(x3, avg_height = mean(height, na.rm = TRUE))
-arrange(x3, avg_height)
-```
+2.  Examine the data using the following commands:
 
-By default `|>` passes the result of the left hand side to the the first unnamed argument of the function on the right hand side. To override this default, use `_` as a placeholder within the function call on the right hand side. `|>` will evaluate `_` as the result of the left hand side, instead of passing the result to the first unnamed argument.
-
-```{r}
-
-starwars |>
-  lm(mass ~ height, data = _)
-
-# the old piping syntax
-#starwars %>%
-#  lm(mass ~ height, data = .)
-```
-
-```{r}
-
-```
-
-```         
-```
-
-## Tidy Data
-
-From the [Tidyverse cookbook](https://rstudio-education.github.io/tidyverse-cookbook/tidy.html):
-
-Data tidying refers to reshaping your data into a tidy data frame or [tibble](https://rstudio-education.github.io/tidyverse-cookbook/how-to-use-this-book.html#tidy-data). Data tidying is an important first step for your analysis because every tidyverse function will expect your data to be stored as **Tidy Data**.
-
-Tidy data is tabular data organized so that:
-
-1.  Each column contains a single variable
-
-2.  Each row contains a single observation
-
-Tidy data is not an arbitrary requirement of the tidyverse; it is the ideal data format for doing data science with R. Tidy data makes it easy to extract every value of a variable to build a plot or to compute a summary statistic. Tidy data also makes it easy to compute new variables; when your data is tidy, you can rely on R's rowwise operations to maintain the integrity of your observations. Moreover, R can directly manipulate tidy data with R's fast, built-in vectorised observations, which lets your code run as fast as possible.
-
-The definition of Tidy Data isn't complete until you define variable and observation, so let's borrow two definitions from [*R for Data Science*](https://r4ds.had.co.nz/exploratory-data-analysis.html):
-
-1.  A **variable** is a quantity, quality, or property that you can measure.
-
-2.  An **observation** is a set of measurements made under similar conditions (you usually make all of the measurements in an observation at the same time and on the same object).
-
-As you work with data, you will be surprised to realize that what is a variable (or observation) will depend less on the data itself and more on what you are trying to do with it. With enough mental flexibility, you can consider anything to be a variable. However, some variables will be more useful than others for any specific task. In general, if you can formulate your task as an equation (math or code that contains an equals sign), the most useful variables will be the names in the equation.
-
-### Create a tibble from scratch
-
-Rarely will you ever create a dataframe or tibble from scratch except to create small practice datasets.
-
-Here, we create a small practice dataset about the popular murder mystery TV show, [*Only Murders in the Building*](https://www.imdb.com/title/tt11691774/)
-
-```{r}
-omitb <- tribble(~name, ~occupation, ~apartment, ~is_suspect, ~is_dead,
-            "Charles", "washed-up actor", "14C", "no", "no",
-            "Mabel", "unemployed never-was", "12E", "maybe", "no",
-            "Oliver", "theater director", "10D", "no", "no",
-            "Howard", "childless cat guy", "3D", "yes", "no",
-            "Bunny", "petty despot", "12A", "no", "maybe"
-)
-omitb
-```
-
-We can add a new row by piping the function **add_row.** To figure out how do so, we can review the [function's documentation](https://tibble.tidyverse.org/reference/add_row.html). Note: the default is to add the new row to the bottom of the tibble. To add it before the first row we need to set the argument `.before = 1`.
-
-```{r}
-omitb <- omitb |>
-  add_row(name="Jan", occupation = "2nd-chair basoonist", 
-          is_suspect="yes", is_dead="no", .before=1)
-
-omitb
-```
-
-Above we used the **tribble** function to create a **tibble** (tribble vs. tibble - confusing right?) by using a syntax that lines up the rows neatly in a way that will preview the result.
-
-You can also create the same tibble using the **tibble** function and passing in a list with the values of column:
-
-```{r}
-tibble(name = c("Charles", "Mabel", "Oliver", "Howard", "Bunny"),
-       occupation = c("washed-up actor", "unemployed never-was", "theater director", "childless cat guy", "petty despot"),
-       apartment = c("14C", "12E", "10D", "3D", "12A"),
-       is_suspect = c("no", "no", "no", "yes", "no"),
-       is_dead = c("no", "no", "no", "no", "maybe"),
-       )
-```
-
-## Dataframes vs. tibbles
-
-```{r}
-df <- read.csv("../data/census1970.csv") 
-
-```
-
-### Convert a dataframe into a tibble
+    ```         
+    head(df)
+    dim(df)
+    colnames(df)
+    ```
 
 ```{r}
 head(df)
-
 ```
 
 ```{r}
-df2tib <- as_tibble(df)
+summary(df)
 ```
 
-## 3. Tidyverse / dplyr verbs for Data Wrangling
+```{r}
+dim(df)
+```
+
+```{r}
+colnames(df)
+```
+
+```{r}
+
+```
+
+## 4. Examine Data: How can we track changes in local climate using this data?
+
+```         
+## insert notes below:
+
+
+
+```
+
+# Tidyverse / dplyr verbs for Data Wrangling
 
 To modify and "wrangle" datasets, the tidyverse commonly uses the following verbs / functions:
 
@@ -298,75 +180,171 @@ To modify and "wrangle" datasets, the tidyverse commonly uses the following verb
 | **Reshape data from wide to long** | *pd.wide_to_long()*                      | *melt()*                   | *use pivot_longer()*            |
 +------------------------------------+------------------------------------------+----------------------------+---------------------------------+
 
-## Sort Table (tibble)
+## 5. Normalize Dates and then separate day, month, and year
 
 ```{r}
-starwars |>
-  arrange(homeworld)  #descending order: arrange(desc(homeworld))
-```
-
-## Filter Table
-
-```{r}
-starwars |>
-  filter(species=="Droid")
-```
-
-## Subset Tibble by Column Names
-
-```{r}
-starwars |>
-  select(name, homeworld, species)  #reorder names here to reorder columns
-
-```
-
-### For a range of columns
-
-```{r}
-starwars |>
-  select(name:hair_color, species)
-
-```
-
-### Rename columns
-
-```{r}
-starwars |>
-  rename(character = name, planet = homeworld)
+library(lubridate)
 ```
 
 ```{r}
-starwars$vehicles[1]
-```
-
-## Split-Apply-Combine
-
-```{r}
-starwars |>
-  group_by(species)
+unique(guess_formats(df$DATE, orders = c("mdy", "dmy", "ymd", "bdY")))
 ```
 
 ```{r}
-starwars |> 
-  group_by(species) |>
-  summarise(avg_height = mean(height, na.rm = TRUE)) 
+#date = "2025-05-20"
+date = "5/20/2025"
+parse_date_time("2025-05-20", orders = c("ymd", "mdy"))
 ```
 
-```{r}
-starwars |>    
-  group_by(species) |>   
-  summarise(avg_height = mean(height, na.rm = TRUE)) |>  
-  arrange(avg_height) 
-```
+Now, let's normalize the `DATE` column as some columns are in YYYY-MM-DD format and others are in M-D-YYYY. To create a new column based on the value of other columns we use the **mutate()** function.
 
 ```{r}
 
+df <- df |>
+  mutate(DATE2 = parse_date_time(DATE, orders = c("ymd", "mdy")))
+```
+
+```{r}
+df <- df |> 
+    select(STATION, NAME, DATE, DATE2, everything())
+```
+
+```         
+```
+
+Next, we can use the **separate** function to separate the year, month, and day values into separate columns.
+
+```{r}
+df<- df |>
+  separate(DATE2, into = c("Year", "Month", "Day"), sep = "-|/", convert = TRUE)
+  # to keep original DATE column use `remove=FALSE`
+colnames(df)
+```
+
+```{r}
+#no_tmax <- df |>
+#  filter(is.na(TMAX))
+
+#no_tmax[c(3000:3010),]
+```
+
+## 6. Select columns to keep, drop the rest
+
+```{r}
+df <- df |>
+    select(NAME, Year, Month, Day, PRCP, SNOW, TMAX, TMIN)
+```
+
+```{r}
+summary(df)
+```
+
+```{r}
+df <- df |>
+    drop_na(TMAX, TMIN)
+```
+
+```{r}
+write.csv(temp_df, "../data/Hanover_temps.csv")
+
+
+```
+
+## 7. Summarize by Year
+
+```{r}
+year_maxtempdf <- df |>
+  group_by(Year) |>
+  summarize(TMAX_yravg = mean(TMAX, na.rm = TRUE))
+```
+
+```{r}
+year_mintempdf <- df |>
+  group_by(Year) |>
+  summarize(TMIN_yravg = mean(TMIN, na.rm = TRUE))
+```
+
+```{r}
+head(year_maxtempdf)
+```
+
+To more easily create visualizations showing both yearly maximum temperature `TMAX_yravg` and yearly minimum temperature `TMIN_yravg` it would help to concatenate the two dataframes vertically (for a long dataframe). We can then store the temperature values for both in the same column and simply add a new column indicating whether the value is a maximum or minimum temperature.
+
+```{r}
+year_maxtempdf <- year_maxtempdf |>
+    mutate(type = "maxtemp") |>
+    mutate(T_yravg = TMAX_yravg)|>
+    select(Year, T_yravg, type)
+
+
+```
+
+```{r}
+year_mintempdf <- year_mintempdf |>
+    mutate(type = "mintemp") |>
+    mutate(T_yravg = TMIN_yravg)|>
+    select(Year, T_yravg, type)
 ```
 
 ```{r}
 
+year_tempdf <- rbind(year_maxtempdf, year_mintempdf) |>
+    arrange(Year)
+  
 ```
 
 ```{r}
+write.csv(year_tempdf, "../data/Hanover_temp-yearaverages.csv")
+```
 
+## 8. Compare daily temperatures to 20th century average
+
+A. Filter to retrieve 20th century data only
+
+```{r}
+df20c <- temp_df |>
+  filter(Year >= 1900 & Year <= 1999)
+```
+
+B. Calculate average 20th century max and min temperatures by Day and Month
+
+```{r}
+TMAX20c_df <- df20c |>
+  group_by(Month, Day) |>
+  summarize(Avg_TMAX_20c = mean(TMAX, na.rm = TRUE), .groups = 'drop')
+
+TMIN20c_df <- df20c |>
+  group_by(Month, Day) |>
+  summarize(Avg_TMIN_20c = mean(TMIN, na.rm = TRUE), .groups = 'drop')
+```
+
+C. Merge average 20th century temperatures back into full dataset
+
+```{r}
+temp_df <- temp_df |>
+  left_join(TMAX20c_df, by = c("Month", "Day")) |>
+  left_join(TMIN20c_df, by = c("Month", "Day"))
+```
+
+D. Create new columns by calculating the difference of each daily min and max temp to the 20th century average.
+
+```{r}
+temp_df <- temp_df |>
+    mutate(max_diff20c_avg = TMAX - Avg_TMAX_20c,
+           min_diff20c_avg = TMIN - Avg_TMIN_20c)
+```
+
+E. Create a `daynum` column to record the number of day of the year, i.e. January 1 = 1 and December 31 = 365 (366 on leap years)
+
+```{r}
+temp_df <- temp_df |>
+  filter(Year > 1893 & Year < 2025) |>  # 1893 missing first 5 months and #2025 missing last 9
+  group_by(Year) |>
+  mutate(daynum = row_number())
+```
+
+F. Write results to csv.
+
+```{r}
+write.csv(temp_df, "../data/Hanover_temps2.csv")
 ```

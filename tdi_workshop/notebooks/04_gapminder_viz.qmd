@@ -37,7 +37,7 @@ library(tidyverse)
     Now let's import this dataset:
 
 ```{r}
-gapdf <- read.csv("data/gapminder.csv")
+gapdf <- read.csv("../data/gapminder.csv")
 head(gapdf)
 ```
 
