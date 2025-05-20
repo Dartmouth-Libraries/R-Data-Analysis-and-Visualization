@@ -1,0 +1,351 @@
+---
+title: "Data Wrangling with Tidyverse and Weather Data"
+author: "Jeremy Mikecz"
+format: html
+editor: visual
+---
+
+# Data Wrangling with Tidyverse
+
+# Introduction to Tidyverse
+
+Tidyverse is a system of R packages for data wrangling and analysis. It provides a different method and syntax for working with data tables (often called "data frames" in data science; but, tidyverse dataframes are known as "tibbles") from base R.
+
+For additional help learning how to use R's tidyverse system of packages, see:
+
+-   Wickham, Çetinkaya-Rundel, and Grolemund, [*R for Data Science*](https://r4ds.hadley.nz/)
+
+-   Grolemund, [A Tidyverse Cookbook](https://rstudio-education.github.io/tidyverse-cookbook/) (2020).
+
+-   package documentation: [tidyverse](https://tidyverse.tidyverse.org/)
+
+-   [tidyr cheatsheet](https://github.com/rstudio/cheatsheets/blob/main/tidyr.pdf)
+
+-   [*Tidyverse style guide*](https://style.tidyverse.org/)
+
+For a more detailed introduction to working with tidy data in R see:
+
+-   Wickham, Çetinkaya-Rundel, and Grolemund, *R for Data Science*, Ch. 5 ["Data Tidying"](https://r4ds.hadley.nz/data-tidy).
+
+-   Grolemund, [A Tidyverse Cookbook](https://rstudio-education.github.io/tidyverse-cookbook/) (2020).
+
+-   Silge and Robinson, [Text Mining with R](https://www.tidytextmining.com/), Ch. 1 "The tidy text format".
+
+## *Optional*: Working with Virtual Environments
+
+If you are using R for a variety of different projects, you may risk encountering dependency conflicts. These occur when you may need Package *A* for a text analysis project and that package requires version 1.0 of Package *B*, while Package *C* for a machine-learning projects requires version 2.0 of Package *B*.
+
+Setting up a virtual environment allows you to avoid such conflicts. Often, programmers use a different virtual environment for each project (and each project should be stored in a separate project folder). This also provides another benefit. When sharing code with others, programmers can send a list of packages (and their specific versions) to collaborators so that they can reproduce the exact same environment on their machines. This, in turn, ensures that the experience of running the team's code is exactly the same for project members each working on their own computers.
+
+In Python, users typically use the **venv** library to create and use virtual environments. In R, users often use the **Packrat** library / package.
+
+To set up a local virtual environment with packrat:\\
+
+1.  First, install packrat using `install.packages("packrat")`.
+2.  From within your project folder, initialize it using the command `packrat::init()`.
+3.  R should activite your new virtual environment automatically whenever you work in that project folder. To ensure it is activated, however, you can run the code `packrat::on()`. To deactivate, simply run `packrat::off()`.
+
+## Using Local Weather Data
+
+In this notebook, we will work with some time-series weather data.
+
+When searching for local weather data, I found [*Climate Data Online*](https://www.ncei.noaa.gov/cdo-web/) found on NOAA's National Centers for Environmental Information website. I chose "Hanover", the type of data I wanted, and the date range (earliest to present). Next, I requested this data, and downloaded it from a link they sent me. Finally, I ran the following code to create a series of visualizations.
+
+## 1. Import Necessary Packages
+
+```{r}
+# install.packages("tidyverse")
+```
+
+```{r}
+library(tidyverse)
+```
+
+## 2. Load Data
+
+To load a csv, adapt the following code:
+
+```         
+df <- read.csv("relative_path_to_csv.csv")
+```
+
+```{r}
+df <- read.csv("data/Hanover_weather-data_1884-2025.csv")
+```
+
+## 3. Review Data
+
+Review the dataset by:
+
+1.  Examine the data in the **Environment** panel (usually in the top right of R Studio).
+
+2.  Examine the data using the following commands:
+
+    ```         
+    head(df)
+    dim(df)
+    colnames(df)
+    ```
+
+```{r}
+head(df)
+```
+
+```{r}
+summary(df)
+```
+
+```{r}
+dim(df)
+```
+
+```{r}
+colnames(df)
+```
+
+```{r}
+
+```
+
+## 4. Examine Data: How can we track changes in local climate using this data?
+
+```         
+## insert notes below:
+
+
+
+
+```
+
+# Tidyverse / dplyr verbs for Data Wrangling
+
+To modify and "wrangle" datasets, the tidyverse commonly uses the following verbs / functions:
+
+-   **select()**: to select specific columns by their names or data types
+
+-   **arrange()**: to order rows by one or more columns
+
+-   **rename()**: to rename columns
+
+-   **mutate()**: to create columns
+
+-   **filter()**: to filter out rows by a given condition
+
+-   **distinct()**: to keep only distinct / unique rows
+
+-   **gather()**: to make "wide" data longer
+
+-   **spread()**: to make "long" data wider
+
+-   **separate()**: to split a single column into multiple columns
+
+-   **unite()**: to combine multiple columns into one
+
+[More tidyverse verbs and functions here](https://dplyr.tidyverse.org/reference/index.html).
+
+# Common Data Science Operations in Tidyverse
+
++------------------------------------+------------------------------------------+----------------------------+---------------------------------+
+| Task                               | Python - Pandas                          | Base R                     | Tidyverse (R)                   |
++====================================+==========================================+============================+=================================+
+| **Sort table by column**           | df.sort_values('col')                    | sort(df\$col)              | df %\>%                         |
+|                                    |                                          |                            |                                 |
+|                                    |                                          |                            | arrange(col)                    |
++------------------------------------+------------------------------------------+----------------------------+---------------------------------+
+| **Filter rows**                    | df.loc\[df\['col'\]\>0,:\]               | df\[df\[col\] \> 0, \]     | df %\>%                         |
+|                                    |                                          |                            |                                 |
+|                                    |                                          |                            | filter(col \> 0)                |
++------------------------------------+------------------------------------------+----------------------------+---------------------------------+
+| **Subset columns**                 |                                          |                            | df %\>%                         |
+|                                    |                                          |                            |                                 |
+|                                    |                                          |                            | select(col)                     |
++------------------------------------+------------------------------------------+----------------------------+---------------------------------+
+| **Create a new column**            | df.loc\[:, "square"\] = df\[col\] \*\* 2 | df\$square = df\[col\] \^2 | df %\>%                         |
+|                                    |                                          |                            |                                 |
+|                                    |                                          |                            | mutate(square = col \^ 2)       |
++------------------------------------+------------------------------------------+----------------------------+---------------------------------+
+| **Perform calculation on column**  | sum(df\["col"\])                         | sum(df\$col)               | df %\>%                         |
+|                                    |                                          |                            |                                 |
+|                                    |                                          |                            | summarise(sumcol = sum(col))    |
++------------------------------------+------------------------------------------+----------------------------+---------------------------------+
+| **Delete duplicate rows**          | df.drop_duplicates()                     | df\[!duplicated(df), \]    | df %\>%                         |
+|                                    |                                          |                            |                                 |
+|                                    |                                          |                            | distinct()                      |
++------------------------------------+------------------------------------------+----------------------------+---------------------------------+
+| **Group/Apply/Combine**            | df.groupby("col").sum()                  | by(df, col, sum(x))        | df %\>%                         |
+|                                    |                                          |                            |                                 |
+|                                    |                                          | ???                        | group_by(col) %\>%              |
+|                                    |                                          |                            |                                 |
+|                                    |                                          |                            | summarise(groupsum = sum(col2)) |
++------------------------------------+------------------------------------------+----------------------------+---------------------------------+
+| **Reshape data from wide to long** | *pd.wide_to_long()*                      | *melt()*                   | *use pivot_longer()*            |
++------------------------------------+------------------------------------------+----------------------------+---------------------------------+
+
+## 5. Normalize Dates and then separate day, month, and year
+
+```{r}
+library(lubridate)
+```
+
+```{r}
+unique(guess_formats(df$DATE, orders = c("mdy", "dmy", "ymd", "bdY")))
+```
+
+```{r}
+#date = "2025-05-20"
+date = "5/20/2025"
+parse_date_time("2025-05-20", orders = c("ymd", "mdy"))
+```
+
+Now, let's normalize the `DATE` column as some columns are in YYYY-MM-DD format and others are in M-D-YYYY. To create a new column based on the value of other columns we use the **mutate()** function.
+
+```{r}
+
+df <- df |>
+  mutate(DATE2 = parse_date_time(DATE, orders = c("ymd", "mdy")))
+```
+
+```{r}
+df <- df |> 
+    select(STATION, NAME, DATE, DATE2, everything())
+```
+
+```         
+```
+
+Next, we can use the **separate** function to separate the year, month, and day values into separate columns.
+
+```{r}
+df<- df |>
+  separate(DATE2, into = c("Year", "Month", "Day"), sep = "-|/", convert = TRUE)
+  # to keep original DATE column use `remove=FALSE`
+colnames(df)
+```
+
+```{r}
+#no_tmax <- df |>
+#  filter(is.na(TMAX))
+
+#no_tmax[c(3000:3010),]
+```
+
+## 6. Select columns to keep, drop the rest
+
+```{r}
+df <- df |>
+    select(NAME, Year, Month, Day, PRCP, SNOW, TMAX, TMIN)
+```
+
+```{r}
+summary(df)
+```
+
+```{r}
+df <- df |>
+    drop_na(TMAX, TMIN)
+```
+
+```{r}
+write.csv(temp_df, "data/Hanover_temps.csv")
+
+
+```
+
+## 7. Summarize by Year
+
+```{r}
+year_maxtempdf <- df |>
+  group_by(Year) |>
+  summarize(TMAX_yravg = mean(TMAX, na.rm = TRUE))
+```
+
+```{r}
+year_mintempdf <- df |>
+  group_by(Year) |>
+  summarize(TMIN_yravg = mean(TMIN, na.rm = TRUE))
+```
+
+```{r}
+head(year_maxtempdf)
+```
+
+To more easily create visualizations showing both yearly maximum temperature `TMAX_yravg` and yearly minimum temperature `TMIN_yravg` it would help to concatenate the two dataframes vertically (for a long dataframe). We can then store the temperature values for both in the same column and simply add a new column indicating whether the value is a maximum or minimum temperature.
+
+```{r}
+year_maxtempdf <- year_maxtempdf |>
+    mutate(type = "maxtemp") |>
+    mutate(T_yravg = TMAX_yravg)|>
+    select(Year, T_yravg, type)
+
+
+```
+
+```{r}
+year_mintempdf <- year_mintempdf |>
+    mutate(type = "mintemp") |>
+    mutate(T_yravg = TMIN_yravg)|>
+    select(Year, T_yravg, type)
+```
+
+```{r}
+
+year_tempdf <- rbind(year_maxtempdf, year_mintempdf) |>
+    arrange(Year)
+  
+```
+
+```{r}
+write.csv(year_tempdf, "data/Hanover_temp-yearaverages.csv")
+```
+
+## 8. Compare daily temperatures to 20th century average
+
+A. Filter to retrieve 20th century data only
+
+```{r}
+df20c <- temp_df |>
+  filter(Year >= 1900 & Year <= 1999)
+```
+
+B. Calculate average 20th century max and min temperatures by Day and Month
+
+```{r}
+TMAX20c_df <- df20c |>
+  group_by(Month, Day) |>
+  summarize(Avg_TMAX_20c = mean(TMAX, na.rm = TRUE), .groups = 'drop')
+
+TMIN20c_df <- df20c |>
+  group_by(Month, Day) |>
+  summarize(Avg_TMIN_20c = mean(TMIN, na.rm = TRUE), .groups = 'drop')
+```
+
+C. Merge average 20th century temperatures back into full dataset
+
+```{r}
+temp_df <- temp_df |>
+  left_join(TMAX20c_df, by = c("Month", "Day")) |>
+  left_join(TMIN20c_df, by = c("Month", "Day"))
+```
+
+D. Create new columns by calculating the difference of each daily min and max temp to the 20th century average.
+
+```{r}
+temp_df <- temp_df |>
+    mutate(max_diff20c_avg = TMAX - Avg_TMAX_20c,
+           min_diff20c_avg = TMIN - Avg_TMIN_20c)
+```
+
+E. Create a `daynum` column to record the number of day of the year, i.e. January 1 = 1 and December 31 = 365 (366 on leap years)
+
+```{r}
+temp_df <- temp_df |>
+  filter(Year > 1893 & Year < 2025) |>  # 1893 missing first 5 months and #2025 missing last 9
+  group_by(Year) |>
+  mutate(daynum = row_number())
+```
+
+F. Write results to csv.
+
+```{r}
+write.csv(temp_df, "data/Hanover_temps2.csv")
+```
